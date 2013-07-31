@@ -7,7 +7,7 @@
 
   "content_scripts": [
   {
-    "matches": ["http://*/*"],
+    "matches": ["http://www.perveden.com/en-manga/*/*/*"],
     "js": ["focus.js"]
   }
   ]
