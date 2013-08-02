@@ -1,32 +1,36 @@
 // overlay html
 var overlay = $('\
-  <div id="focusmanga_overlay">\
-    <div id="focusmanga_close">X</div>\
-    <img />\
+  <div id="fm_overlay">\
+    <img id="fm_close" />\
+    <img id="fm_main" />\
   </div>');
+$('#fm_close', overlay).attr('src', chrome.extension.getURL('img/close-circle.png'));
 
 var w, h;
 $(function() {
   // init
   $('body').prepend(overlay);
 
-  $('img', overlay).load(function() {
+  // calc img size
+  $('#fm_main', overlay).load(function() {
     w = this.width;
     h = this.height;
     $(window).resize();
   });
 
-  $('img', overlay).attr('src', $('#mainImg').attr('src'));
+  $('#fm_main', overlay).attr('src', $('#mainImg').attr('src'));
+  // resize main img
   $(window).resize(function() {
+    console.log("window: "+$(window).width()+", img: "+w);
     if ($(window).width() < w) {
-      $('img', overlay).addClass('landscape');
+      $('#fm_main', overlay).addClass('landscape');
     } else {
-      $('img', overlay).removeClass('landscape');
+      $('#fm_main', overlay).removeClass('landscape');
     }
   });
 
   // close overlay
-  $('#focusmanga_close').click(function() {
-    overlay.addClass('focusmanga_disabled');
+  $('#fm_close').click(function() {
+    overlay.addClass('fm_disabled');
   });
 });
