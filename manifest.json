@@ -8,11 +8,13 @@
   "content_scripts": [
     {
       "matches": ["http://www.perveden.com/en-manga/*/*/*"],
-      "js": ["jquery-1.10.2.js", "focus.js"],
+      "js": ["jquery-1.10.2.js", "jquery.timer.js", "focus.js"],
       "css": ["style.css"]
     }
   ],
   "web_accessible_resources": [
-    "img/close-circle.png"
+    "img/close-circle.png",
+    "img/play.png",
+    "img/stop.png"
   ]
 }

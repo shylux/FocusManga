@@ -39,6 +39,21 @@ body.fm_disabled {
   border-radius: 20px;
 }
 
+#fm_tools {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: gray;
+  padding: 5px 0 0 5px;;
+  border-top-left-radius: 10px;
+}
+
+#fm_play {
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+}
+
 
 #fm_overlay.fm_disabled {
   display: none;
