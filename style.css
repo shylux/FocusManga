@@ -48,12 +48,15 @@ body.fm_disabled {
   border-top-left-radius: 10px;
 }
 
-#fm_play {
+#fm_tools img {
   height: 25px;
   width: 25px;
   cursor: pointer;
 }
 
+#fm_tools img:last-child {
+  margin-right: 3px;
+}
 
 #fm_overlay.fm_disabled {
   display: none;

@@ -5,6 +5,16 @@
 
   "description": "Adds diashow function to online manga sites.",
 
+  "permissions": [
+    "tabs"
+  ],
+
+  "options_page": "options.html",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+
   "content_scripts": [
     {
       "matches": ["http://www.perveden.com/en-manga/*/*/*"],
@@ -15,6 +25,7 @@
   "web_accessible_resources": [
     "img/close-circle.png",
     "img/play.png",
-    "img/stop.png"
+    "img/stop.png",
+    "img/options.png"
   ]
 }

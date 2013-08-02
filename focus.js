@@ -5,10 +5,11 @@ var overlay = $('\
     <img id="fm_main" />\
     <div id="fm_tools">\
       <img id="fm_play">\
+      <img id="fm_options">\
     </div>\
   </div>');
 $('#fm_close', overlay).attr('src', chrome.extension.getURL('img/close-circle.png'));
-$('#fm_play', overlay).attr('src', chrome.extension.getURL('img/play.png'));
+$('#fm_options', overlay).attr('src', chrome.extension.getURL('img/options.png'));
 
 var w, h, timer;
 $('body').ready(function() {
@@ -54,35 +55,43 @@ $('body').ready(function() {
   });
 
   // timer
-  if (typeof(localStorage['timer_state']) == 'undefined') localStorage['timer_state'] = false;
-  timer = $.timer(function() {
-    $('.next').click();
-  }, 3000, (localStorage['timer_state']=='true'));
+  chrome.extension.sendRequest({'method': 'options'}, function(response) {
+    console.log(response.timer_enabled+" "+response.timer_delay);
+    timer = $.timer(function() {
+      $('.next').click();
+    }, response.timer_delay, response.timer_enabled);
+    updateTimerIcon();
+  });
 
-  //timer.set({time: 3000, autostart: start});
-  updateTimerIcon();
+  // toggle timer/img
   $('#fm_play').click(function() {
     if (timer.isActive) {
-      localStorage['timer_state'] = false;
+      chrome.extension.sendRequest({'method': 'timer_enabled', 'data': false}, function(response) {});
       timer.stop();
     } else {
-      localStorage['timer_state'] = true;
+      chrome.extension.sendRequest({'method': 'timer_enabled', 'data': true}, function(response) {});
       timer.once(0);
     }
     updateTimerIcon();
   });
-  
 
   // preload next page (doesn't work atm. Chrome 30.0.1581.2 dev-m)
   $('head').append(
       $('<link rel="prerender" />').attr('src', $('.next').parent().attr('href'))
   );
+
+  // options page
+  $('#fm_options', overlay).click(function() {
+    chrome.extension.sendRequest({'method': 'tabs'}, function(response) {});
+  });
 });
 
 function updateTimerIcon() {
-  if ((localStorage['timer_state']=='true')) {
-    $('#fm_play', overlay).attr('src', chrome.extension.getURL('img/stop.png'));
-  } else {
-    $('#fm_play', overlay).attr('src', chrome.extension.getURL('img/play.png'));
-  }
+  chrome.extension.sendRequest({'method': 'options'}, function(response) {
+    if (response.timer_enabled) {
+      $('#fm_play', overlay).attr('src', chrome.extension.getURL('img/stop.png'));
+    } else {
+      $('#fm_play', overlay).attr('src', chrome.extension.getURL('img/play.png'));
+    }
+  });
 }
