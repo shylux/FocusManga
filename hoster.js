@@ -126,7 +126,7 @@ String.prototype.endsWith = function(suffix) {
 
 function getHoster() {
   for (i in hoster_list) {
-    if (hoster_list[i].hostname.endsWith(hname))
+    if (hname.endsWith(hoster_list[i].hostname))
       return hoster_list[i];
   }
 }
