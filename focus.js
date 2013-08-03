@@ -20,6 +20,7 @@ $('body').ready(function() {
 
   // init
   $('body').prepend(overlay);
+  $('html').addClass('fm_enabled');
 
   // calc img size
   $('#fm_main', overlay).load(function() {
@@ -40,7 +41,7 @@ $('body').ready(function() {
 
   // close overlay
   $('#fm_close').click(function() {
-    overlay.addClass('fm_disabled');
+    $('html').removeClass('fm_enabled');
   });
 
   // keyboard bindings
@@ -53,7 +54,7 @@ $('body').ready(function() {
         hoster.previous();
         break;
       case 27: // escape
-        overlay.addClass('fm_disabled');
+        $('html').removeClass('fm_enabled');
         break;
     }
   });
@@ -62,6 +63,8 @@ $('body').ready(function() {
   chrome.extension.sendRequest({'method': 'options'}, function(response) {
     //console.log(response.timer_enabled+" "+response.timer_delay);
     timer = $.timer(function() {
+      if ($('.fm_enabled').length == 0) return;
+      console.log('execute timer');
       hoster.next();
     }, response.timer_delay, response.timer_enabled);
     updateTimerIcon();
@@ -72,10 +75,12 @@ $('body').ready(function() {
     if (timer.isActive) {
       chrome.extension.sendRequest({'method': 'timer_enabled', 'data': false}, function(response) {});
       timer.stop();
+      console.log('stopped timer');
     } else {
       // start timer
       chrome.extension.sendRequest({'method': 'timer_enabled', 'data': true}, function(response) {});
       timer.once(0);
+      console.log('started timer');
     }
     updateTimerIcon();
   });

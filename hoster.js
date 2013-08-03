@@ -12,13 +12,23 @@ hoster_list.push(mangapanda);
 
 var onepiecetube = {
   hostname: "www.onepiece-tube.com",
-  next: function() {$('#controls a:last-child').click();},
-  previous: function() {$('#controls a:first-child').click();},
+  next: function() {window.location.href = $('#controls a:last').attr('href');},
+  previous: function() {window.location.href = $('#controls a:first').attr('href');},
   imgurl: function() {return $('#p').attr('src');},
   nexturl: function() {return $('#controls a:last-child').attr('href');},
   ismanga: function() {return ($('#p').length > 0);},
 }
 hoster_list.push(onepiecetube);
+
+var mangahere = {
+  hostname: "www.mangahere.com",
+  next: function() {window.location.href = $('.next_page').attr('href');},
+  previous: function() {},
+  imgurl: function() {return $('#image').attr('src');},
+  nexturl: function() {return $('.next_page').attr('href');},
+  ismanga: function() {return ($('#image').length > 0);}
+}
+hoster_list.push(mangahere);
 
 var perveden = {
   hostname: "www.perveden.com",
@@ -39,6 +49,7 @@ String.prototype.endsWith = function(suffix) {
 
 function getHoster() {
   for (i in hoster_list) {
-    if (hoster_list[i].hostname.endsWith(hname)) return hoster_list[i];
+    if (hoster_list[i].hostname.endsWith(hname))
+      return hoster_list[i];
   }
 }

@@ -18,9 +18,10 @@
   "content_scripts": [
     {
       "matches": [
-        "http://www.perveden.com/en-manga/*/*/*",
-        "http://www.mangapanda.com/*",
-        "http://*.onepiece-tube.com/*"
+        "*://*.perveden.com/en-manga/*/*/*",
+        "*://*.mangapanda.com/*",
+        "*://*.onepiece-tube.com/*",
+        "*://*.mangahere.com/*"
       ],
       "js": ["jquery-1.10.2.js", "jquery.timer.js", "hoster.js", "focus.js"],
       "css": ["style.css"]

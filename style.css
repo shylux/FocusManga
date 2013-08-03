@@ -1,11 +1,9 @@
-body, html {
+html.fm_enabled, .fm_enabled body {
   overflow: hidden;
-}
-body.fm_disabled {
-  overflow: inherit;
 }
 
 #fm_overlay {
+  display: none; /* apply fm_enabled to html */
   position: absolute;
   z-index: 9001;
   top: 0;
@@ -58,6 +56,6 @@ body.fm_disabled {
   margin-right: 3px;
 }
 
-#fm_overlay.fm_disabled {
-  display: none;
+.fm_enabled #fm_overlay {
+  display: block;
 }
