@@ -72,12 +72,21 @@ var goodmanga = {
 }
 hoster_list.push(goodmanga);
 
+var mangaeden = {
+  hostname: "www.mangaeden.com",
+  next: function() {window.location.href = $('.next').parent().attr('href');},
+  imgurl: function() {return $('#mainImg').attr('src');},
+  nexturl: function() {return $('.next').parent().attr('href');},
+  ismanga: function() {return ($('#mainImg').length > 0);}
+}
+hoster_list.push(mangaeden);
+
 var hbrowse = {
   hostname: "www.hbrowse.com",
-  next: function() {window.location.href = $("a.pageLink:contains('NEXT PAGE')").attr('href');},
-  imgurl: function() {return $('.pageImage img').attr('src');},
-  nexturl: function() {return $("a.pageLink:contains('NEXT PAGE')").attr('href');},
-  ismanga: function() {return ($('.pageImage img').length > 0);}
+  next: function() {window.location.href = $('.next').parent().attr('href');},
+  imgurl: function() {return $('#mainImg').attr('src');},
+  nexturl: function() {return $('.next').parent().attr('href');},
+  ismanga: function() {return ($('#mainImg').length > 0);}
 }
 hoster_list.push(hbrowse);
 
