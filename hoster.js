@@ -70,6 +70,16 @@ var mangainn = { /* timer no working */
 }
 hoster_list.push(mangainn);
 
+var hbrowse = {
+  hostname: "www.hbrowse.com",
+  next: function() {window.location.href = $("a.pageLink:contains('NEXT PAGE')").attr('href');},
+  previous: function() {},
+  imgurl: function() {return $('.pageImage img').attr('src');},
+  nexturl: function() {return $("a.pageLink:contains('NEXT PAGE')").attr('href');},
+  ismanga: function() {return ($('.pageImage img').length > 0);}
+}
+hoster_list.push(hbrowse);
+
 var perveden = {
   hostname: "www.perveden.com",
   next: function() {$('.next').click();},

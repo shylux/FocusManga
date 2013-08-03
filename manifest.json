@@ -24,8 +24,9 @@
         "*://*.mangafox.me/*",
         "*://*.mangareader.net/*",
         "*://*.mangainn.com/*",
-        "*://*.perveden.com/en-manga/*/*/*",
-        "*://*.mangahere.com/*"
+        "*://*.perveden.com/*",
+        "*://*.mangahere.com/*",
+        "*://*.hbrowse.com/*"
       ],
       "js": ["jquery-1.10.2.js", "jquery.timer.js", "hoster.js", "focus.js"],
       "css": ["style.css"]
