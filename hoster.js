@@ -40,6 +40,16 @@ var batoto = {
 }
 hoster_list.push(batoto);
 
+var mangafox = {
+  hostname: "www.mangafox.me",
+  next: function() {window.location.href = $(".next_page").attr('href');},
+  previous: function() {},
+  imgurl: function() {return $('#image').attr('src');},
+  nexturl: function() {return $(".next_page").attr('href');},
+  ismanga: function() {return ($('#image').length > 0);}
+}
+hoster_list.push(mangafox);
+
 var perveden = {
   hostname: "www.perveden.com",
   next: function() {$('.next').click();},
