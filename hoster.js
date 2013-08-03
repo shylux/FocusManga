@@ -50,6 +50,16 @@ var mangafox = {
 }
 hoster_list.push(mangafox);
 
+var mangareader = {
+  hostname: "www.mangareader.net",
+  next: function() {window.location.href = $(".next a").attr('href');},
+  previous: function() {},
+  imgurl: function() {return $('#img').attr('src');},
+  nexturl: function() {return $(".next a").attr('href');},
+  ismanga: function() {return ($('#img').length > 0);}
+}
+hoster_list.push(mangareader);
+
 var perveden = {
   hostname: "www.perveden.com",
   next: function() {$('.next').click();},
