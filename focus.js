@@ -12,11 +12,20 @@ mangapanda.imgurl = function() {return $('#img').attr('src');};
 mangapanda.nexturl = function() {return $('.next a').attr('href');};
 mangapanda.ismanga = function() {return ($('#img').length > 0);};
 
+var onepiecetube = {}
+onepiecetube.next = function() {$('#controls a:last-child').click();};
+onepiecetube.previous = function() {$('#controls a:first-child').click();};
+onepiecetube.imgurl = function() {return $('#p').attr('src');};
+onepiecetube.nexturl = function() {return $('#controls a:last-child').attr('href');};
+onepiecetube.ismanga = function() {return ($('#p').length > 0);};
+
 var hname = window.location.hostname;
 var hoster;
 
 if (hname == "www.mangapanda.com") {
   hoster = mangapanda;
+} else if (hname == "www.onepiece-tube.com") {
+  hoster = onepiecetube;
 } else if (hname == "www.perveden.com") {
   hoster = perveden;
 }

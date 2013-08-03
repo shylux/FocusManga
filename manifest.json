@@ -19,7 +19,8 @@
     {
       "matches": [
         "http://www.perveden.com/en-manga/*/*/*",
-        "http://www.mangapanda.com/*"
+        "http://www.mangapanda.com/*",
+        "http://www.onepiece-tube.com/*"
       ],
       "js": ["jquery-1.10.2.js", "jquery.timer.js", "focus.js"],
       "css": ["style.css"]
