@@ -12,7 +12,7 @@ hoster_list.push(mangapanda);
 
 var onepiecetube = {
   hostname: "www.onepiece-tube.com",
-  next: function() {window.location.href = $('#controls a:last').attr('href');},
+  next: function() {window.location.href = this.nexturl()},
   previous: function() {window.location.href = $('#controls a:first').attr('href');},
   imgurl: function() {return $('#p').attr('src');},
   nexturl: function() {return $('#controls a:last-child').attr('href');},
@@ -59,6 +59,16 @@ var mangareader = {
   ismanga: function() {return ($('#img').length > 0);}
 }
 hoster_list.push(mangareader);
+
+var mangainn = { /* timer no working */
+  hostname: "www.mangainn.com",
+  next: function() {},
+  previous: function() {},
+  imgurl: function() {return $('#imgPage').attr('src');},
+  nexturl: function() {return "";},
+  ismanga: function() {return ($('#imgPage').length > 0);}
+}
+hoster_list.push(mangainn);
 
 var perveden = {
   hostname: "www.perveden.com",
