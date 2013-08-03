@@ -1,4 +1,5 @@
 html.fm_enabled, .fm_enabled body {
+  position: static;
   overflow: hidden;
 }
 

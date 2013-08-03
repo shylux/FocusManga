@@ -30,6 +30,16 @@ var mangahere = {
 }
 hoster_list.push(mangahere);
 
+var batoto = {
+  hostname: "www.batoto.net",
+  next: function() {window.location.href = $("img[title='Next Page']").parent().attr('href');},
+  previous: function() {},
+  imgurl: function() {return $('#comic_page').attr('src');},
+  nexturl: function() {return $("img[title='Next Page']").parent().attr('href');},
+  ismanga: function() {return ($('#comic_page').length > 0);}
+}
+hoster_list.push(batoto);
+
 var perveden = {
   hostname: "www.perveden.com",
   next: function() {$('.next').click();},
