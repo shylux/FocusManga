@@ -17,7 +17,10 @@
 
   "content_scripts": [
     {
-      "matches": ["http://www.perveden.com/en-manga/*/*/*"],
+      "matches": [
+        "http://www.perveden.com/en-manga/*/*/*",
+        "http://www.mangapanda.com/*"
+      ],
       "js": ["jquery-1.10.2.js", "jquery.timer.js", "focus.js"],
       "css": ["style.css"]
     }

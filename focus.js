@@ -1,3 +1,27 @@
+var perveden = {}
+perveden.next = function() {$('.next').click();};
+perveden.previous = function() {$('.prev').click();};
+perveden.imgurl = function() {return $('#mainImg').attr('src');};
+perveden.nexturl = function() {return $('.next').parent().attr('href');};
+perveden.ismanga = function() {return ($('#mainImg').length > 0);};
+
+var mangapanda = {}
+mangapanda.next = function() {$('.next a').click();};
+mangapanda.previous = function() {$('.prev a').click();};
+mangapanda.imgurl = function() {return $('#img').attr('src');};
+mangapanda.nexturl = function() {return $('.next a').attr('href');};
+mangapanda.ismanga = function() {return ($('#img').length > 0);};
+
+var hname = window.location.hostname;
+var hoster;
+
+if (hname == "www.mangapanda.com") {
+  hoster = mangapanda;
+} else if (hname == "www.perveden.com") {
+  hoster = perveden;
+}
+
+
 // overlay html
 var overlay = $('\
   <div id="fm_overlay">\
@@ -13,6 +37,9 @@ $('#fm_options', overlay).attr('src', chrome.extension.getURL('img/options.png')
 
 var w, h, timer;
 $('body').ready(function() {
+  // check if it really is a manga page
+  if (!hoster.ismanga()) return;
+
   // init
   $('body').prepend(overlay);
 
@@ -23,10 +50,9 @@ $('body').ready(function() {
     $(window).resize();
   });
 
-  $('#fm_main', overlay).attr('src', $('#mainImg').attr('src'));
+  $('#fm_main', overlay).attr('src', hoster.imgurl());
   // resize main img
   $(window).resize(function() {
-    console.log("window: "+$(window).width()+", img: "+w);
     if ($(window).width() < w) {
       $('#fm_main', overlay).addClass('landscape');
     } else {
@@ -43,22 +69,22 @@ $('body').ready(function() {
   $(document).keydown(function(e) {
     switch (e.keyCode) {
       case 39: // arrow right
+        hoster.next();
         break;
       case 37: // arrow left
+        hoster.previous();
         break;
       case 27: // escape
         overlay.addClass('fm_disabled');
         break;
-      default:
-        console.log('pressed kay: '+e.keyCode);
     }
   });
 
   // timer
   chrome.extension.sendRequest({'method': 'options'}, function(response) {
-    console.log(response.timer_enabled+" "+response.timer_delay);
+    //console.log(response.timer_enabled+" "+response.timer_delay);
     timer = $.timer(function() {
-      $('.next').click();
+      hoster.next();
     }, response.timer_delay, response.timer_enabled);
     updateTimerIcon();
   });
@@ -69,6 +95,7 @@ $('body').ready(function() {
       chrome.extension.sendRequest({'method': 'timer_enabled', 'data': false}, function(response) {});
       timer.stop();
     } else {
+      // start timer
       chrome.extension.sendRequest({'method': 'timer_enabled', 'data': true}, function(response) {});
       timer.once(0);
     }
@@ -77,7 +104,7 @@ $('body').ready(function() {
 
   // preload next page (doesn't work atm. Chrome 30.0.1581.2 dev-m)
   $('head').append(
-      $('<link rel="prerender" />').attr('src', $('.next').parent().attr('href'))
+      $('<link rel="prerender" />').attr('src', hoster.nexturl())
   );
 
   // options page
