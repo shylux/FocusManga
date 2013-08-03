@@ -81,6 +81,15 @@ var mangastream = {
 }
 hoster_list.push(mangastream);
 
+var animea = {
+  hostname: "manga.animea.net",
+  next: function() {window.location.href = $('.mangaimg').parent().attr('href');},
+  imgurl: function() {return $('.mangaimg').attr('src');},
+  nexturl: function() {return $('.mangaimg').parent().attr('href');},
+  ismanga: function() {return ($('.mangaimg').length > 0);}
+}
+hoster_list.push(animea);
+
 var mangaeden = {
   hostname: "www.mangaeden.com",
   next: function() {window.location.href = $('.next').parent().attr('href');},
