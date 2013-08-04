@@ -38,7 +38,7 @@
         "*://*.mangahere.com/*",
         "*://*.hbrowse.com/*"
       ],
-      "js": ["jquery-1.10.2.js", "jquery.timer.js", "hoster.js", "focus.js"],
+      "js": ["lib/jquery-1.10.2.js", "lib/jquery.timer.js", "hoster.js", "focus.js"],
       "css": ["style.css"]
     }
   ],
