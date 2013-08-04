@@ -1,4 +1,5 @@
 $(function() {
+  if (typeof(localStorage['timer_delay']) == 'undefined') localStorage['timer_delay'] = 20;
   // init values
   $('#focusmanga_enabled').prop('checked', (localStorage['focusmanga_enabled']=='true'));
   $('#timer_enabled').prop('checked', (localStorage['timer_enabled']=='true'));

@@ -1,6 +1,8 @@
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   if (request.method == "timer_enabled") {
     localStorage['timer_enabled'] = request.data;
+  } else if (request.method == "focusmanga_enabled") {
+    localStorage['focusmanga_enabled'] = request.data;
   } else if (request.method == "pageAction") {
     chrome.pageAction.show(sender.tab.id);
   } else if (request.method == "tabs") {
@@ -14,7 +16,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     });
   }
 
-  var delay = (localStorage['timer_delay'] == 'undefined')? 10000: localStorage['timer_delay'];
+  var delay = (localStorage['timer_delay'] == 'undefined')? 20: localStorage['timer_delay'];
   sendResponse({
     focusmanga_enabled: (localStorage['focusmanga_enabled']=='true'),
     timer_enabled: (localStorage['timer_enabled']=='true'),

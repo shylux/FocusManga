@@ -48,6 +48,7 @@ $('body').ready(function() {
 
   // close overlay
   $('#fm_close').click(function() {
+    chrome.extension.sendRequest({'method': 'focusmanga_enabled', 'data': false}, function(response) {});
     $('html').removeClass('fm_enabled');
   });
 
@@ -62,6 +63,7 @@ $('body').ready(function() {
         break;
       case 27: // escape
         $('html').removeClass('fm_enabled');
+        chrome.extension.sendRequest({'method': 'focusmanga_enabled', 'data': false}, function(response) {});
         break;
     }
   });
