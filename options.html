@@ -3,17 +3,24 @@
   <head>
     <title>FocusManga Options</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="options.css">
+    <link href='http://fonts.googleapis.com/css?family=Cabin+Condensed' rel='stylesheet' type='text/css'>
     <script src="jquery-1.10.2.js"></script>
+    <script src="hoster.js"></script>
     <script src="options.js"></script>
   </head>
   <body>
+    <h1>FocusManga</h1>
+    <h2>Options</h2>
     <dl>
-      <dt>FocusManga enabled</dt>
+      <dt>FocusManga enabled:</dt>
       <dd><input id="focusmanga_enabled" type="checkbox" /></dd>
-      <dt>Timer enabled</dt>
+      <dt>Timer enabled:</dt>
       <dd><input id="timer_enabled" type="checkbox" /></dd>
-      <dt>Timer delay</dt>
-      <dd><input id="timer_delay" type="number" /></dd>
+      <dt>Timer delay:</dt>
+      <dd><input id="timer_delay" type="number" /><label for="timer_delay">Seconds</label></dd>
     </dl>
+    <h2>Supported Hoster</h2>
+    <div id="hosters"></div>
   </body>
 </html>

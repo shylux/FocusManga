@@ -75,7 +75,7 @@ $('body').ready(function() {
       if ($('.fm_enabled').length == 0) return;
       console.log('execute timer');
       hoster.next();
-    }, response.timer_delay, response.timer_enabled);
+    }, response.timer_delay * 1000, response.timer_enabled);
     updateTimerIcon();
   });
 

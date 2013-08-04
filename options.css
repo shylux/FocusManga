@@ -1,0 +1,28 @@
+body {
+  background-color: #A0A0A0;
+  font-family: 'Cabin Condensed', sans-serif;
+  padding-left: 15px;
+}
+
+dt {
+  margin-top: 7px;
+}
+
+label {
+  padding-left: 10px;
+}
+
+#hosters {
+  padding-left: 10px;
+}
+
+#hosters a {
+  display: block;
+  text-decoration: none;
+  color: #303030;
+  font-size: 1.2em;
+}
+
+#hosters a:hover {
+  text-decoration: underline;
+}

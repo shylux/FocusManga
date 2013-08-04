@@ -14,4 +14,8 @@ $(function() {
   $('#timer_delay').keyup(function() {
     localStorage['timer_delay'] = $(this).val();
   });
+
+  for (i in hoster_list) {
+    $('#hosters').append($('<a target="_blank">').attr('href', "http://"+hoster_list[i].hostname).text(hoster_list[i].hostname));
+  }
 });
