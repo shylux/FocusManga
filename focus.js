@@ -18,9 +18,16 @@ $('body').ready(function() {
   // check if it really is a manga page
   if (!hoster.ismanga()) return;
 
+  // show page action
+  chrome.extension.sendRequest({'method': 'pageAction'}, function(response) {});
+
+  // add listener for page action message
+  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    $('html').toggleClass('fm_enabled');
+  });
+
   // init
   $('body').prepend(overlay);
-  $('html').addClass('fm_enabled');
 
   // calc img size
   $('#fm_main', overlay).load(function() {
@@ -61,6 +68,8 @@ $('body').ready(function() {
 
   // timer
   chrome.extension.sendRequest({'method': 'options'}, function(response) {
+    // check if focusmanga is active
+    if (response.focusmanga_enabled) $('html').addClass('fm_enabled');
     //console.log(response.timer_enabled+" "+response.timer_delay);
     timer = $.timer(function() {
       if ($('.fm_enabled').length == 0) return;

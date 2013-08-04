@@ -15,6 +15,11 @@
     "persistent": true
   },
 
+  "page_action": {
+    "default_title": "Start/Stop FocusManga",
+    "default_icon": "img/slideshow.png"
+  },
+
   "content_scripts": [
     {
       "matches": [
