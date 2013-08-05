@@ -1,7 +1,7 @@
 var hoster_list = [];
 
 var mangapanda = {
-  hostname: "www.mangapanda.com",
+  hostname: "mangapanda.com",
   next: function() {$('.next a').click();},
   imgurl: function() {return $('#img').attr('src');},
   nexturl: function() {return $('.next a').attr('href');},
@@ -10,7 +10,7 @@ var mangapanda = {
 hoster_list.push(mangapanda);
 
 var onepiecetube = {
-  hostname: "www.onepiece-tube.com",
+  hostname: "onepiece-tube.com",
   next: function() {window.location.href = this.nexturl()},
   imgurl: function() {return $('#p').attr('src');},
   nexturl: function() {return $('#controls a:last-child').attr('href');},
@@ -19,7 +19,7 @@ var onepiecetube = {
 hoster_list.push(onepiecetube);
 
 var mangahere = {
-  hostname: "www.mangahere.com",
+  hostname: "mangahere.com",
   next: function() {window.location.href = $('.next_page').attr('href');},
   imgurl: function() {return $('#image').attr('src');},
   nexturl: function() {return $('.next_page').attr('href');},
@@ -28,7 +28,7 @@ var mangahere = {
 hoster_list.push(mangahere);
 
 var batoto = {
-  hostname: "www.batoto.net",
+  hostname: "batoto.net",
   next: function() {window.location.href = $("img[title='Next Page']").parent().attr('href');},
   imgurl: function() {return $('#comic_page').attr('src');},
   nexturl: function() {return $("img[title='Next Page']").parent().attr('href');},
@@ -37,7 +37,7 @@ var batoto = {
 hoster_list.push(batoto);
 
 var mangafox = {
-  hostname: "www.mangafox.me",
+  hostname: "mangafox.me",
   next: function() {window.location.href = $(".next_page").attr('href');},
   imgurl: function() {return $('#image').attr('src');},
   nexturl: function() {return $(".next_page").attr('href');},
@@ -46,7 +46,7 @@ var mangafox = {
 hoster_list.push(mangafox);
 
 var mangareader = {
-  hostname: "www.mangareader.net",
+  hostname: "mangareader.net",
   next: function() {window.location.href = $(".next a").attr('href');},
   imgurl: function() {return $('#img').attr('src');},
   nexturl: function() {return $(".next a").attr('href');},
@@ -55,7 +55,7 @@ var mangareader = {
 hoster_list.push(mangareader);
 
 var mangainn = { /* timer no working */
-  hostname: "www.mangainn.com",
+  hostname: "mangainn.com",
   next: function() {},
   imgurl: function() {return $('#imgPage').attr('src');},
   nexturl: function() {return "";},
@@ -64,7 +64,7 @@ var mangainn = { /* timer no working */
 hoster_list.push(mangainn);
 
 var goodmanga = {
-  hostname: "www.goodmanga.net",
+  hostname: "goodmanga.net",
   next: function() {window.location.href = $('.next_page').attr('href');},
   imgurl: function() {return $('#manga_viewer img').attr('src');},
   nexturl: function() {return $('.next_page').attr('href');},
@@ -73,7 +73,7 @@ var goodmanga = {
 hoster_list.push(goodmanga);
 
 var mangastream = {
-  hostname: "www.mangastream.to",
+  hostname: "mangastream.to",
   next: function() {window.location.href = $('.manga-page').parent().attr('href');},
   imgurl: function() {return $('.manga-page').attr('src');},
   nexturl: function() {return $('.manga-page').parent().attr('href');},
@@ -91,7 +91,7 @@ var animea = {
 hoster_list.push(animea);
 
 var mangaeden = {
-  hostname: "www.mangaeden.com",
+  hostname: "mangaeden.com",
   next: function() {window.location.href = $('.next').parent().attr('href');},
   imgurl: function() {return $('#mainImg').attr('src');},
   nexturl: function() {return $('.next').parent().attr('href');},
@@ -100,7 +100,7 @@ var mangaeden = {
 hoster_list.push(mangaeden);
 
 var hbrowse = {
-  hostname: "www.hbrowse.com",
+  hostname: "hbrowse.com",
   next: function() {window.location.href = $('.next').parent().attr('href');},
   imgurl: function() {return $('#mainImg').attr('src');},
   nexturl: function() {return $('.next').parent().attr('href');},
@@ -109,7 +109,7 @@ var hbrowse = {
 hoster_list.push(hbrowse);
 
 var perveden = {
-  hostname: "www.perveden.com",
+  hostname: "perveden.com",
   next: function() {$('.next').click();},
   imgurl: function() {return $('#mainImg').attr('src');},
   nexturl: function() {return $('.next').parent().attr('href');},
@@ -119,14 +119,9 @@ hoster_list.push(perveden);
 
 var hname = window.location.hostname;
 
-// endsWith
-String.prototype.endsWith = function(suffix) {
-  return this.indexOf(suffix, this.length - suffix.length) !== -1;
-};
-
 function getHoster() {
   for (i in hoster_list) {
-    if (hname.endsWith(hoster_list[i].hostname))
+    if (hname.indexOf(hoster_list[i].hostname) != -1)
       return hoster_list[i];
   }
 }
