@@ -1,3 +1,9 @@
+// default value
+if (!localStorage['focusmanga_enabled']) localStorage['focusmanga_enabled'] = true;
+if (!localStorage['timer_enabled']) localStorage['timer_enabled'] = false;
+if (!localStorage['timer_delay']) localStorage['timer_delay'] = 20;
+
+// listener
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   if (request.method == "timer_enabled") {
     localStorage['timer_enabled'] = request.data;
@@ -16,11 +22,10 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     });
   }
 
-  var delay = (localStorage['timer_delay'] == 'undefined')? 20: localStorage['timer_delay'];
   sendResponse({
     focusmanga_enabled: (localStorage['focusmanga_enabled']=='true'),
     timer_enabled: (localStorage['timer_enabled']=='true'),
-    timer_delay: delay
+    timer_delay: localStorage['timer_delay'] 
   });
 });
 
