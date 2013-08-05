@@ -60,3 +60,7 @@ html.fm_enabled, .fm_enabled body {
 .fm_enabled #fm_overlay {
   display: block;
 }
+
+.fm_disabled {
+  display: none;
+}

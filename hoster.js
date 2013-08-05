@@ -1,11 +1,23 @@
 var hoster_list = [];
 
+var sample_hoster = {
+  /* check for hostname is currUrl.contains(hostname) */
+  hostname: "example.com",
+  /* checks if page contains manga. returns true/false */
+  isMangaPage: function () {return true;},
+  /* parses the page and gets the url of the manga img */
+  imgUrl: function() {return "img.png";},
+  /* optional
+   * parses the page and gets the url of the next page.
+   * if undefined disable timer */
+  nextUrl: function() {return "http://next"}
+}
+
 var mangapanda = {
   hostname: "mangapanda.com",
-  next: function() {$('.next a').click();},
-  imgurl: function() {return $('#img').attr('src');},
-  nexturl: function() {return $('.next a').attr('href');},
-  ismanga: function() {return ($('#img').length > 0);}
+  isMangaPage: function() {return ($('#img').length > 0);},
+  imgUrl: function() {return $('#img').attr('src');},
+  nextUrl: function() {return $('.next a').attr('href');}
 }
 hoster_list.push(mangapanda);
 

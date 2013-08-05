@@ -16,7 +16,11 @@ $('#fm_options', overlay).attr('src', chrome.extension.getURL('img/options.png')
 var w, h, timer;
 $('body').ready(function() {
   // check if it really is a manga page
-  if (!hoster.ismanga()) return;
+  if (!hoster.isMangaPage()) return;
+
+  // check if timer is supported
+  if (!hoster.nextUrl)
+    $('#fm_tools', overlay).addClass('fm_disabled');
 
   // show page action
   chrome.extension.sendRequest({'method': 'pageAction'}, function(response) {});
@@ -36,7 +40,7 @@ $('body').ready(function() {
     $(window).resize();
   });
 
-  $('#fm_main', overlay).attr('src', hoster.imgurl());
+  $('#fm_main', overlay).attr('src', hoster.imgUrl());
   // resize main img
   $(window).resize(function() {
     if ($(window).width() < w) {
@@ -55,12 +59,6 @@ $('body').ready(function() {
   // keyboard bindings
   $(document).keydown(function(e) {
     switch (e.keyCode) {
-      case 39: // arrow right
-        hoster.next();
-        break;
-      case 37: // arrow left
-        hoster.previous();
-        break;
       case 27: // escape
         $('html').removeClass('fm_enabled');
         chrome.extension.sendRequest({'method': 'focusmanga_enabled', 'data': false}, function(response) {});
@@ -72,13 +70,14 @@ $('body').ready(function() {
   chrome.extension.sendRequest({'method': 'options'}, function(response) {
     // check if focusmanga is active
     if (response.focusmanga_enabled) $('html').addClass('fm_enabled');
-    //console.log(response.timer_enabled+" "+response.timer_delay);
-    timer = $.timer(function() {
-      if ($('.fm_enabled').length == 0) return;
-      console.log('execute timer');
-      hoster.next();
-    }, response.timer_delay * 1000, response.timer_enabled);
-    updateTimerIcon();
+    if (hoster.nextUrl) {
+      timer = $.timer(function() {
+        if ($('.fm_enabled').length == 0) return;
+        console.log('execute timer');
+        window.location.href = hoster.nextUrl();
+      }, response.timer_delay * 1000, response.timer_enabled);
+      updateTimerIcon();
+    }
   });
 
   // toggle timer/img
@@ -97,9 +96,10 @@ $('body').ready(function() {
   });
 
   // preload next page (doesn't work atm. Chrome 30.0.1581.2 dev-m)
-  $('head').append(
-      $('<link rel="prerender" />').attr('src', hoster.nexturl())
-  );
+  if (hoster.nextUrl)
+    $('head').append(
+        $('<link rel="prerender" />').attr('src', hoster.nextUrl())
+    );
 
   // options page
   $('#fm_options', overlay).click(function() {
