@@ -4,7 +4,9 @@ var hoster = getHoster();
 var overlay = $('\
   <div id="fm_overlay">\
     <img id="fm_close" />\
-    <img id="fm_main" />\
+    <a id="fm_imgnext">\
+      <img id="fm_main" />\
+    </a>\
     <div id="fm_tools">\
       <img id="fm_play">\
       <img id="fm_options">\
@@ -71,6 +73,7 @@ $('body').ready(function() {
     // check if focusmanga is active
     if (response.focusmanga_enabled) $('html').addClass('fm_enabled');
     if (hoster.nextUrl) {
+      $('#fm_imgnext', overlay).attr('href', hoster.nextUrl());
       timer = $.timer(function() {
         if ($('.fm_enabled').length == 0) return;
         console.log('execute timer');
