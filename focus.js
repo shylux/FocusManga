@@ -17,6 +17,7 @@ $('#fm_options', overlay).attr('src', chrome.extension.getURL('img/options.png')
 
 var w, h, timer;
 $('body').ready(function() {
+  $('body').show();
   // check if it really is a manga page
   if (!hoster.isMangaPage()) return;
 
