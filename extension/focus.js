@@ -46,10 +46,10 @@ $('body').ready(function() {
   $('#fm_main', overlay).attr('src', hoster.imgUrl());
   // resize main img
   $(window).resize(function() {
-    if ($(window).width() < w) {
-      $('#fm_main', overlay).addClass('landscape');
-    } else {
+    if (w / h < $(window).width() / $(window).height()) {
       $('#fm_main', overlay).removeClass('landscape');
+    } else {
+      $('#fm_main', overlay).addClass('landscape');
     }
   });
 
