@@ -103,9 +103,9 @@ hoster_list.push(mangaeden);
 
 var hbrowse = {
   hostname: "hbrowse.com",
-  isMangaPage: function() {return ($('#mainImg').length > 0);},
-  imgUrl: function() {return $('#mainImg').attr('src');},
-  nextUrl: function() {return $('.next').parent().attr('href');}
+  isMangaPage: function() {return ($('.pageImage').length > 0);},
+  imgUrl: function() {return $('.pageImage img').attr('src');},
+  nextUrl: function() {return $('.pageImage a').attr('href');}
 }
 hoster_list.push(hbrowse);
 
