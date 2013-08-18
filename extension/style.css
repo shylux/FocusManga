@@ -5,7 +5,7 @@ html.fm_enabled, .fm_enabled body {
 
 #fm_overlay {
   display: none; /* apply fm_enabled to html */
-  position: absolute;
+  position: fixed;
   z-index: 9001;
   top: 0;
   left: 0;
