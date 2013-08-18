@@ -64,8 +64,7 @@ hoster_list.push(mangareader);
 var mangainn = { /* timer no working */
   hostname: "mangainn.com",
   isMangaPage: function() {return ($('#imgPage').length > 0);},
-  imgurl: function() {return $('#imgPage').attr('src');},
-  nexturl: function() {return "";}
+  imgUrl: function() {return $('#imgPage').attr('src');},
 }
 hoster_list.push(mangainn);
 
