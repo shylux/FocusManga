@@ -7,6 +7,7 @@ var overlay = $('\
     <a id="fm_imgnext">\
       <img id="fm_main" />\
     </a>\
+    <span id="fm_info" />\
     <div id="fm_tools">\
       <img id="fm_play">\
       <img id="fm_options">\
@@ -104,6 +105,11 @@ $('body').ready(function() {
     $('head').append(
         $('<link rel="prerender" />').attr('src', hoster.nextUrl())
     );
+
+  // info - page number
+      if(!isNaN(hoster.currPage()) && !isNaN(hoster.totalPages())) {
+    $('#fm_info', overlay).show().text(hoster.currPage()+" / "+hoster.totalPages());
+  }
 
   // options page
   $('#fm_options', overlay).click(function() {

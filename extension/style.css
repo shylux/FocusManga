@@ -25,6 +25,12 @@ html.fm_enabled, .fm_enabled body {
   width: 100%;
 }
 
+#fm_close, #fm_info, #fm_tools {
+  background-color: gray;
+  color: black;
+  font-weight: bold;
+}
+
 #fm_close {
   position: absolute;
   right: 0;
@@ -33,16 +39,23 @@ html.fm_enabled, .fm_enabled body {
   width: 25px;
   height: 25px;
   cursor: pointer;
-  background-color: gray;
   color: white;
   border-radius: 20px;
+}
+
+#fm_info {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 5px;
+  border-bottom-right-radius: 10px;
 }
 
 #fm_tools {
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: gray;
   padding: 5px 0 0 5px;;
   border-top-left-radius: 10px;
 }

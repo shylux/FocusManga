@@ -10,14 +10,23 @@ var sample_hoster = {
   /* optional
    * parses the page and gets the url of the next page.
    * if undefined disable timer */
-  nextUrl: function() {return "http://next"}
+  nextUrl: function() {return "http://next"},
+  /* optional
+   * parses the current page number starting at 1
+   * used in combination with totalPages */
+  currPage: function() {return 3;},
+  /* optional
+   * parses the number of pages of the chapter */
+  totalPages: function() {return 20;}
 }
 
 var mangapanda = {
   hostname: "mangapanda.com",
   isMangaPage: function() {return ($('#img').length > 0);},
   imgUrl: function() {return $('#img').attr('src');},
-  nextUrl: function() {return $('.next a').attr('href');}
+  nextUrl: function() {return $('.next a').attr('href');},
+  currPage: function() {return parseInt($('#pageMenu option:selected').text());},
+  totalPages: function() {return parseInt($('#pageMenu option:last').text());}
 }
 hoster_list.push(mangapanda);
 
@@ -26,6 +35,8 @@ var onepiecetube = {
   isMangaPage: function() {return ($('#p').length > 0);},
   imgUrl: function() {return $('#p').attr('src');},
   nextUrl: function() {return $('#p').parent().attr('href');},
+  currPage: function() {return parseInt($('#controls a.active').text());},
+  totalPages: function() {return parseInt($('#controls a').size())-2;}
 }
 hoster_list.push(onepiecetube);
 
@@ -33,7 +44,9 @@ var mangahere = {
   hostname: "mangahere.com",
   isMangaPage: function() {return ($('#image').length > 0);},
   imgUrl: function() {return $('#image').attr('src');},
-  nextUrl: function() {return $('.next_page').attr('href');}
+  nextUrl: function() {return $('.next_page').attr('href');},
+  currPage: function() {return parseInt($('.wid60:first option:selected').text());},
+  totalPages: function() {return parseInt($('.wid60 option:last').text());}
 }
 hoster_list.push(mangahere);
 
@@ -41,7 +54,9 @@ var batoto = {
   hostname: "batoto.net",
   isMangaPage: function() {return ($('#comic_page').length > 0);},
   imgUrl: function() {return $('#comic_page').attr('src');},
-  nextUrl: function() {return $("img[title='Next Page']").parent().attr('href');}
+  nextUrl: function() {return $("img[title='Next Page']").parent().attr('href');},
+  currPage: function() {return parseInt($('#page_select')[0].selectedIndex+1);},
+  totalPages: function() {return parseInt($('#page_select:first option').size());}
 }
 hoster_list.push(batoto);
 
@@ -49,7 +64,9 @@ var mangafox = {
   hostname: "mangafox.me",
   isMangaPage: function() {return ($('#image').length > 0);},
   imgUrl: function() {return $('#image').attr('src');},
-  nextUrl: function() {return $(".next_page").attr('href');}
+  nextUrl: function() {return $(".next_page").attr('href');},
+  currPage: function() {return parseInt($('#top_bar .l .m option:selected').text());},
+  totalPages: function() {return parseInt($('#top_bar .l .m option').size());}
 }
 hoster_list.push(mangafox);
 
@@ -104,7 +121,9 @@ var hbrowse = {
   hostname: "hbrowse.com",
   isMangaPage: function() {return ($('.pageImage').length > 0);},
   imgUrl: function() {return $('.pageImage img').attr('src');},
-  nextUrl: function() {return $('.pageImage a').attr('href');}
+  nextUrl: function() {return $('.pageImage a').attr('href');},
+  currPage: function() {return parseInt($('.pageList strong:last').text());},
+  totalPages: function() {return parseInt($('.pageList a').size())+1;}
 }
 hoster_list.push(hbrowse);
 
