@@ -3,6 +3,7 @@ var hoster = getHoster();
 // overlay html
 var overlay = $('\
   <div id="fm_overlay">\
+    <div id="fm_progress"></div>\
     <img id="fm_close" />\
     <a id="fm_imgnext">\
       <img id="fm_main" />\
@@ -72,17 +73,7 @@ $('body').ready(function() {
 
   // timer
   chrome.extension.sendRequest({'method': 'options'}, function(response) {
-    // check if focusmanga is active
-    if (response.focusmanga_enabled) $('html').addClass('fm_enabled');
-    if (hoster.nextUrl) {
-      $('#fm_imgnext', overlay).attr('href', hoster.nextUrl());
-      timer = $.timer(function() {
-        if ($('.fm_enabled').length == 0) return;
-        console.log('execute timer');
-        window.location.href = hoster.nextUrl();
-      }, response.timer_delay * 1000, response.timer_enabled);
-      updateTimerIcon();
-    }
+    $(document).trigger('configLoaded', response);
   });
 
   // toggle timer/img
@@ -106,23 +97,41 @@ $('body').ready(function() {
         $('<link rel="prerender" />').attr('src', hoster.nextUrl())
     );
 
-  // info - page number
-      if(!isNaN(hoster.currPage()) && !isNaN(hoster.totalPages())) {
-    $('#fm_info', overlay).show().text(hoster.currPage()+" / "+hoster.totalPages());
-  }
-
   // options page
   $('#fm_options', overlay).click(function() {
     chrome.extension.sendRequest({'method': 'tabs'}, function(response) {});
   });
 });
 
-function updateTimerIcon() {
-  chrome.extension.sendRequest({'method': 'options'}, function(response) {
-    if (response.timer_enabled) {
-      $('#fm_play', overlay).attr('src', chrome.extension.getURL('img/stop.png'));
-    } else {
-      $('#fm_play', overlay).attr('src', chrome.extension.getURL('img/play.png'));
-    }
-  });
+// get configuration
+$(document).on('configLoaded', function(event, options) {
+  // check if focusmanga is active
+  if (options.focusmanga_enabled) $('html').addClass('fm_enabled');
+
+  // info - page number /progress
+  if(!isNaN(hoster.currPage()) && !isNaN(hoster.totalPages())) {
+    if (options.page_numbers_enabled)
+      $('#fm_info', overlay).show().text(hoster.currPage()+" / "+hoster.totalPages());
+    if (options.chapter_progressbar_enabled)
+      $('#fm_progress', overlay).css('width', Math.round(hoster.currPage() / hoster.totalPages() * 100)+"%");
+  }
+
+  // timer
+  if (hoster.nextUrl) {
+    $('#fm_imgnext', overlay).attr('href', hoster.nextUrl());
+    timer = $.timer(function() {
+      if (options.focusmanga_enabled) return;
+      console.log('execute timer');
+      window.location.href = hoster.nextUrl();
+    }, options.timer_delay * 1000, options.timer_enabled);
+    updateTimerIcon(options.timer_enabled);
+  }
+});
+
+function updateTimerIcon(timer_enabled) {
+  if (timer_enabled) {
+    $('#fm_play', overlay).attr('src', chrome.extension.getURL('img/stop.png'));
+  } else {
+    $('#fm_play', overlay).attr('src', chrome.extension.getURL('img/play.png'));
+  }
 }

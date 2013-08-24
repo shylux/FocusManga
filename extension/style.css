@@ -20,6 +20,17 @@ html.fm_enabled, .fm_enabled body {
   height: 100%;
 }
 
+#fm_progress {
+  position: fixed;
+  z-index: 9002;
+  top: 0;
+  width: 0%;
+  height: 2px;
+  background: gray;
+  border-radius: 1px;
+  transition: width 500ms ease-out, opacity 400ms linear;
+}
+
 #fm_overlay img.landscape {
   height: auto;
   width: 100%;

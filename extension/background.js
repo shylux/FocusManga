@@ -1,7 +1,10 @@
+
 // default value
 if (!localStorage['focusmanga_enabled']) localStorage['focusmanga_enabled'] = true;
 if (!localStorage['timer_enabled']) localStorage['timer_enabled'] = false;
 if (!localStorage['timer_delay']) localStorage['timer_delay'] = 20;
+if (!localStorage['page_numbers_enabled']) localStorage['page_numbers_enabled'] = true;
+if (!localStorage['chapter_progressbar_enabled']) localStorage['chapter_progressbar_enabled'] = true;
 
 // listener
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
@@ -22,11 +25,14 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     });
   }
 
-  sendResponse({
-    focusmanga_enabled: (localStorage['focusmanga_enabled']=='true'),
-    timer_enabled: (localStorage['timer_enabled']=='true'),
-    timer_delay: localStorage['timer_delay'] 
-  });
+  var config = {};
+  config.timer_enabled = (localStorage['timer_enabled']=='true');
+  config.page_numbers_enabled = (localStorage['page_numbers_enabled']=='true');
+  config.chapter_progressbar_enabled = (localStorage['chapter_progressbar_enabled']=='true');
+  config.timer_delay = localStorage['timer_delay'];
+  config.focusmanga_enabled = (localStorage['focusmanga_enabled']=='true');
+
+  sendResponse(config);
 });
 
 chrome.pageAction.onClicked.addListener(function(tab) {
