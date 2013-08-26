@@ -120,7 +120,7 @@ $(document).on('configLoaded', function(event, options) {
   if (hoster.nextUrl) {
     $('#fm_imgnext', overlay).attr('href', hoster.nextUrl());
     timer = $.timer(function() {
-      if (options.focusmanga_enabled) return;
+      if (!options.focusmanga_enabled) return;
       console.log('execute timer');
       window.location.href = hoster.nextUrl();
     }, options.timer_delay * 1000, options.timer_enabled);
