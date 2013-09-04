@@ -1,137 +1,173 @@
 var hoster = getHoster();
 
-// overlay html
-var overlay = $('\
-  <div id="fm_overlay">\
-    <div id="fm_progress"></div>\
-    <img id="fm_close" />\
-    <a id="fm_imgnext">\
-      <img id="fm_main" />\
-    </a>\
-    <span id="fm_info" />\
-    <div id="fm_tools">\
-      <img id="fm_play">\
-      <img id="fm_options">\
-    </div>\
-  </div>');
-$('#fm_close', overlay).attr('src', chrome.extension.getURL('img/close-circle.png'));
-$('#fm_options', overlay).attr('src', chrome.extension.getURL('img/options.png'));
 
-var w, h, timer;
-$('body').ready(function() {
-  $('body').show();
-  // check if it really is a manga page
-  if (!hoster.isMangaPage()) return;
+FocusManga = new function() {
+  this.options;
+  this.timer;
+  this.img_w;
+  this.img_h;
 
-  // check if timer is supported
-  if (!hoster.nextUrl)
-    $('#fm_tools', overlay).addClass('fm_disabled');
+  // overlay html
+  this.overlay = $('\
+    <div id="fm_overlay">\
+      <div id="fm_progress"></div>\
+      <img id="fm_close" />\
+      <a id="fm_imgnext">\
+        <img id="fm_main" />\
+      </a>\
+      <span id="fm_info" />\
+      <div id="fm_tools">\
+        <img id="fm_play">\
+        <img id="fm_options">\
+      </div>\
+    </div>');
+  $('#fm_close', this.overlay).attr('src', chrome.extension.getURL('img/close-circle.png'));
+  $('#fm_options', this.overlay).attr('src', chrome.extension.getURL('img/options.png'));
 
-  // show page action
-  chrome.extension.sendRequest({'method': 'pageAction'}, function(response) {});
+  // setup everything
+  $('body').ready(function() {FocusManga.onready();});
+  this.onready = function() {
+    $('body').show();
 
-  // add listener for page action message
-  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    $('html').toggleClass('fm_enabled');
-  });
+    // check if it really is a manga page
+    if (!FocusManga.isMangaPage()) return;
 
-  // init
-  $('body').prepend(overlay);
+    // show page action
+    chrome.extension.sendRequest({'method': 'pageAction'}, function(response) {});
+    
+    // add overlay
+    $('body').prepend(FocusManga.overlay);
+    
+    // check if timer is supported
+    if (!FocusManga.hasNextPage())
+      $('#fm_tools', FocusManga.overlay).addClass('fm_disabled');
 
-  // calc img size
-  $('#fm_main', overlay).load(function() {
-    w = this.width;
-    h = this.height;
-    $(window).resize();
-  });
+    // add listener for page action message
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+      FocusManga.onPageAction();
+    });
 
-  $('#fm_main', overlay).attr('src', hoster.imgUrl());
-  // resize main img
-  $(window).resize(function() {
-    if (w / h < $(window).width() / $(window).height()) {
-      $('#fm_main', overlay).removeClass('landscape');
+    // add listener for image load
+    $('#fm_main', FocusManga.overlay).load(function() {
+      FocusManga.onImgLoad(this);
+    });
+
+    // load image
+    FocusManga.setImage();
+  
+    // add handler for window resize
+    $(window).resize(function() {
+      FocusManga.onResize();
+    });
+
+    // on close overlay
+    $('#fm_close').click(function() {
+      FocusManga.onClose();
+    });
+
+    // timer
+    chrome.extension.sendRequest({'method': 'options'}, function(response) {
+      FocusManga.options = response;
+      FocusManga.onOptions();
+    });
+  
+    // toggle timer/img
+    $('#fm_play').click(function() {
+      if (FocusManga.timer.isActive) {
+        chrome.extension.sendRequest({'method': 'timer_enabled', 'data': false}, function(response) {});
+        FocusManga.timer.stop();
+        console.log('stopped timer');
+        FocusManga.updateTimerIcon(false);
+      } else {
+        // start timer
+        chrome.extension.sendRequest({'method': 'timer_enabled', 'data': true}, function(response) {});
+        FocusManga.timer.once(0);
+        console.log('started timer');
+        FocusManga.updateTimerIcon(true);
+      }
+    });
+
+    // options page
+    $('#fm_options', FocusManga.overlay).click(function() {
+      chrome.extension.sendRequest({'method': 'tabs'}, function(response) {});
+    });
+  }
+
+  this.updateTimerIcon = function(timer_enabled) {
+    if (timer_enabled) {
+      $('#fm_play', FocusManga.overlay).attr('src', chrome.extension.getURL('img/stop.png'));
     } else {
-      $('#fm_main', overlay).addClass('landscape');
+      $('#fm_play', FocusManga.overlay).attr('src', chrome.extension.getURL('img/play.png'));
     }
-  });
+  }
 
-  // close overlay
-  $('#fm_close').click(function() {
+  this.onPageAction = function() {
+    $('html').toggleClass('fm_enabled');
+  }
+
+  this.onImgLoad = function(img) {
+    FocusManga.img_w = img.width;
+    FocusManga.img_h = img.height;
+    $(window).resize();
+  }
+
+  this.onResize = function() {
+    if (FocusManga.img_w / FocusManga.img_h < $(window).width() / $(window).height()) {
+      $('#fm_main', FocusManga.overlay).removeClass('landscape');
+    } else {
+      $('#fm_main', FocusManga.overlay).addClass('landscape');
+    }
+  }
+
+  this.onClose = function() {
     chrome.extension.sendRequest({'method': 'focusmanga_enabled', 'data': false}, function(response) {});
     $('html').removeClass('fm_enabled');
-  });
+  }
 
-  // keyboard bindings
-  $(document).keydown(function(e) {
-    switch (e.keyCode) {
-      case 27: // escape
-        $('html').removeClass('fm_enabled');
-        chrome.extension.sendRequest({'method': 'focusmanga_enabled', 'data': false}, function(response) {});
-        break;
+  this.onOptions = function() {
+    // check if focusmanga is active
+    if (FocusManga.options.focusmanga_enabled) $('html').addClass('fm_enabled');
+
+    if(!isNaN(hoster.currPage()) && !isNaN(hoster.totalPages())) {
+      if (FocusManga.options.page_numbers_enabled)
+        $('#fm_info', FocusManga.overlay).show().text(FocusManga.currentPageNumber()+" / "+FocusManga.currentChapterPages());
+      if (FocusManga.options.chapter_progressbar_enabled)
+        $('#fm_progress', FocusManga.overlay)
+          .css('width', Math.round(FocusManga.currentPageNumber() / FocusManga.currentChapterPages() * 100)+"%");
     }
-  });
 
-  // timer
-  chrome.extension.sendRequest({'method': 'options'}, function(response) {
-    $(document).trigger('configLoaded', response);
-  });
-
-  // toggle timer/img
-  $('#fm_play').click(function() {
-    if (timer.isActive) {
-      chrome.extension.sendRequest({'method': 'timer_enabled', 'data': false}, function(response) {});
-      timer.stop();
-      console.log('stopped timer');
-    } else {
-      // start timer
-      chrome.extension.sendRequest({'method': 'timer_enabled', 'data': true}, function(response) {});
-      timer.once(0);
-      console.log('started timer');
+    // timer
+    if (FocusManga.hasNextPage) {
+      $('#fm_imgnext', FocusManga.overlay).attr('href', "#").click(function() {
+        FocusManga.next();
+      });
+      FocusManga.timer = $.timer(function() {
+        if (!FocusManga.options.focusmanga_enabled) return;
+        console.log('execute timer');
+        FocusManga.next();
+      }, FocusManga.options.timer_delay * 1000, FocusManga.options.timer_enabled);
+      FocusManga.updateTimerIcon(FocusManga.options.timer_enabled);
     }
-    updateTimerIcon();
-  });
+  }
 
-  // preload next page (doesn't work atm. Chrome 30.0.1581.2 dev-m)
-  if (hoster.nextUrl)
+  //// OVERRIDE ////
+  this.isMangaPage = function() {return false;}
+  this.hasNextPage = function() {return false;}
+  this.setImage = function() {}
+  this.currentPageNumber = function() {}
+  this.currentChapterPages = function() {}
+  this.preload = function() {}
+  this.next = function() {}
+}
+
+FocusManga.isMangaPage = function() {return hoster.isMangaPage();}
+FocusManga.hasNextPage = function() {return hoster.nextUrl;}
+FocusManga.next = function() {window.location.href = hoster.nextUrl();}
+FocusManga.setImage = function() {$('#fm_main', FocusManga.overlay).attr('src', hoster.imgUrl());}
+FocusManga.currentPageNumber = function() {return hoster.currPage();}
+FocusManga.currentChapterPages = function() {return hoster.totalPages();}
+FocusManga.preload = function() {
     $('head').append(
         $('<link rel="prerender" />').attr('src', hoster.nextUrl())
     );
-
-  // options page
-  $('#fm_options', overlay).click(function() {
-    chrome.extension.sendRequest({'method': 'tabs'}, function(response) {});
-  });
-});
-
-// get configuration
-$(document).on('configLoaded', function(event, options) {
-  // check if focusmanga is active
-  if (options.focusmanga_enabled) $('html').addClass('fm_enabled');
-
-  // info - page number /progress
-  if(!isNaN(hoster.currPage()) && !isNaN(hoster.totalPages())) {
-    if (options.page_numbers_enabled)
-      $('#fm_info', overlay).show().text(hoster.currPage()+" / "+hoster.totalPages());
-    if (options.chapter_progressbar_enabled)
-      $('#fm_progress', overlay).css('width', Math.round(hoster.currPage() / hoster.totalPages() * 100)+"%");
-  }
-
-  // timer
-  if (hoster.nextUrl) {
-    $('#fm_imgnext', overlay).attr('href', hoster.nextUrl());
-    timer = $.timer(function() {
-      if (!options.focusmanga_enabled) return;
-      console.log('execute timer');
-      window.location.href = hoster.nextUrl();
-    }, options.timer_delay * 1000, options.timer_enabled);
-    updateTimerIcon(options.timer_enabled);
-  }
-});
-
-function updateTimerIcon(timer_enabled) {
-  if (timer_enabled) {
-    $('#fm_play', overlay).attr('src', chrome.extension.getURL('img/stop.png'));
-  } else {
-    $('#fm_play', overlay).attr('src', chrome.extension.getURL('img/play.png'));
-  }
 }
