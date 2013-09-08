@@ -1,8 +1,5 @@
 var options = new OptionStorage();
 
-// TODO remove after dev
-chrome.tabs.create({url: "offline.html"});
-
 // open options page on install
 function install_notice() {
     time = options.get('install_time', false)

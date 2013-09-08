@@ -151,19 +151,23 @@ FocusManga = new function() {
       FocusManga.updateTimerIcon(true);
     }
 
-    if(!isNaN(FocusManga.currentPageNumber()) && !isNaN(FocusManga.currentChapterPages())) {
-      if (FocusManga.options.get("page_numbers_enabled", true))
-        $('#fm_info', FocusManga.overlay).show().text(FocusManga.currentPageNumber()+" / "+FocusManga.currentChapterPages());
-      if (FocusManga.options.get("chapter_progressbar_enabled", true))
-        $('#fm_progress', FocusManga.overlay)
-          .css('width', Math.round(FocusManga.currentPageNumber() / FocusManga.currentChapterPages() * 100)+"%");
-    }
+    FocusManga.updatePageNumber();
 
     // timer
     if (FocusManga.hasNextPage) {
       $('#fm_imgnext', FocusManga.overlay).attr('href', "#").click(function() {
         FocusManga.next();
       });
+    }
+  }
+
+  this.updatePageNumber = function() {
+    if(!isNaN(FocusManga.currentPageNumber()) && !isNaN(FocusManga.currentChapterPages())) {
+      if (FocusManga.options.get("page_numbers_enabled", true))
+        $('#fm_info', FocusManga.overlay).show().text(FocusManga.currentPageNumber()+" / "+FocusManga.currentChapterPages());
+      if (FocusManga.options.get("chapter_progressbar_enabled", true))
+        $('#fm_progress', FocusManga.overlay)
+          .css('width', Math.round(FocusManga.currentPageNumber() / FocusManga.currentChapterPages() * 100)+"%");
     }
   }
 }

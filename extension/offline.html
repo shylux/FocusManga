@@ -11,21 +11,46 @@
     <script src="focus.js"></script>
     <script src="offline.js"></script>
     <style type="text/css">
-      #filedrop {
+      body {
+        font-family: 'Cabin Condensed', arial;
+      }
+      .filedrop {
         display: none;
-        z-index: 9002;
+        opacity: 0;
+        z-index: 9003;
         position: absolute;
         width: 100%;
         height: 100%;
         top: 0;
         left: 0;
-        background-color: red;
+      }
+      div.filedrop {
+        display: block;
+        width: 70%;
+        height: 70%;
+        top: 15%;
+        left: 15%;
+        z-index: 9002;
+        opacity: 1;
+        border: 10px dashed gray;
+        border-radius: 10%;
+        color: gray;
+        font-size: 3em;
+        line-height: 5em;
+        text-align: center;
+        vertical-align: middle;
+      }
+      .hack div.filedrop {
+        background-color: #242424;
       }
       .hack {
         pointer-events: none;
       }
-      .hack #filedrop {
+      .hack .filedrop {
         pointer-events: auto;
+      }
+      #fm_close, #fm_info {
+        visibility: hidden;
       }
     </style>
   </head>
