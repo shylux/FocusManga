@@ -1,13 +1,8 @@
 /* Option Storage */
 
 function OptionStorage(initial_values) {
-  // writes initial_values into storage
-  this.storage = initial_values;
-  if (typeof storage === "undefined")
-    this.storage = {};
-
-  // if true, new values will get written to localstorage automatically
-  this.autoWriteToLocalStorage = true;
+  // localStorage key
+  this.key = "optionsstorage";
 
   // get property by key. if not available return default_value
   this.get = function(key, default_value) {
@@ -18,15 +13,7 @@ function OptionStorage(initial_values) {
   // set property
   this.set = function(key, value) {
     this.storage[key] = value;
-    if (this.autoWriteToLocalStorage)
-      localStorage[key] = value;
-  }
-
-  // write propertys to localstorage
-  this.saveToLocalStorage = function() {
-    for (var key in this.storage) {
-      localStorage[key] = this.storage[key];
-    }
+    localStorage[this.key] = this.export();
   }
 
   // return a string representing all propertys
@@ -45,9 +32,19 @@ function OptionStorage(initial_values) {
 
   // import propertys from json string
   this.import = function(str_options) {
-    var obj = JSON.parse(str_options);
-    for (var key in obj) {
-      this.set(key, obj[key]);
-    }
+    try {
+      var obj = JSON.parse(str_options);
+      for (var key in obj) {
+        this.set(key, obj[key]);
+      }
+    } catch(err) {}
   }
+
+  // writes initial_values into storage
+  this.storage = {};
+  this.import(localStorage[this.key]);
+
+  for (var key in initial_values)
+      this.storage[key] = initial_values[key];
+
 }

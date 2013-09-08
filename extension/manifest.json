@@ -12,7 +12,7 @@
 
   "options_page": "options.html",
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["option_storage.js", "background.js"],
     "persistent": true
   },
 
@@ -38,7 +38,7 @@
         "*://*.mangahere.com/manga/*/*/*",
         "*://*.hbrowse.com/*/*"
       ],
-      "js": ["lib/jquery-1.10.2.js", "lib/jquery.timer.js", "hoster.js", "focus.js", "cleanup.js"],
+      "js": ["lib/jquery-1.10.2.js", "lib/jquery.timer.js", "option_storage.js", "hoster.js", "focus.js", "cleanup.js"],
       "css": ["hide.css", "style.css"]
     }
   ],

@@ -1,54 +1,48 @@
+var options = new OptionStorage();
+
 // open options page on install
 function install_notice() {
-    if (localStorage.getItem('install_time'))
+    time = options.get('install_time', false)
+    if (time > 0)
         return;
 
     var now = new Date().getTime();
-    localStorage.setItem('install_time', now);
+    options.set('install_time', now);
     chrome.tabs.create({url: "options.html"});
 }
 install_notice();
 
-// default value
-if (!localStorage['focusmanga_enabled']) localStorage['focusmanga_enabled'] = true;
-if (!localStorage['timer_enabled']) localStorage['timer_enabled'] = false;
-if (!localStorage['timer_delay']) localStorage['timer_delay'] = 20;
-if (!localStorage['page_numbers_enabled']) localStorage['page_numbers_enabled'] = true;
-if (!localStorage['chapter_progressbar_enabled']) localStorage['chapter_progressbar_enabled'] = true;
 
 // listener
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-  if (request.method == "timer_enabled") {
-    localStorage['timer_enabled'] = request.data;
-  } else if (request.method == "focusmanga_enabled") {
-    localStorage['focusmanga_enabled'] = request.data;
-  } else if (request.method == "pageAction") {
-    chrome.pageAction.show(sender.tab.id);
-  } else if (request.method == "tabs") {
-    var optionsUrl = chrome.extension.getURL('options.html');
-    chrome.tabs.query({url: optionsUrl}, function(tabs) {
-      if (tabs.length) {
-        chrome.tabs.update(tabs[0].id, {active: true});
-      } else {
-        chrome.tabs.create({url: optionsUrl});
-      } 
-    });
-  }
+    // update options
+    options.import(localStorage[options.key]);
 
-  var config = {};
-  config.timer_enabled = (localStorage['timer_enabled']=='true');
-  config.page_numbers_enabled = (localStorage['page_numbers_enabled']=='true');
-  config.chapter_progressbar_enabled = (localStorage['chapter_progressbar_enabled']=='true');
-  config.timer_delay = localStorage['timer_delay'];
-  config.focusmanga_enabled = (localStorage['focusmanga_enabled']=='true');
+    console.log("request with method: "+request.method);
+    if (request.method == "options") {
+	    options.import(request.data);
+    }
 
-  sendResponse(config);
+    if (request.method == "pageAction") {
+      chrome.pageAction.show(sender.tab.id);
+    } else if (request.method == "tabs") {
+	    var optionsUrl = chrome.extension.getURL('options.html');
+	    chrome.tabs.query({url: optionsUrl}, function(tabs) {
+	      if (tabs.length) {
+		      chrome.tabs.update(tabs[0].id, {active: true});
+	      } else {
+		      chrome.tabs.create({url: optionsUrl});
+	      } 
+	    });
+    }
+
+    sendResponse(options.export());
 });
 
 chrome.pageAction.onClicked.addListener(function(tab) {
-  console.log("page action on tab "+tab.id);
-  localStorage['focusmanga_enabled'] = !(localStorage['focusmanga_enabled']=='true');
-  chrome.tabs.sendMessage(tab.id, {method: "toggleFocusManga"}, function(response) {
-    console.log("ack from "+tab.id);
-  });
+    console.log("page action on tab "+tab.id);
+    options.set("focusmanga_enabled", !options.get("focusmanga_enabled", true));
+    chrome.tabs.sendMessage(tab.id, {method: "toggleFocusManga"}, function(response) {
+	  console.log("ack from "+tab.id);
+    });
 });
