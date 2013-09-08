@@ -38,10 +38,11 @@
         "*://*.mangahere.com/manga/*/*/*",
         "*://*.hbrowse.com/*/*"
       ],
-      "js": ["lib/jquery.js", "option_storage.js", "hoster.js", "focus.js", "cleanup.js"],
+      "js": ["lib/jquery.js", "option_storage.js", "focus.js", "hoster.js", "cleanup.js"],
       "css": ["hide.css", "style.css"]
     }
   ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": [
     "img/close-circle.png",
     "img/play.png",

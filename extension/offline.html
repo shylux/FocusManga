@@ -4,12 +4,31 @@
     <title>FocusManga</title>
     <meta charset="utf-8">
     <link rel="icon" href="img/slideshow.png" />
+    <link rel="stylesheet" href="style.css" />
     <link href='http://fonts.googleapis.com/css?family=Cabin+Condensed' rel='stylesheet' type='text/css'>
-    <script src="lib/jquery-1.10.2.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="option_storage.js"></script>
+    <script src="focus.js"></script>
     <script src="offline.js"></script>
+    <style type="text/css">
+      #filedrop {
+        display: none;
+        z-index: 9002;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: red;
+      }
+      .hack {
+        pointer-events: none;
+      }
+      .hack #filedrop {
+        pointer-events: auto;
+      }
+    </style>
   </head>
   <body>
-    <h1>FocusManga</h1>
-    <input id="filedrop" type="file" webkitdirectory multiple="multiple" />
   </body>
 </html>

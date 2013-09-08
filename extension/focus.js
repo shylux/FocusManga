@@ -1,6 +1,3 @@
-var hoster = getHoster();
-
-
 FocusManga = new function() {
 
   //// OVERRIDE ////
@@ -154,7 +151,7 @@ FocusManga = new function() {
       FocusManga.updateTimerIcon(true);
     }
 
-    if(!isNaN(hoster.currPage()) && !isNaN(hoster.totalPages())) {
+    if(!isNaN(FocusManga.currentPageNumber()) && !isNaN(FocusManga.currentChapterPages())) {
       if (FocusManga.options.get("page_numbers_enabled", true))
         $('#fm_info', FocusManga.overlay).show().text(FocusManga.currentPageNumber()+" / "+FocusManga.currentChapterPages());
       if (FocusManga.options.get("chapter_progressbar_enabled", true))
@@ -169,16 +166,4 @@ FocusManga = new function() {
       });
     }
   }
-}
-
-FocusManga.isMangaPage = function() {return hoster.isMangaPage();}
-FocusManga.hasNextPage = function() {return hoster.nextUrl;}
-FocusManga.next = function() {console.log("next");window.location.href = hoster.nextUrl();}
-FocusManga.setImage = function() {$('#fm_main', FocusManga.overlay).attr('src', hoster.imgUrl());}
-FocusManga.currentPageNumber = function() {return hoster.currPage();}
-FocusManga.currentChapterPages = function() {return hoster.totalPages();}
-FocusManga.preload = function() {
-    $('head').append(
-        $('<link rel="prerender" />').attr('src', hoster.nextUrl())
-    );
 }
