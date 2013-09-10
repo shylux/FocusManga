@@ -12,6 +12,14 @@ $(function() {
       if (file.type.match('image.*'))
         file_list.push(file);
     }
+    
+    // sort list alphabetically
+    file_list.sort(function(a, b) {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    });
+
     dragleave();
     file_index = 0;
     step(0);
@@ -68,7 +76,12 @@ function step(delta) {
 
 FocusManga.isMangaPage = function() {return true;}
 FocusManga.hasNextPage = function() {return true;}
-FocusManga.next = function() {step(1);}
+FocusManga.next = function() {
+  step(1);
+  if (FocusManga.options.get("timer_enabled", false)) {
+    FocusManga.startTimer();
+  }
+}
 FocusManga.currentPageNumber = function() {return file_index+1;}
 FocusManga.currentChapterPages = function() {return file_list.length;}
 FocusManga.onClose = function() {}
