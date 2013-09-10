@@ -146,9 +146,7 @@ FocusManga = new function() {
       $('html').addClass('fm_enabled');
 
     if (FocusManga.options.get("timer_enabled", false)) {
-      FocusManga.timer = setTimeout("FocusManga.next();", 1000 * FocusManga.options.get("timer_delay", 20));
-      console.log("start timer");
-      FocusManga.updateTimerIcon(true);
+      FocusManga.startTimer();
     }
 
     FocusManga.updatePageNumber();
@@ -159,6 +157,12 @@ FocusManga = new function() {
         FocusManga.next();
       });
     }
+  }
+
+  this.startTimer = function() {
+    FocusManga.timer = setTimeout("FocusManga.next();", 1000 * FocusManga.options.get("timer_delay", 20));
+    console.log("start timer");
+    FocusManga.updateTimerIcon(true);
   }
 
   this.updatePageNumber = function() {
