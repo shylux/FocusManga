@@ -32,6 +32,8 @@ html.fm_enabled, .fm_enabled body {
 }
 
 #fm_overlay img.landscape {
+  position: absolute;
+  top: 50%;
   height: auto;
   width: 100%;
 }

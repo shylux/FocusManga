@@ -126,9 +126,13 @@ FocusManga = new function() {
 
   this.onResize = function() {
     if (FocusManga.img_w / FocusManga.img_h < $(window).width() / $(window).height()) {
-      $('#fm_main', FocusManga.overlay).removeClass('landscape');
+      $('#fm_main', FocusManga.overlay)
+        .removeClass('landscape')
+        .css('margin-top', 'auto');
     } else {
-      $('#fm_main', FocusManga.overlay).addClass('landscape');
+      $('#fm_main', FocusManga.overlay)
+        .addClass('landscape')
+        .css('margin-top', -($('#fm_main', FocusManga.overlay).height() / 2));
     }
   }
 
