@@ -10,18 +10,23 @@ $(function() {
   // save handler
   $('#focusmanga_enabled').click(function() {
     options.set('focusmanga_enabled', this.checked);
+    $('#toast').show().text('Set FocusManga enabled: '+this.checked);
   });
   $('#timer_enabled').click(function() {
     options.set('timer_enabled', this.checked);
+    $('#toast').show().text('Set timer enabled: '+this.checked);
   });
   $('#timer_delay').keyup(function() {
     options.set('timer_delay', $(this).val());
+    $('#toast').show().text('Set timer delay to: '+$(this).val());
   });
   $('#page_numbers_enabled').click(function() {
     options.set('page_numbers_enabled', this.checked);
+    $('#toast').show().text('Set show page numbers to: '+this.checked);
   });
   $('#chapter_progressbar_enabled').click(function() {
     options.set('chapter_progressbar_enabled', this.checked);
+    $('#toast').show().text('Set show progressbar to: '+this.checked);
   });
 
   // list hoster

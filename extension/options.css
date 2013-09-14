@@ -4,6 +4,12 @@ body {
   padding-left: 15px;
 }
 
+#toast {
+  display: none;
+  font-style: bold;
+  color: DarkGreen;
+}
+
 dt {
   margin-top: 7px;
 }
