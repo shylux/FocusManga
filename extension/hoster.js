@@ -40,24 +40,12 @@ var onepiecetube = {
 }
 hoster_list.push(onepiecetube);
 
-var narutotube = {
-  hostname: "naruto-tube.com",
-  isMangaPage: function() {return ($('#p').length > 0);},
-  imgUrl: function() {return $('#p').attr('src');},
-  nextUrl: function() {return $('#p').parent().attr('href');},
-  currPage: function() {return parseInt($('#controls a.active').text());},
-  totalPages: function() {return parseInt($('#controls a').size())-2;}
-}
+var narutotube = $.extend(true, {}, onepiecetube);
+narutotube.hostname = "naruto-tube.com";
 hoster_list.push(narutotube);
 
-var fairytailtube = {
-  hostname: "fairytail-tube.com",
-  isMangaPage: function() {return ($('#p').length > 0);},
-  imgUrl: function() {return $('#p').attr('src');},
-  nextUrl: function() {return $('#p').parent().attr('href');},
-  currPage: function() {return parseInt($('#controls a.active').text());},
-  totalPages: function() {return parseInt($('#controls a').size())-2;}
-}
+var fairytailtube = $.extend(true, {}, onepiecetube);
+fairytailtube.hostname = "fairytail-tube.com";
 hoster_list.push(fairytailtube);
 
 var mangahere = {
