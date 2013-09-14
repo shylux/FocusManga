@@ -40,6 +40,16 @@ var onepiecetube = {
 }
 hoster_list.push(onepiecetube);
 
+var narutotube = {
+  hostname: "naruto-tube.com",
+  isMangaPage: function() {return ($('#p').length > 0);},
+  imgUrl: function() {return $('#p').attr('src');},
+  nextUrl: function() {return $('#p').parent().attr('href');},
+  currPage: function() {return parseInt($('#controls a.active').text());},
+  totalPages: function() {return parseInt($('#controls a').size())-2;}
+}
+hoster_list.push(narutotube);
+
 var mangahere = {
   hostname: "mangahere.com",
   isMangaPage: function() {return ($('#image').length > 0);},
