@@ -25,9 +25,9 @@
     {
       "matches": [
         "*://*.mangapanda.com/*/*",
-        "*://*.onepiece-tube.tv/kapitel/*/*",
-        "*://*.naruto-tube.com/kapitel/*/*",
-        "*://*.fairytail-tube.com/kapitel/*/*",
+        "*://*.onepiece-tube.tv/*",
+        "*://*.naruto-tube.com/*",
+        "*://*.fairytail-tube.com/*",
         "*://*.batoto.net/read/*",
         "*://*.mangafox.me/manga/*/*/*",
         "*://*.mangareader.net/*/*",
