@@ -31,7 +31,7 @@ var mangapanda = {
 hoster_list.push(mangapanda);
 
 var onepiecetube = {
-  hostname: "onepiece-tube.com",
+  hostname: "onepiece-tube.tv",
   isMangaPage: function() {return ($('#p').length > 0);},
   imgUrl: function() {return $('#p').attr('src');},
   nextUrl: function() {return $('#p').parent().attr('href');},
@@ -144,17 +144,3 @@ function getHoster() {
   }
 }
 
-// handle focusmanga
-var hoster = getHoster();
-
-FocusManga.isMangaPage = function() {return hoster.isMangaPage();}
-FocusManga.hasNextPage = function() {return hoster.nextUrl;}
-FocusManga.next = function() {console.log("next");window.location.href = hoster.nextUrl();}
-FocusManga.setImage = function() {$('#fm_main', FocusManga.overlay).attr('src', hoster.imgUrl());}
-FocusManga.currentPageNumber = function() {return hoster.currPage();}
-FocusManga.currentChapterPages = function() {return hoster.totalPages();}
-FocusManga.preload = function() {
-    $('head').append(
-        $('<link rel="prerender" />').attr('src', hoster.nextUrl())
-    );
-}

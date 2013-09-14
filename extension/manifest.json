@@ -25,7 +25,7 @@
     {
       "matches": [
         "*://*.mangapanda.com/*/*",
-        "*://*.onepiece-tube.com/kapitel/*/*",
+        "*://*.onepiece-tube.tv/kapitel/*/*",
         "*://*.batoto.net/read/*",
         "*://*.mangafox.me/manga/*/*/*",
         "*://*.mangareader.net/*/*",
@@ -38,7 +38,7 @@
         "*://*.mangahere.com/manga/*/*/*",
         "*://*.hbrowse.com/*/*"
       ],
-      "js": ["lib/jquery.js", "option_storage.js", "focus.js", "hoster.js", "cleanup.js"],
+      "js": ["lib/jquery.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],
       "css": ["hide.css", "style.css"]
     }
   ],
