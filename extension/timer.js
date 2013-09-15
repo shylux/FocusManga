@@ -3,7 +3,10 @@
  */
 
 (function ($) {
-  $.timer = {
+  $.timer = function() {
+    return jQuery.extend(true, {}, $.timer_prototype);
+  }
+  $.timer_prototype = {
     delay: 0, // time in ms after the timer activates
 
     checkingInterval: 50, // interval to check if the timer should activate
@@ -66,8 +69,13 @@
 }(jQuery));
 
 /* testing stuff
-console.log($.timer.isRunning());
-$.timer.start({
+var timer = $.timer();
+var timer2 = $.timer();
+timer2.action = function() {
+  console.log("Should not be called.");
+}
+console.log(timer.isRunning());
+timer.start({
   delay: 2000, // 2 seconds
   action: function() {
     console.log("action");
@@ -76,12 +84,12 @@ $.timer.start({
     console.log("Progress: "+percentage+"%");
   }
 });
-console.log($.timer.isRunning());
-$.timer.stop();
-console.log($.timer.isRunning());
-$.timer.start();
+console.log(timer.isRunning());
+timer.stop();
+console.log(timer.isRunning());
+timer.start();
 setTimeout(function() {
-  console.log($.timer.getProgressFracture());
-  console.log($.timer.getProgressPercentage());
+  console.log(timer.getProgressFracture());
+  console.log(timer.getProgressPercentage());
 }, 1000);
 */
