@@ -18,6 +18,7 @@ html.fm_enabled, .fm_enabled body {
   display: block;
   margin: auto;
   height: 100%;
+  cursor: pointer;
 }
 
 #fm_progress {

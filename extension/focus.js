@@ -22,9 +22,7 @@ FocusManga = new function() {
     <div id="fm_overlay">\
       <div id="fm_progress"></div>\
       <img id="fm_close" />\
-      <a id="fm_imgnext">\
-        <img id="fm_main" />\
-      </a>\
+      <img id="fm_main" />\
       <span id="fm_info" />\
       <div id="fm_tools">\
         <img id="fm_play">\
@@ -176,7 +174,7 @@ FocusManga = new function() {
 
     // timer
     if (FocusManga.hasNextPage) {
-      $('#fm_imgnext', FocusManga.overlay).attr('href', "#").click(function() {
+      $('#fm_main', FocusManga.overlay).click(function() {
         FocusManga.next();
       });
     }
