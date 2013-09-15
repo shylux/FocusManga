@@ -4,7 +4,7 @@ var file_index = 0;
 $(function() {
   $('html').addClass('fm_enabled');
 
-  $('body').append('<div class="filedrop">Drop your folder/files here.</div><input class="filedrop" type="file" webkitdirectory />');
+  $('body').append('<div class="filedrop">Drop your picture folder here.</div><input class="filedrop" type="file" webkitdirectory />');
   $('input.filedrop').on('change', function(event) {
     console.log('drop');
     file_list = []
