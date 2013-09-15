@@ -41,7 +41,7 @@
         "*://*.hbrowse.com/*/*"
       ],
       "js": ["lib/jquery.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],
-      "css": ["hide.css", "style.css"]
+      "css": ["hide.css", "focus.css"]
     }
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
