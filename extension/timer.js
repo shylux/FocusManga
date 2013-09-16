@@ -3,8 +3,8 @@
  */
 
 (function ($) {
-  $.timer = function() {
-    return jQuery.extend(true, {}, $.timer_prototype);
+  $.timer = function(options) {
+    return jQuery.extend(true, {}, $.timer_prototype).set(options);
   }
   $.timer_prototype = {
     delay: 0, // time in ms after the timer activates
@@ -15,17 +15,29 @@
 
     startMarker: 0, // time at which timer started in ms
 
-    start: function(options) {
+    // set options
+    set: function(options) {
       $.extend(this, options);
+      return this;
+    },
+
+    start: function(options) {
       this.startMarker = this.ms();
       var that = this;
       this.intervalId = setInterval(function() {that.onInterval();}, this.checkingInterval);
+      return this;
     },
 
     stop: function() {
       if (this.isRunning())
         clearInterval(this.intervalId);
       this.intervalId = undefined;
+      return this;
+    },
+
+    restart: function() {
+      this.stop();
+      this.start();
     },
 
     isRunning: function() {
@@ -53,6 +65,7 @@
       } else {
         this.onProgress(this.getProgressPercentage());
       }
+      return this;
     },
 
     // override to register listener
