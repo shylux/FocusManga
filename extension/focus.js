@@ -11,8 +11,13 @@ FocusManga = new function() {
 
 
   this.options = new OptionStorage();
-  this.timer;
-  this.mouse_timer;
+  this.show_timer;
+  this.mouse_timer = $.timer({
+    delay: 2000,
+    action: function() {
+      FocusManga.onMouseInactive();
+    }
+  });
   this.mouse_just_hidden = false;
   this.img_w;
   this.img_h;
@@ -72,9 +77,8 @@ FocusManga = new function() {
     $(FocusManga.overlay).mousemove(function() {
       if (!FocusManga.mouse_just_hidden) {
         FocusManga.mouse_just_hidden = false;
-        clearTimeout(FocusManga.mouse_timer);
-        $('*', FocusManga.overlay).css('cursor', '');
-        FocusManga.mouse_timer = setTimeout("FocusManga.onMouseInactive()", 2000);
+        $(FocusManga.overlay).css('cursor', '');
+        FocusManga.mouse_timer.restart();
       }
     });
 
@@ -115,7 +119,7 @@ FocusManga = new function() {
   }
 
   this.onMouseInactive = function() {
-    $('*', FocusManga.overlay).css('cursor', 'none');
+    $(FocusManga.overlay).css('cursor', 'none');
     FocusManga.mouse_just_hidden = true;
     setTimeout(function() {
       FocusManga.mouse_just_hidden = false;

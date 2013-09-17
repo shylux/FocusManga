@@ -40,7 +40,7 @@
         "*://*.mangahere.com/manga/*/*/*",
         "*://*.hbrowse.com/*/*"
       ],
-      "js": ["lib/jquery.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],
+      "js": ["lib/jquery.js", "timer.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],
       "css": ["hide.css", "focus.css"]
     }
   ],
