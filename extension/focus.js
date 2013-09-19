@@ -11,7 +11,12 @@ FocusManga = new function() {
 
 
   this.options = new OptionStorage();
-  this.show_timer;
+  this.show_timer = $.timer({
+    delay: 20*1000,
+    action: function() {
+      FocusManga.next();
+    }
+  });
   this.mouse_timer = $.timer({
     delay: 2000,
     action: function() {
@@ -95,11 +100,10 @@ FocusManga = new function() {
     // toggle timer/img
     FocusManga.updateTimerIcon(false);
     $('#fm_play').click(function() {
-      if (FocusManga.timer) {
+      if (FocusManga.show_timer.isRunning()) {
         FocusManga.options.set('timer_enabled', false);
         chrome.extension.sendRequest({'method': 'options', 'data': FocusManga.options.export()}, function(response) {});
-        clearTimeout(FocusManga.timer);
-        FocusManga.timer = undefined;
+        FocusManga.show_timer.stop();
         console.log('stopped timer');
         FocusManga.updateTimerIcon(false);
       } else {
@@ -176,7 +180,7 @@ FocusManga = new function() {
 
     FocusManga.updatePageNumber();
 
-    // timer
+    // click for next page
     if (FocusManga.hasNextPage) {
       $('#fm_main', FocusManga.overlay).click(function() {
         FocusManga.next();
@@ -185,7 +189,7 @@ FocusManga = new function() {
   }
 
   this.startTimer = function() {
-    FocusManga.timer = setTimeout("FocusManga.next();", 1000 * FocusManga.options.get("timer_delay", 20));
+    FocusManga.show_timer.set({delay: 1000 * FocusManga.options.get("timer_delay", 20)}).start();
     console.log("start timer");
     FocusManga.updateTimerIcon(true);
   }
