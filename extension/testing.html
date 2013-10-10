@@ -1,6 +1,14 @@
-<html>
+<!DOCTYPE html>
+<html lnag="en">
   <head>
+    <title>FocusManga Unittest</title>
+    <meta charset="utf-8">
+    <link rel="icon" href="img/slideshow.png" />
+    <link href='http://fonts.googleapis.com/css?family=Cabin+Condensed' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="options.css">
     <script src="lib/jquery.js"></script>
+    <script src="hoster.js"></script>
+    <script src="testing_hoster.js"></script>
     <script src="testing.js"></script>
     <style type="text/css">
       .pass {
@@ -12,23 +20,35 @@
       .not_implemented {
         background-color: grey;
       }
+      .host {
+        width: 300px;
+        float: left;
+        margin: 10px;
+        padding: 5px;
+        border: 5px solid grey;
+        border-radius: 10px;
+      }
+      .hostname {
+        font-size: 2em;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
-    <h1>Test Script</h1>
+    <h1>FocusManga Unittest</h1>
     <div id="hosts">
       <dl class="host">
         <dl>
-          <dt>Host</dt>
-          <dd class="hostname">hostname</dd>
+          <dt class="hostname"></dt>
+          <dd class="targetUrl"></dd>
           <dt>IMG Url</dt>
-          <dd class="imgUrl">Pass</dd>
+          <dd class="imgUrl">Status</dd>
           <dt>Next Url</dt>
-          <dd class="nextUrl">Pass</dd>
+          <dd class="nextUrl">Status</dd>
           <dt>Current Page Number</dt>
-          <dd class="currPage">Pass</dd>
+          <dd class="currPage">Status</dd>
           <dt>Total Pages</dt>
-          <dd class="totalPages">Pass</dd>
+          <dd class="totalPages">Status</dd>
       </dl>
     </div>
   </body>

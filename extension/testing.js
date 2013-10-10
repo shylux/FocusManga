@@ -1,39 +1,19 @@
 console.log("## Testing Script Start ##");
 
-tests = [
-{
-  hostname: "mangapanda.com",
-  targetUrl: "http://www.mangapanda.com/113-4017-4/death-note/chapter-1.html",
-  imgUrl: "http://i20.mangapanda.com/death-note/1/death-note-1563526.jpg",
-  nextUrl: "http://www.mangapanda.com/113-4017-5/death-note/chapter-1.html",
-  currPage: 4,
-  totalPages: 50
-},
-{
-  hostname: "onepiece-tube.tv",
-  targetUrl: "http://onepiece-tube.tv/special/003/3",
-  imgUrl: "http://onepiece-tube.tv/special/003/03.jpg",
-  nextUrl: "http://onepiece-tube.tv/special/003/4",
-  currPage: 3,
-  totalPages: 175
-}
-];
-
 $(function() {
-  var template = $('.host').clone();
+  template = $('.host').clone();
   $('.host').remove();
 
   for (i in tests) {
-    var testcase = tests[i];
-    var output = template.clone(true);
-
-    console.log(">> Starting Test on %s", testcase.hostname);
+    console.log(">> Starting Test on %s", tests[i].hostname);
     chrome.tabs.create({
       active: false,
-      url: "http://www.mangapanda.com/113-4017-4/death-note/chapter-1.html",
+      url: tests[i].targetUrl,
     }, function(tab) {
-        console.log("test");
         chrome.tabs.executeScript(tab.id, {file: "infoGrepper.js"}, function(arr_results) {
+          chrome.tabs.remove(tab.id);
+          var output = template.clone(true);
+
           if (chrome.runtime.lastError) {
             console.warn("  ! Execution error: %s", chrome.runtime.lastError);
             return;
@@ -43,35 +23,52 @@ $(function() {
           }
 
           var results = arr_results[0];
+          var testcase = getHoster(results.hostname, tests);
 
           $('.hostname', output).text(testcase.hostname);
+          $('.targetUrl', output).append($('<a>[link]</a>').attr('href', testcase.targetUrl));
 
-          // parse results
+          /* parse results */
+
+          // imgUrl
           $('.imgUrl', output).addClass(
             (testcase.imgUrl == results.imgUrl) ? 'pass': 'fail'
             );
 
-          $('.nextUrl', output).addClass(
-            (testcase.nextUrl == results.nextUrl) ? 'pass': 'fail'
-            );
+          // nextUrl
+          if (testcase.hasOwnProperty('nextUrl'))
+            $('.nextUrl', output).addClass(
+              (testcase.nextUrl == results.nextUrl) ? 'pass': 'fail'
+              );
+          else
+            $('.nextUrl', output).addClass('not_implemented');
 
-          if (testcase.hasOwnProperty('imgUrl'))
+          // currPage
+          if (testcase.hasOwnProperty('currPage'))
             $('.currPage', output).addClass(
               (testcase.currPage == results.currPage) ? 'pass': 'fail'
               );
           else
             $('.currPage', output).addClass('not_implemented');
 
-          if (testcase.hasOwnProperty('imgUrl'))
+          // totalPages
+          if (testcase.hasOwnProperty('totalPages'))
             $('.totalPages', output).addClass(
               (testcase.totalPages == results.totalPages) ? 'pass': 'fail'
               );
           else
             $('.totalPages', output).addClass('not_implemented');
 
-          chrome.tabs.remove(tab.id);
+          // update status text
+          $('.pass', output).text('Pass');
+          $('.fail', output).text('Failed');
+          $('.not_implemented', output).text('Not Implemented');
+
           console.log("<< Finishing Test on %s", testcase.hostname);
-          $('#hosts').append(output);
+          if ($('.fail', output).size() > 0)
+            $('#hosts').prepend(output);
+          else
+            $('#hosts').append(output);
         });
     });
   }
