@@ -143,12 +143,12 @@ var perveden = {
 }
 hoster_list.push(perveden);
 
-var hname = window.location.hostname;
-
-function getHoster() {
-  for (i in hoster_list) {
-    if (hname.indexOf(hoster_list[i].hostname) != -1)
-      return hoster_list[i];
+function getHoster(hoster_name, search_list) {
+  if (search_list === undefined) search_list = hoster_list;
+  if (hoster_name === undefined) hoster_name = window.location.hostname;
+  for (i in search_list) {
+    if (hoster_name.indexOf(search_list[i].hostname) != -1)
+      return search_list[i];
   }
 }
 
