@@ -7,7 +7,22 @@
   "icons": {"128": "img/slideshow.png"},
 
   "permissions": [
-    "tabs"
+    "tabs",
+    "*://*.mangapanda.com/*/*",
+    "*://*.onepiece-tube.tv/*",
+    "*://*.naruto-tube.com/*",
+    "*://*.fairytail-tube.com/*",
+    "*://*.batoto.net/read/*",
+    "*://*.mangafox.me/manga/*/*/*",
+    "*://*.mangareader.net/*/*",
+    "*://*.mangainn.com/manga/chapter/*",
+    "*://*.goodmanga.net/*/chapter/*",
+    "*://*.mangastream.to/*",
+    "*://*.manga.animea.net/*",
+    "*://*.mangaeden.com/*/*/*/*",
+    "*://*.perveden.com/*/*/*/*",
+    "*://*.mangahere.com/manga/*/*/*",
+    "*://*.hbrowse.com/*/*"
   ],
 
   "options_page": "options.html",
