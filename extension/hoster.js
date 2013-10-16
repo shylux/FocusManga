@@ -143,6 +143,16 @@ var perveden = {
 }
 hoster_list.push(perveden);
 
+var fakku = {
+  hostname: "fakku.net",
+  isMangaPage: function() {return ($('.current-page').length > 0);},
+  imgUrl: function() {return $('.current-page').attr('src');},
+  nextUrl: function() {return $('#image a').attr('href');},
+  currPage: function() {return $('.chapter .right .drop:first').val();},
+  totalPages: function() {return parseInt($('.chapter .right .drop:first option').size())-1;}
+}
+hoster_list.push(fakku);
+
 function getHoster(hoster_name, search_list) {
   if (search_list === undefined) search_list = hoster_list;
   if (hoster_name === undefined) hoster_name = window.location.hostname;

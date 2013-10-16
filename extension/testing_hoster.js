@@ -104,4 +104,12 @@ tests = [
   imgUrl: "http://cdn.perveden.com/mangasimg/35/35fc91f1447817114a77ae3c3a29fbd29570f74758e6e3471083921f.jpg",
   nextUrl: "http://www.perveden.com/en-manga/my-sister/1/5/",
 },
+{
+  hostname: "fakku.net",
+  targetUrl: "http://www.fakku.net/manga/the-sexy-heart-pounding-study-my-first-love-of-an-onee-san-is-a-gravure-idol-english/read#page=2",
+  imgUrl: "http://t.fakku.net/images/manga/t/thesexyheartpoundingstudymyfirstloveofanoneesanisagravureidol_e/images/002.jpg",
+  nextUrl: "http://www.fakku.net/manga/the-sexy-heart-pounding-study-my-first-love-of-an-onee-san-is-a-gravure-idol-english/read#page=3",
+  currPage: 2,
+  totalPages: 21
+},
 ];

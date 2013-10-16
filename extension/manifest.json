@@ -22,7 +22,8 @@
     "*://*.mangaeden.com/*/*/*/*",
     "*://*.perveden.com/*/*/*/*",
     "*://*.mangahere.com/manga/*/*/*",
-    "*://*.hbrowse.com/*/*"
+    "*://*.hbrowse.com/*/*",
+    "*://*.fakku.net/manga/*/*"
   ],
 
   "options_page": "options.html",
@@ -53,7 +54,8 @@
         "*://*.mangaeden.com/*/*/*/*",
         "*://*.perveden.com/*/*/*/*",
         "*://*.mangahere.com/manga/*/*/*",
-        "*://*.hbrowse.com/*/*"
+        "*://*.hbrowse.com/*/*",
+        "*://*.fakku.net/manga/*/*"
       ],
       "js": ["lib/jquery.js", "timer.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],
       "css": ["hide.css", "focus.css"]
