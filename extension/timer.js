@@ -7,6 +7,7 @@
     return jQuery.extend(true, {}, $.timer_prototype).set(options);
   }
   $.timer_prototype = {
+    name: "UNNAMED",
     delay: 0, // time in ms after the timer activates
 
     checkingInterval: 50, // interval to check if the timer should activate
@@ -29,8 +30,7 @@
     },
 
     stop: function() {
-      if (this.isRunning())
-        clearInterval(this.intervalId);
+      clearInterval(this.intervalId);
       this.intervalId = undefined;
       return this;
     },
@@ -59,7 +59,7 @@
 
     onInterval: function() {
       var ms = this.ms();
-      if (this.ms() > this.endMarker()) {
+      if (this.ms() > this.endMarker() && typeof this.intervalId !== "undefined") {
         this.action();
         this.stop();
       } else {

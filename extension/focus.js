@@ -12,12 +12,14 @@ FocusManga = new function() {
 
   this.options = new OptionStorage();
   this.show_timer = $.timer({
+    name: "Picture change timer.",
     delay: 20*1000,
     action: function() {
       FocusManga.next();
     }
   });
   this.mouse_timer = $.timer({
+    name: "Mouse hide timer.",
     delay: 2000,
     action: function() {
       FocusManga.onMouseInactive();
@@ -46,7 +48,10 @@ FocusManga = new function() {
   $('body').ready(function() {FocusManga.onready();});
   this.onready = function() {
     $('body').show();
+    FocusManga.setup();
+  }
 
+  this.setup = function() {
     // check if it really is a manga page
     if (!FocusManga.isMangaPage()) return;
 
@@ -65,13 +70,17 @@ FocusManga = new function() {
       FocusManga.onPageAction();
     });
 
+    // click for next page
+    $('#fm_main', FocusManga.overlay).click(function() {
+      if (FocusManga.hasNextPage) {
+        FocusManga.next();
+      }
+    });
+
     // add listener for image load
     $('#fm_main', FocusManga.overlay).load(function() {
       FocusManga.onImgLoad(this);
     });
-
-    // load image
-    FocusManga.setImage();
   
     // add handler for window resize
     $(window).resize(function() {
@@ -86,6 +95,7 @@ FocusManga = new function() {
         FocusManga.mouse_timer.restart();
       }
     });
+
 
     // on close overlay
     $('#fm_close').click(function() {
@@ -120,6 +130,31 @@ FocusManga = new function() {
       chrome.extension.sendRequest({'method': 'tabs'}, function(response) {});
     });
 
+    FocusManga.setImage();
+    FocusManga.updatePageNumber();
+  }
+
+  this.teardown = function() {
+      $('#fm_overlay').remove();
+      FocusManga.mouse_timer.stop();
+      FocusManga.show_timer.stop();
+  }
+
+  this.parsePage = function() {
+    // check if we are still on a manga page
+    if (!FocusManga.isMangaPage()) {
+      FocusManga.teardown();
+      return;
+    } else if ($('#fm_overlay').length == 0) {
+      FocusManga.setup();
+      return;
+    }
+
+    // load image
+    FocusManga.setImage();
+    FocusManga.updatePageNumber();
+    if (FocusManga.options.get("timer_enabled", false))
+        FocusManga.show_timer.restart();
   }
 
   this.onMouseInactive = function() {
@@ -180,13 +215,13 @@ FocusManga = new function() {
 
     FocusManga.updatePageNumber();
 
-    // click for next page
-    if (FocusManga.hasNextPage) {
-      $('#fm_main', FocusManga.overlay).click(function() {
-        FocusManga.next();
-      });
-    }
   }
+
+  this.onPageChange = function() {
+    console.log("CHANGE");
+    FocusManga.parsePage();
+  }
+  window.onhashchange = this.onPageChange;
 
   this.startTimer = function() {
     FocusManga.show_timer.set({delay: 1000 * FocusManga.options.get("timer_delay", 20)}).start();

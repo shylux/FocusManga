@@ -61,17 +61,7 @@ function step(delta) {
   if (file_index < 0) file_index = file_list.length-1;
   if (file_index >= file_list.length) file_index = 0;
 
-  var file = file_list[file_index];
-
-  var reader = new FileReader();
-  reader.onload = (function(file) {
-    return function(e) {
-      $('#fm_main', FocusManga.overlay).attr('src', e.target.result);
-      FocusManga.updatePageNumber();
-    }
-  })(file);
-
-  reader.readAsDataURL(file);
+  window.location.hash = file_index+1;
 }
 
 
@@ -87,4 +77,22 @@ FocusManga.currentPageNumber = function() {return file_index+1;}
 FocusManga.currentChapterPages = function() {return file_list.length;}
 FocusManga.onClose = function() {}
 FocusManga.onPageAction = function() {}
+FocusManga.setImage = function() {
+  var str_index = window.location.hash.substring(1);
+  if (!isNaN(str_index)) {
+    var tmp_index = parseInt(str_index)-1;
+    if (tmp_index >= 0 && tmp_index < file_list.length)
+      file_index = tmp_index;
+  }
+  var file = file_list[file_index];
 
+  var reader = new FileReader();
+  reader.onload = (function(file) {
+    return function(e) {
+      $('#fm_main', FocusManga.overlay).attr('src', e.target.result);
+      FocusManga.updatePageNumber();
+    }
+  })(file);
+
+  reader.readAsDataURL(file);
+}
