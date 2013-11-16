@@ -1,9 +1,12 @@
 FocusManga = new function() {
+  this.title = "FocusManga",
 
   //// OVERRIDE ////
   this.isMangaPage = function() {return false;}
   this.hasNextPage = function() {return false;}
   this.setImage = function() {}
+  this.getFileName = function() {}
+  this.getCollectionName = function() {return 'unsorted'};
   this.currentPageNumber = function() {}
   this.currentChapterPages = function() {}
   this.preload = function() {}
@@ -38,10 +41,12 @@ FocusManga = new function() {
       <span id="fm_info" />\
       <div id="fm_tools">\
         <img id="fm_play">\
+        <img id="fm_download">\
         <img id="fm_options">\
       </div>\
     </div>');
   $('#fm_close', this.overlay).attr('src', chrome.extension.getURL('img/close-circle.png'));
+  $('#fm_download', this.overlay).attr('src', chrome.extension.getURL('img/download.png'));
   $('#fm_options', this.overlay).attr('src', chrome.extension.getURL('img/options.png'));
 
   // setup everything
@@ -54,6 +59,11 @@ FocusManga = new function() {
   this.setup = function() {
     // check if it really is a manga page
     if (!FocusManga.isMangaPage()) return;
+
+    // online only actions
+    if (typeof chrome.downloads == 'undefined') {
+      $('#fm_download', FocusManga.overlay).hide();
+    }
 
     // show page action
     chrome.extension.sendRequest({'method': 'pageAction'}, function(response) {});
@@ -75,6 +85,11 @@ FocusManga = new function() {
       if (FocusManga.hasNextPage) {
         FocusManga.next();
       }
+    });
+
+    // download click handler
+    $('#fm_download', FocusManga.overlay).click(function() {
+      FocusManga.download();
     });
 
     // add listener for image load
@@ -238,4 +253,22 @@ FocusManga = new function() {
           .css('width', Math.round(FocusManga.currentPageNumber() / FocusManga.currentChapterPages() * 100)+"%");
     }
   }
+
+  /* DOWNLOAD */
+  this.download = function() {
+    chrome.downloads.download({
+      url: $('#fm_main').attr('src'),
+      filename: FocusManga.title + "/" + FocusManga.getCollectionName() + "/" + FocusManga.getFileName(),
+      saveAs: false,
+      conflictAction: "overwrite"
+    }, function(downloadId) {
+      // on download finish
+      setTimeout(
+        function() {
+          chrome.downloads.erase({id: downloadId});
+        },
+        2000);
+    });
+  }
+
 }

@@ -96,3 +96,5 @@ FocusManga.setImage = function() {
 
   reader.readAsDataURL(file);
 }
+FocusManga.getFileName = function() {return file_list[file_index].name;}
+FocusManga.getCollectionName = function() {return file_list[0].webkitRelativePath.split('/')[0];}

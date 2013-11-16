@@ -8,6 +8,7 @@
 
   "permissions": [
     "tabs",
+    "downloads",
     "*://*.mangapanda.com/*/*",
     "*://*.onepiece-tube.tv/*",
     "*://*.naruto-tube.com/*",
@@ -23,7 +24,7 @@
     "*://*.perveden.com/*/*/*/*",
     "*://*.mangahere.com/manga/*/*/*",
     "*://*.hbrowse.com/*/*",
-    "*://*.fakku.net/manga/*/*"
+    "*://*.fakku.net/*/*"
   ],
 
   "options_page": "options.html",
@@ -55,7 +56,7 @@
         "*://*.perveden.com/*/*/*/*",
         "*://*.mangahere.com/manga/*/*/*",
         "*://*.hbrowse.com/*/*",
-        "*://*.fakku.net/manga/*/*"
+        "*://*.fakku.net/*/*"
       ],
       "js": ["lib/jquery.js", "timer.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],
       "css": ["hide.css", "focus.css"]
@@ -64,6 +65,7 @@
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": [
     "img/close-circle.png",
+    "img/download.png",
     "img/play.png",
     "img/stop.png",
     "img/options.png"
