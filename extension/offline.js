@@ -78,11 +78,16 @@ FocusManga.currentChapterPages = function() {return file_list.length;}
 FocusManga.onClose = function() {}
 FocusManga.onPageAction = function() {}
 FocusManga.setImage = function() {
+  // strip hash symbol
   var str_index = window.location.hash.substring(1);
+  // check if hash is number
   if (!isNaN(str_index)) {
     var tmp_index = parseInt(str_index)-1;
     if (tmp_index >= 0 && tmp_index < file_list.length)
       file_index = tmp_index;
+    else
+      // user went out of bounds. cage him.
+      window.location.hash = file_index+1;
   }
   var file = file_list[file_index];
 
