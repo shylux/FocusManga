@@ -1,5 +1,5 @@
 var file_list = [];
-var file_index = 0;
+var file_index = parseHashLocation();
 
 $(function() {
   $('html').addClass('fm_enabled');
@@ -8,7 +8,6 @@ $(function() {
   $('input.filedrop').on('change', function(event) {
     console.log('drop');
     file_list = []
-    file_index = 0;
     for (var i = 0, file; file=event.target.files[i]; i++) {
       if (file.type.match('image.*'))
         file_list.push(file);
@@ -22,8 +21,9 @@ $(function() {
     });
 
     dragleave();
-    file_index = 0;
-    step(0);
+    if (file_index == -1) file_index = 0;
+
+    FocusManga.setImage();
     FocusManga.updatePageNumber();
     $('#fm_info').css('visibility', 'visible');
   });
@@ -64,6 +64,16 @@ function step(delta) {
   window.location.hash = file_index+1;
 }
 
+function parseHashLocation() {
+  // strip hash symbol
+  var str_index = window.location.hash.substring(1);
+  // check if hash is number
+  if (!isNaN(str_index)) {
+    return parseInt(str_index)-1;
+  }
+  return -1;
+}
+
 
 FocusManga.isMangaPage = function() {return true;}
 FocusManga.hasNextPage = function() {return true;}
@@ -78,17 +88,14 @@ FocusManga.currentChapterPages = function() {return file_list.length;}
 FocusManga.onClose = function() {}
 FocusManga.onPageAction = function() {}
 FocusManga.setImage = function() {
-  // strip hash symbol
-  var str_index = window.location.hash.substring(1);
-  // check if hash is number
-  if (!isNaN(str_index)) {
-    var tmp_index = parseInt(str_index)-1;
-    if (tmp_index >= 0 && tmp_index < file_list.length)
-      file_index = tmp_index;
-    else
-      // user went out of bounds. cage him.
+  hash = parseHashLocation();
+  if (hash >= 0 && hash < file_list.length)
+    file_index = hash;
+  else
+    // user went out of bounds. cage him.
+    if (file_list.length > 0)
       window.location.hash = file_index+1;
-  }
+
   var file = file_list[file_index];
 
   var reader = new FileReader();
