@@ -10,6 +10,10 @@ body {
   color: DarkGreen;
 }
 
+th {
+  text-align: left;
+}
+
 dt {
   margin-top: 7px;
 }

@@ -68,7 +68,7 @@ function parseHashLocation() {
   // strip hash symbol
   var str_index = window.location.hash.substring(1);
   // check if hash is number
-  if (!isNaN(str_index)) {
+  if (str_index.length > 0 && !isNaN(str_index)) {
     return parseInt(str_index)-1;
   }
   return -1;
