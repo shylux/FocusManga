@@ -74,7 +74,7 @@ var mangafox = {
   imgUrl: function() {return $('#image').attr('src');},
   nextUrl: function() {return $(".next_page").attr('href');},
   currPage: function() {return parseInt($('#top_bar .l .m option:selected').text());},
-  totalPages: function() {return parseInt($('#top_bar .l .m option').size());}
+  totalPages: function() {return parseInt($('#top_bar .l .m option').size())-1;}
 }
 hoster_list.push(mangafox);
 
