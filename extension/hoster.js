@@ -92,6 +92,8 @@ var mangainn = { /* timer no working */
   hostname: "mangainn.com",
   isMangaPage: function() {return ($('#imgPage').length > 0);},
   imgUrl: function() {return $('#imgPage').attr('src');},
+  currPage: function() {return parseInt($('#cmbpages option:selected').val());},
+  totalPages: function() {return $('#cmbpages option').size();}
 }
 hoster_list.push(mangainn);
 

@@ -67,6 +67,8 @@ tests = [
   hostname: "mangainn.com",
   targetUrl: "http://www.mangainn.com/manga/chapter/19693_bleach-chapter-01/page_5",
   imgUrl: "http://static2.mangainn.com/mangas/572/19693/005_10_22_2011_07_17_25.jpg",
+  currPage: 5,
+  totalPages: 57
 },
 {
   hostname: "goodmanga.net",
