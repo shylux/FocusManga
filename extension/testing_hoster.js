@@ -91,6 +91,8 @@ tests = [
   targetUrl: "http://www.mangaeden.com/en-manga/detective-conan/3/10/",
   imgUrl: "http://cdn.mangaeden.com/mangasimg/2f/2f3c2932c5dc96cf427282e11fdd948cf1047ca203cf4e7fe3d75fde.jpg",
   nextUrl: "http://www.mangaeden.com/en-manga/detective-conan/3/11/",
+  currPage: 10,
+  totalPages: 16
 },
 {
   hostname: "hbrowse.com",
