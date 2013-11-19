@@ -79,6 +79,8 @@ tests = [
   targetUrl: "http://www.mangastream.to/bakuman-chapter-1-page-3.html",
   imgUrl: "http://img.mangastream.to/manga/bakuman/001/04.png",
   nextUrl: "http://www.mangastream.to/bakuman-chapter-1-page-4.html",
+  currPage: 3,
+  totalPages: 57
 },
 {
   hostname: "manga.animea.net",

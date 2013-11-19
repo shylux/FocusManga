@@ -107,7 +107,9 @@ var mangastream = {
   hostname: "mangastream.to",
   isMangaPage: function() {return ($('.manga-page').length > 0);},
   imgUrl: function() {return $('.manga-page').attr('src');},
-  nextUrl: function() {return $('.manga-page').parent().attr('href');}
+  nextUrl: function() {return $('.manga-page').parent().attr('href');},
+  currPage: function() {return parseInt($('#id_page').find(':selected').val());},
+  totalPages: function() {return $('#id_page option').size();}
 }
 hoster_list.push(mangastream);
 
