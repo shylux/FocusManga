@@ -139,7 +139,9 @@ var perveden = {
   hostname: "perveden.com",
   isMangaPage: function() {return ($('#mainImg').length > 0);},
   imgUrl: function() {return $('#mainImg').attr('src');},
-  nextUrl: function() {return $('.next').parent().attr('href');}
+  nextUrl: function() {return $('.next').parent().attr('href');},
+  currPage: function() {return parseInt($('.pagination .selected').text());},
+  totalPages: function() {return $('.pagination a').length-2}
 }
 hoster_list.push(perveden);
 

@@ -103,6 +103,8 @@ tests = [
   targetUrl: "http://www.perveden.com/en-manga/my-sister/1/4/",
   imgUrl: "http://cdn.perveden.com/mangasimg/35/35fc91f1447817114a77ae3c3a29fbd29570f74758e6e3471083921f.jpg",
   nextUrl: "http://www.perveden.com/en-manga/my-sister/1/5/",
+  currPage: 4,
+  totalPages: 220
 },
 {
   hostname: "fakku.net",
