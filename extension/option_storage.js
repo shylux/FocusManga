@@ -30,14 +30,16 @@ function OptionStorage(initial_values) {
     return JSON.stringify(this.storage);
   }
 
-  // import propertys from json string
-  this.import = function(str_options) {
-    try {
-      var obj = JSON.parse(str_options);
-      for (var key in obj) {
-        this.set(key, obj[key]);
-      }
-    } catch(err) {}
+  // update with propertys from json string or object
+  this.import = function(options) {
+    if (typeof options === "string") {
+      try {
+        options = JSON.parse(options);
+      } catch(err) {console.error(err); return;}
+    }
+    for (var key in options) {
+      this.set(key, options[key]);
+    }
   }
 
   // writes initial_values into storage
