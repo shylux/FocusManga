@@ -15,14 +15,16 @@ install_notice();
 
 // listener
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-    // update options
+    // get options from storage
     options.import(localStorage[options.key]);
 
     console.log("request with method: "+request.method);
+    // update options with new data
     if (request.method == "options") {
 	    options.import(request.data);
     }
 
+    // display page action
     if (request.method == "pageAction") {
       chrome.pageAction.show(sender.tab.id);
     } else if (request.method == "tabs") {
