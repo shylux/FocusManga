@@ -119,7 +119,9 @@ var animea = {
   hostname: "manga.animea.net",
   isMangaPage: function() {return ($('.mangaimg').length > 0);},
   imgUrl: function() {return $('.mangaimg').attr('src');},
-  nextUrl: function() {return $('.mangaimg').parent().attr('href');}
+  nextUrl: function() {return $('.mangaimg').parent().attr('href');},
+  currPage: function() {return parseInt($('.pageselect').find(':selected').val());},
+  totalPages: function() {return $('.pageselect:first option').size();}
 }
 hoster_list.push(animea);
 

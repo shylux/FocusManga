@@ -89,6 +89,8 @@ tests = [
   targetUrl: "http://manga.animea.net/umi-no-misaki-chapter-120-page-3.html",
   imgUrl: "http://i04a.animea.net/602%2F120%2Fimg_3_77897.jpg",
   nextUrl: "http://manga.animea.net/umi-no-misaki-chapter-120-page-4.html",
+  currPage: 3,
+  totalPages: 19
 },
 {
   hostname: "mangaeden.com",
