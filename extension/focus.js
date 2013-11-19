@@ -18,7 +18,8 @@ FocusManga = new function() {
     name: "Picture change timer.",
     delay: 20*1000,
     action: function() {
-      FocusManga.next();
+      if (FocusManga.isDisplaying()) FocusManga.next();
+      else FocusManga.show_timer.restart();
     }
   });
   this.mouse_timer = $.timer({
