@@ -60,6 +60,8 @@ tests = [
   targetUrl: "http://www.mangareader.net/337-23513-2/historys-strongest-disciple-kenichi/chapter-7.html",
   imgUrl: "http://i29.mangareader.net/historys-strongest-disciple-kenichi/7/historys-strongest-disciple-kenichi-551522.jpg",
   nextUrl: "http://www.mangareader.net/337-23513-3/historys-strongest-disciple-kenichi/chapter-7.html",
+  currPage: 2,
+  totalPages: 24
 },
 {
   hostname: "mangainn.com",

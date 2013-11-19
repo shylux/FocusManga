@@ -82,7 +82,9 @@ var mangareader = {
   hostname: "mangareader.net",
   isMangaPage: function() {return ($('#img').length > 0);},
   imgUrl: function() {return $('#img').attr('src');},
-  nextUrl: function() {return $(".next a").attr('href');}
+  nextUrl: function() {return $(".next a").attr('href');},
+  currPage: function() {return parseInt($('#pageMenu').find(':selected').text());},
+  totalPages: function() {return $('#pageMenu option').size();}
 }
 hoster_list.push(mangareader);
 
