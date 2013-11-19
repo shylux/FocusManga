@@ -99,7 +99,9 @@ var goodmanga = {
   hostname: "goodmanga.net",
   isMangaPage: function() {return ($('#manga_viewer img').length > 0);},
   imgUrl: function() {return $('#manga_viewer img').attr('src');},
-  nextUrl: function() {return $('.next_page').attr('href');}
+  nextUrl: function() {return $('.next_page').attr('href');},
+  currPage: function() {return parseInt($('.page_select').find(':selected').text());},
+  totalPages: function() {return $('.page_select:first option').size();}
 }
 hoster_list.push(goodmanga);
 

@@ -73,6 +73,8 @@ tests = [
   targetUrl: "http://www.goodmanga.net/rosario-vampire_ii/chapter/63/4",
   imgUrl: "http://t1.goodmanga.net/images/manga/rosario-vampire_ii/63/4.jpg",
   nextUrl: "http://www.goodmanga.net/rosario-vampire_ii/chapter/63/5",
+  currPage: 4,
+  totalPages: 32
 },
 {
   hostname: "mangastream.to",
