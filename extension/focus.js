@@ -140,17 +140,28 @@ FocusManga = new function() {
   this.toggleTimer = function() {
     if (FocusManga.show_timer.isRunning()) {
       FocusManga.options.set('timer_enabled', false);
-      chrome.extension.sendRequest({'method': 'options', 'data': FocusManga.options.export()}, function(response) {});
+      chrome.extension.sendRequest({'method': 'options', 'data': {timer_enabled: false}}, function(response) {});
       FocusManga.show_timer.stop();
       console.log('stopped timer');
       FocusManga.updateTimerIcon(false);
     } else {
       // start timer
       FocusManga.options.set('timer_enabled', true);
-      chrome.extension.sendRequest({'method': 'options', 'data': FocusManga.options.export()}, function(response) {});
+      chrome.extension.sendRequest({'method': 'options', 'data': {timer_enabled: true}}, function(response) {});
       FocusManga.next();
       FocusManga.updateTimerIcon(true);
     }
+  }
+
+  this.toggleFocusManga = function(force_state_enabled) {
+    if (typeof force_state !== 'undefined') {
+      if (force_state_enabled) $('html').addClass('fm_enabled');
+      else $('html').removeClass('fm_enabled');
+    } else {
+      $('html').toggleClass('fm_enabled');
+    }
+    FocusManga.options.set('focusmanga_enabled', FocusManga.isDisplaying());
+    chrome.extension.sendRequest({'method': 'options', 'data': {focusmanga_enabled: FocusManga.isDisplaying()}}, function(response) {});
   }
 
   this.isDisplaying = function() {
@@ -196,9 +207,7 @@ FocusManga = new function() {
   }
 
   this.onPageAction = function() {
-    $('html').toggleClass('fm_enabled');
-    FocusManga.options.set('focusmanga_enabled', $('html').hasClass('fm_enabled'));
-    chrome.extension.sendRequest({'method': 'options', 'data': FocusManga.options.export()}, function(response) {});
+    FocusManga.toggleFocusManga();
   }
 
   this.onImgLoad = function(img) {
@@ -220,9 +229,7 @@ FocusManga = new function() {
   }
 
   this.onClose = function() {
-    $('html').removeClass('fm_enabled');
-    FocusManga.options.set('focusmanga_enabled', $('html').hasClass('fm_enabled'));
-    chrome.extension.sendRequest({'method': 'options', 'data': FocusManga.options.export()}, function(response) {});
+    FocusManga.toggleFocusManga(false);
   }
 
   this.onOptions = function() {
@@ -289,12 +296,12 @@ FocusManga = new function() {
       case 70:
         // f for favorite or focusmanga
         if (event.shiftKey)
-          $('html').toggleClass('fm_enabled');
+          FocusManga.toggleFocusManga();
         else
           if (FocusManga.isDisplaying()) FocusManga.download();
         break;
       case 27:
-        $('html').removeClass('fm_enabled');
+        FocusManga.toggleFocusManga(false);
         break;
       default:
         console.log(event.which);
