@@ -14,11 +14,17 @@ html.fm_enabled, .fm_enabled body {
   background-color: rgba(0,0,0,0.93);
 }
 
+#fm_overlay img {
+  cursor: pointer;
+}
+#fm_overlay.hideCursor, #fm_overlay.hideCursor  img {
+  cursor: none;
+}
+
 #fm_main {
   display: block;
   margin: auto;
   height: 100%;
-  cursor: pointer;
 }
 
 #fm_progress {
@@ -52,7 +58,6 @@ html.fm_enabled, .fm_enabled body {
   margin: 5px;
   width: 25px;
   height: 25px;
-  cursor: pointer;
   color: white;
   border-radius: 20px;
 }
@@ -77,7 +82,6 @@ html.fm_enabled, .fm_enabled body {
 #fm_tools img {
   height: 25px;
   width: 25px;
-  cursor: pointer;
 }
 
 #fm_tools img:last-child {

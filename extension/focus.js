@@ -105,11 +105,8 @@ FocusManga = new function() {
 
     // hide cursor aver 2 sec inactivity
     $(FocusManga.overlay).mousemove(function() {
-      if (!FocusManga.mouse_just_hidden) {
-        FocusManga.mouse_just_hidden = false;
-        $(FocusManga.overlay).css('cursor', '');
-        FocusManga.mouse_timer.restart();
-      }
+      $(FocusManga.overlay).removeClass('hideCursor');
+      FocusManga.mouse_timer.restart();
     });
 
 
@@ -193,11 +190,7 @@ FocusManga = new function() {
   }
 
   this.onMouseInactive = function() {
-    $(FocusManga.overlay).css('cursor', 'none');
-    FocusManga.mouse_just_hidden = true;
-    setTimeout(function() {
-      FocusManga.mouse_just_hidden = false;
-    }, 500);
+    $(FocusManga.overlay).addClass('hideCursor');
   }
   this.updateTimerIcon = function(state) {
     if (state) {
