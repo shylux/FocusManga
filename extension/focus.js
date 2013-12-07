@@ -253,14 +253,12 @@ FocusManga = new function() {
   }
 
   this.onPageChange = function() {
-    console.log("CHANGE");
     FocusManga.parsePage();
   }
   window.onhashchange = this.onPageChange;
 
   this.startTimer = function() {
     FocusManga.show_timer.set({delay: 1000 * FocusManga.options.get("timer_delay", 20)}).start();
-    console.log("start timer");
     FocusManga.updateTimerIcon(true);
   }
 

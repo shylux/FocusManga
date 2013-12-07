@@ -7,7 +7,6 @@ $(function() {
 
   $('body').append('<div class="filedrop">Drop your picture folder here.</div><input class="filedrop" type="file" webkitdirectory />');
   $('input.filedrop').on('change', function(event) {
-    console.log('drop');
     file_list = []
     for (var i = 0, file; file=event.target.files[i]; i++) {
       if (file.type.match('image.*'))
@@ -79,12 +78,10 @@ function currFile() {
 }
 
 function dragenter() {
-  console.log('enter');
   $('body').addClass('hack');
   $('.filedrop').show();
 }
 function dragleave() {
-  console.log('leave');
   $('body').removeClass('hack');
   $('.filedrop').hide();
 }
