@@ -39,7 +39,18 @@ $(function() {
         break;
       case 37:
         // left
-        step(-1)
+        step(-1);
+    }
+  });
+
+  // scroll event
+  $('#fm_info').bind('mousewheel', function(event) {
+    if (event.originalEvent.wheelDelta >= 0) {
+      // up
+      step(-1);
+    } else {
+      // down
+      step(1);
     }
   });
 });
