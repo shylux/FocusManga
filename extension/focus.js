@@ -20,6 +20,11 @@ FocusManga = new function() {
     action: function() {
       if (FocusManga.isDisplaying()) FocusManga.next();
       else FocusManga.show_timer.restart();
+    },
+    onProgress: function(percentage) {
+      if (FocusManga.options.get("chapter_progressbar_enabled", true))
+        $('#fm_progress', FocusManga.overlay)
+          .css('width', Math.round(percentage)+"%");
     }
   });
   this.mouse_timer = $.timer({
@@ -263,9 +268,6 @@ FocusManga = new function() {
     if(!isNaN(FocusManga.currentPageNumber()) && !isNaN(FocusManga.currentChapterPages())) {
       if (FocusManga.options.get("page_numbers_enabled", true))
         $('#fm_numbers', FocusManga.overlay).show().text(FocusManga.currentPageNumber()+" / "+FocusManga.currentChapterPages());
-      if (FocusManga.options.get("chapter_progressbar_enabled", true))
-        $('#fm_progress', FocusManga.overlay)
-          .css('width', Math.round(FocusManga.currentPageNumber() / FocusManga.currentChapterPages() * 100)+"%");
     }
   }
 
