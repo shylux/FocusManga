@@ -25,6 +25,7 @@ $(function() {
 
     FocusManga.setImage();
     FocusManga.updatePageNumber();
+    FocusManga.updateName();
     $('#fm_info').css('visibility', 'visible');
   });
 
@@ -124,4 +125,8 @@ FocusManga.setImage = function() {
   reader.readAsDataURL(file);
 }
 FocusManga.getFileName = function() {return file_list[file_index].name;}
-FocusManga.getCollectionName = function() {return file_list[0].webkitRelativePath.split('/')[0];}
+FocusManga.getCollectionName = function() {
+  if (file_list[0])
+    return file_list[0].webkitRelativePath.split('/')[0];
+  return undefined;
+}
