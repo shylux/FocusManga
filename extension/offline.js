@@ -1,5 +1,6 @@
 var file_list = [];
 var file_index = parseHashLocation();
+var collection_list = [];
 
 $(function() {
   $('html').addClass('fm_enabled');
@@ -12,13 +13,20 @@ $(function() {
       if (file.type.match('image.*'))
         file_list.push(file);
     }
-    
+
     // sort list alphabetically
     file_list.sort(function(a, b) {
       if (a.webkitRelativePath < b.webkitRelativePath) return -1;
       if (a.webkitRelativePath > b.webkitRelativePath) return 1;
       return 0;
     });
+
+    // build collection dict
+    for (var i = 0, file; file=file_list[i]; i++) {
+      var name = parseCollectionName(file);
+      if (collection_list.indexOf(name) == -1)
+        collection_list.push(name);
+    }
 
     dragleave();
     if (file_index == -1) file_index = 0;
@@ -45,7 +53,17 @@ $(function() {
   });
 
   // scroll event
-  $('#fm_info').bind('mousewheel', function(event) {
+  $('#fm_name').bind('mousewheel', function(event) {
+    if (event.originalEvent.wheelDelta >= 0) {
+      // up
+      stepCollection(-1);
+    } else {
+      // down
+      stepCollection(1);
+    }
+  });
+
+  $('#fm_main, #fm_numbers').bind('mousewheel', function(event) {
     if (event.originalEvent.wheelDelta >= 0) {
       // up
       step(-1);
@@ -55,6 +73,10 @@ $(function() {
     }
   });
 });
+
+function currFile() {
+  return file_list[file_index];
+}
 
 function dragenter() {
   console.log('enter');
@@ -76,6 +98,22 @@ function step(delta) {
   window.location.hash = file_index+1;
 }
 
+function stepCollection(delta) {
+  if (!currFile()) return;
+  var currColName = parseCollectionName(currFile());
+  var col_index = collection_list.indexOf(currColName);
+  var new_index = (col_index+delta) % collection_list.length;
+  if (new_index<0) new_index+=collection_list.length; // fix modulo bug
+  var newColName = collection_list[new_index];
+  for (var i = 0, file; file=file_list[i]; i++) {
+    if (newColName == parseCollectionName(file)) {
+      file_index = i;
+      window.location.hash = file_index+1;
+      return;
+    }
+  }
+}
+
 function parseHashLocation() {
   // strip hash symbol
   var str_index = window.location.hash.substring(1);
@@ -90,6 +128,11 @@ function parseHashLocation() {
   return -1;
 }
 
+// Extracts deepest folder name of file
+function parseCollectionName(file) {
+  path = file.webkitRelativePath.split('/');
+  return path[path.length-2];
+}
 
 FocusManga.isMangaPage = function() {return true;}
 FocusManga.hasNextPage = function() {return true;}
@@ -99,8 +142,25 @@ FocusManga.next = function() {
     FocusManga.startTimer();
   }
 }
-FocusManga.currentPageNumber = function() {return file_index+1;}
-FocusManga.currentChapterPages = function() {return file_list.length;}
+FocusManga.currentPageNumber = function() {
+  if (!currFile()) return file_index+1;
+  var curr_collection = parseCollectionName(currFile());
+  var counter = 0;
+  for (var i = 0, file; file=file_list[i]; i++) {
+    if (curr_collection == parseCollectionName(file)) counter++;
+    if (file == currFile()) return counter;
+  }
+  return 0;
+}
+FocusManga.currentChapterPages = function() {
+  if (!currFile()) return 0;
+  var curr_collection = parseCollectionName(currFile());
+  var counter = 0;
+  for (var i = 0, file; file=file_list[i]; i++) {
+    if (curr_collection == parseCollectionName(file)) counter++;
+  }
+  return counter;
+}
 FocusManga.onClose = function() {}
 FocusManga.onPageAction = function() {}
 FocusManga.setImage = function() {
@@ -112,7 +172,7 @@ FocusManga.setImage = function() {
     if (file_list.length > 0)
       window.location.hash = file_index+1;
 
-  var file = file_list[file_index];
+  var file = currFile();
 
   var reader = new FileReader();
   reader.onload = (function(file) {
@@ -124,9 +184,10 @@ FocusManga.setImage = function() {
 
   reader.readAsDataURL(file);
 }
-FocusManga.getFileName = function() {return file_list[file_index].name;}
+FocusManga.getFileName = function() {return currFile().name;}
 FocusManga.getCollectionName = function() {
-  if (file_list[0])
-    return file_list[0].webkitRelativePath.split('/')[0];
+  if (currFile()) {
+    return parseCollectionName(currFile());
+  }
   return undefined;
 }
