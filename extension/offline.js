@@ -27,6 +27,12 @@ $(function() {
         collection_list.push(name);
     }
 
+    // check if user used other source than last time
+    if (parseCollectionName(currFile()) != localStorage.lastCollection) {
+      window.location.hash = 1;
+    }
+
+
     dragleave();
     if (file_index == -1) file_index = 0;
 
@@ -184,7 +190,9 @@ FocusManga.setImage = function() {
 FocusManga.getFileName = function() {return currFile().name;}
 FocusManga.getCollectionName = function() {
   if (currFile()) {
-    return parseCollectionName(currFile());
+    var name = parseCollectionName(currFile());
+    localStorage.lastCollection = name;
+    return name;
   }
   return undefined;
 }
