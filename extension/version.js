@@ -2,19 +2,27 @@
  * by Shylux
  */
 
-function Version(version_string) {
+function Version(version_input) {
   /** VARIABLES **/
   major = 0;
   minor = 0;
   patch = 0;
 
   /** FUNCTIONS **/
-  this.parse = function(version_string) {
-    var x = version_string.split('.');
-    // parse from string or default to 0 if can't parse
-    this.major = parseInt(x[0]) || 0;
-    this.minor = parseInt(x[1]) || 0;
-    this.patch = parseInt(x[2]) || 0;
+  this.parse = function(version_input) {
+    if (typeof version_input == "string") {
+      var x = version_input.split('.');
+      // parse from string or default to 0 if can't parse
+      this.major = parseInt(x[0]) || 0;
+      this.minor = parseInt(x[1]) || 0;
+      this.patch = parseInt(x[2]) || 0;
+    } else if (typeof version_input == "object") {
+      this.major = version_input.major;
+      this.minor = version_input.minor;
+      this.patch = version_input.patch;
+    } else {
+      console.warn("Please call Version() with the version string or an object with major, minor and patch attributes.");
+    }
   }
 
   this.toString = function() {
@@ -22,15 +30,15 @@ function Version(version_string) {
   }
 
   this.isNewerThan = function(other) {
-    if (this.major > other.major) return true;
-    if (this.minor > other.minor) return true;
-    if (this.patch > other.patch) return true;
+    if (this.major > other.major ||
+        this.minor > other.minor ||
+        this.patch > other.patch) return true;
     return false;
 };
 
   /** CONSTRUCTOR **/
-  if (typeof version_string != "string") throw "Please call Version() with the version string.";
-  this.parse(version_string);
+  
+  this.parse(version_input);
 }
 
 /*
