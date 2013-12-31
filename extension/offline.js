@@ -8,6 +8,7 @@ $(function() {
   $('body').append('<div class="filedrop">Drop your picture folder here.</div><input class="filedrop" type="file" webkitdirectory />');
   $('input.filedrop').on('change', function(event) {
     file_list = []
+    collection_list = [];
     for (var i = 0, file; file=event.target.files[i]; i++) {
       if (file.type.match('image.*'))
         file_list.push(file);
