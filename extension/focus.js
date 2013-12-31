@@ -62,7 +62,7 @@ FocusManga = new function() {
   $('body').ready(function() {FocusManga.onready();});
   this.onready = function() {
     $('body').show();
-    FocusManga.setup();
+    FocusManga.parsePage();
   }
 
   this.setup = function() {
@@ -188,7 +188,6 @@ FocusManga = new function() {
       return;
     } else if ($('#fm_overlay').length == 0) {
       FocusManga.setup();
-      return;
     }
 
     // load image
@@ -197,17 +196,15 @@ FocusManga = new function() {
     FocusManga.updateName();
     if (FocusManga.options.get("timer_enabled", false))
         FocusManga.show_timer.restart();
+    FocusManga.preload();
   }
 
   this.onMouseInactive = function() {
     $(FocusManga.overlay).addClass('hideCursor');
   }
   this.updateTimerIcon = function(state) {
-    if (state) {
-      $('#fm_play', FocusManga.overlay).attr('src', chrome.extension.getURL('img/stop.png'));
-    } else {
-      $('#fm_play', FocusManga.overlay).attr('src', chrome.extension.getURL('img/play.png'));
-    }
+    var url = (state) ? 'img/stop.png' : 'img/play.png';
+    $('#fm_play', FocusManga.overlay).attr('src', chrome.extension.getURL(url));
   }
 
   this.onPageAction = function() {
