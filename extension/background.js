@@ -1,16 +1,16 @@
 var options = new OptionStorage();
 
-// open options page on install
-function install_notice() {
-    time = options.get('install_time', false)
-    if (time > 0)
-        return;
+// open options page on install and update
+var installed_version = new Version(options.get('version', null));
 
-    var now = new Date().getTime();
-    options.set('install_time', now);
-    chrome.tabs.create({url: "options.html"});
+var package_version = new Version(chrome.app.getDetails().version);
+if (package_version.isNewerThan(installed_version) &&
+    options.get('version_on_update', true)) {
+    options.set('version', package_version);
+    chrome.tabs.create({url: "version_history.html"});
 }
-install_notice();
+
+
 
 
 // listener

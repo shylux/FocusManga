@@ -29,7 +29,7 @@
 
   "options_page": "options.html",
   "background": {
-    "scripts": ["option_storage.js", "background.js"],
+    "scripts": ["version.js", "option_storage.js", "background.js"],
     "persistent": true
   },
 

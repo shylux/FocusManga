@@ -10,6 +10,21 @@ body {
   color: DarkGreen;
 }
 
+.corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 20px;
+  text-decoration: none;
+  border: 5px solid #808080;
+  border-top: none;
+  border-right: none;
+  border-bottom-left-radius: 20px;
+}
+.corner:hover {
+  text-decoration: underline;
+}
+
 th {
   text-align: left;
 }
