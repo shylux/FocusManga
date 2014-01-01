@@ -1,3 +1,11 @@
+# Version 1.1
+
+S Pictures are now sorted by their parent folder name.
+S Navigating to the next/previous picture/folder can now be done by scrolling.
+F The progress of the timer is now displayed by a little bar at the top of the page.
+F Added version history to inform the user about the new features.
+B Deleting the location hash now resets the file index.
+
 # Version 1.0
 
 initial release

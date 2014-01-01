@@ -25,6 +25,10 @@ body {
   text-decoration: underline;
 }
 
+i {
+  margin-right: 5px;
+}
+
 th {
   text-align: left;
 }
