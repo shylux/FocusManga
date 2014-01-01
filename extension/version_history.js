@@ -6,6 +6,15 @@ function parseHistoryFile(data) {
       case '#':
         $('body').append($("<h3></h3>").text(line.substring(1)));
         break;
+      case 'B':
+        $('body').append($('<p><i class="fa fa-bug"></p>').append(line.substring(1)));
+        break;
+      case 'S':
+        $('body').append($('<p><i class="fa fa-rocket"></p>').append(line.substring(1)));
+        break;
+      case 'F':
+        $('body').append($('<p><i class="fa fa-briefcase"></p>').append(line.substring(1)));
+        break;
       default:
         $('body').append($("<p></p>").text(line));
         break;
