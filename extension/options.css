@@ -37,6 +37,21 @@ label {
   padding-left: 10px;
 }
 
+#announcment {
+  width: 50%;
+  border: 7px solid #C00;
+  border-radius: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+#announcment h2 {
+  margin: 0;
+}
+#announcment p {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
 #hosters {
   padding-left: 10px;
 }
