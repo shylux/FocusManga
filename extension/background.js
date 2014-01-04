@@ -1,7 +1,7 @@
 var options = new OptionStorage();
 
 // open options page on install and update
-var installed_version = new Version(options.get('version', null));
+var installed_version = new Version(options.get('version', "0.0.0"));
 
 var package_version = new Version(chrome.app.getDetails().version);
 if (package_version.isNewerThan(installed_version) &&
@@ -9,9 +9,6 @@ if (package_version.isNewerThan(installed_version) &&
     options.set('version', package_version);
     chrome.tabs.create({url: "version_history.html"});
 }
-
-
-
 
 // listener
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {

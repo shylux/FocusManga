@@ -1,6 +1,7 @@
 # Version 1.1.1
 
-F Natural Sorting Algorithm
+F Natural Sorting Algorithm.
+B Fixed bug in version parsing.
 
 # Version 1.1
 

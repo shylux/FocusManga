@@ -17,9 +17,9 @@ function Version(version_input) {
       this.minor = parseInt(x[1]) || 0;
       this.patch = parseInt(x[2]) || 0;
     } else if (typeof version_input == "object") {
-      this.major = version_input.major;
-      this.minor = version_input.minor;
-      this.patch = version_input.patch;
+      this.major = (version_input.hasOwnProperty('major')) ? version_input.major : 0;
+      this.minor = (version_input.hasOwnProperty('minor')) ? version_input.minor : 0;
+      this.patch = (version_input.hasOwnProperty('patch')) ? version_input.patch : 0;
     } else {
       console.warn("Please call Version() with the version string or an object with major, minor and patch attributes.");
     }
