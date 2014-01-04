@@ -1,3 +1,7 @@
+# Version 1.1.1
+
+F Natural Sorting Algorithm
+
 # Version 1.1
 
 S Pictures are now sorted by their parent folder name.

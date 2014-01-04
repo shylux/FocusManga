@@ -16,9 +16,7 @@ $(function() {
 
     // sort list alphabetically
     file_list.sort(function(a, b) {
-      if (a.webkitRelativePath < b.webkitRelativePath) return -1;
-      if (a.webkitRelativePath > b.webkitRelativePath) return 1;
-      return 0;
+      return natcmp(a.webkitRelativePath, b.webkitRelativePath);
     });
 
     // build collection dict
