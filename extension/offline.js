@@ -175,6 +175,7 @@ FocusManga.setImage = function() {
       window.location.hash = file_index+1;
 
   var file = currFile();
+  if (!file) return;
 
   var reader = new FileReader();
   reader.onload = (function(file) {
