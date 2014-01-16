@@ -4,6 +4,7 @@ var options = new OptionStorage();
 var installed_version = new Version(options.get('version', "0.0.0"));
 
 var package_version = new Version(chrome.app.getDetails().version);
+package_version.patch = 0; // ignore patches
 if (package_version.isNewerThan(installed_version) &&
     options.get('version_on_update', true)) {
     // check if first install
