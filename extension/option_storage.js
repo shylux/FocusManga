@@ -16,6 +16,11 @@ function OptionStorage(initial_values) {
     localStorage[this.key] = this.export();
   }
 
+  // check if key exists
+  this.hasKey = function(key) {
+    return this.storage.hasOwnProperty(key);
+  }
+
   // return a string representing all propertys
   this.printAll = function() {
     var str = "Options:\n";

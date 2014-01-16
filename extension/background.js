@@ -6,8 +6,14 @@ var installed_version = new Version(options.get('version', "0.0.0"));
 var package_version = new Version(chrome.app.getDetails().version);
 if (package_version.isNewerThan(installed_version) &&
     options.get('version_on_update', true)) {
+    // check if first install
+    if (!options.hasKey('version')) {
+      chrome.tabs.create({url: "options.html"});
+    } else {
+      chrome.tabs.create({url: "version_history.html"});
+    }
+    // update version
     options.set('version', package_version);
-    chrome.tabs.create({url: "version_history.html"});
 }
 
 // listener
