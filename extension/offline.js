@@ -16,7 +16,10 @@ $(function() {
 
     // sort list alphabetically
     file_list.sort(function(a, b) {
-      return natcmp(a.webkitRelativePath, b.webkitRelativePath);
+      // sort first by collection
+      collectionCompare = naturalSort(parseCollectionName(a), parseCollectionName(b));
+      if (collectionCompare != 0) return collectionCompare;
+      return naturalSort(a.webkitRelativePath, b.webkitRelativePath);
     });
 
     // build collection dict
