@@ -167,6 +167,20 @@ var fakku = {
 }
 hoster_list.push(fakku);
 
+var mangatube = {
+  hostname: "manga-tu.be",
+  isMangaPage: function() {return ($('#page').length > 0);},
+  imgUrl: function() {return $('#page img').attr('src');},
+  nextUrl: function() {return $('#page a').attr('href');},
+  currPage: function() {return parseInt($('.current_page').text());},
+  totalPages: function() {return parseInt($('.topbar_right .tbtitle .text').text());}
+}
+hoster_list.push(mangatube);
+
+$(function() {
+    $(document).keydown(FocusManga.onPageChange);
+});
+
 function getHoster(hoster_name, search_list) {
   if (search_list === undefined) search_list = hoster_list;
   if (hoster_name === undefined) hoster_name = window.location.hostname;
@@ -175,4 +189,3 @@ function getHoster(hoster_name, search_list) {
       return search_list[i];
   }
 }
-
