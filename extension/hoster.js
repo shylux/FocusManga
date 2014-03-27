@@ -178,7 +178,9 @@ var mangatube = {
 hoster_list.push(mangatube);
 
 $(function() {
+  if (typeof FocusManga != 'undefined') {
     $(document).keydown(FocusManga.onPageChange);
+  }
 });
 
 function getHoster(hoster_name, search_list) {

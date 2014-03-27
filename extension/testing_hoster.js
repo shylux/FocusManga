@@ -126,4 +126,12 @@ tests = [
   currPage: 2,
   totalPages: 21
 },
+{
+  hostname: "manga-tu.be",
+  targetUrl: "http://www.manga-tu.be/reader/read/fairy_tail/de/0/376/page/3",
+  imgUrl: "http://www.manga-tu.be/content/comics/fairy_tail_50e778eef05e1/376_0_wendy_vs_ezel_532b7a0d0c618/02.png",
+  nextUrl: "http://www.manga-tu.be/reader/read/fairy_tail/de/0/376/page/4",
+  currPage: 3,
+  totalPages: 24
+},
 ];
