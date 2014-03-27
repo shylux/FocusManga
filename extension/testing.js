@@ -32,7 +32,7 @@ $(function() {
 
           // imgUrl
           $('.imgUrl', output).addClass(
-            (testcase.imgUrl == results.imgUrl) ? 'pass': 'fail'
+            (new RegExp(testcase.imgUrl).test(results.imgUrl)) ? 'pass': 'fail'
             );
 
           // nextUrl

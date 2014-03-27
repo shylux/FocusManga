@@ -34,7 +34,7 @@ tests = [
 {
   hostname: "mangahere.com",
   targetUrl: "http://www.mangahere.com/manga/fairy_tail/v01/c001/4.html",
-  imgUrl: "http://z.mhcdn.net/store/manga/246/01-001.0/compressed/fairy_001_06.jpg?v=11197426008",
+  imgUrl: "http://z.mhcdn.net/store/manga/246/01-001.0/compressed/fairy_001_06.jpg",
   nextUrl: "http://www.mangahere.com/manga/fairy_tail/v01/c001/5.html",
   currPage: 4,
   totalPages: 74
@@ -73,7 +73,7 @@ tests = [
 {
   hostname: "goodmanga.net",
   targetUrl: "http://www.goodmanga.net/rosario-vampire_ii/chapter/63/4",
-  imgUrl: "http://t1.goodmanga.net/images/manga/rosario-vampire_ii/63/4.jpg",
+  imgUrl: "http://.*.goodmanga.net/images/manga/rosario-vampire_ii/63/4.jpg",
   nextUrl: "http://www.goodmanga.net/rosario-vampire_ii/chapter/63/5",
   currPage: 4,
   totalPages: 32
@@ -89,7 +89,7 @@ tests = [
 {
   hostname: "manga.animea.net",
   targetUrl: "http://manga.animea.net/umi-no-misaki-chapter-120-page-3.html",
-  imgUrl: "http://i04a.animea.net/602%2F120%2Fimg_3_77897.jpg",
+  imgUrl: "http://.*/602%2F120%2Fimg_3_77897.jpg",
   nextUrl: "http://manga.animea.net/umi-no-misaki-chapter-120-page-4.html",
   currPage: 3,
   totalPages: 19
