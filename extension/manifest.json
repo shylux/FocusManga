@@ -4,7 +4,7 @@
   "manifest_version": 2,
 
   "description": "Adds diashow function to online manga sites.",
-  "icons": {"128": "img/slideshow.png"},
+  "icons": {"128": "img/icon128.png"},
 
   "permissions": [
     "tabs",
