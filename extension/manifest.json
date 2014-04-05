@@ -10,9 +10,9 @@
     "tabs",
     "downloads",
     "*://*.mangapanda.com/*/*",
-    "*://*.onepiece-tube.tv/*",
+    "*://*.onepiece-tube.net/*",
     "*://*.naruto-tube.com/*",
-    "*://*.fairytail-tube.com/*",
+    "*://*.fairytail-tube.tv/*",
     "*://*.batoto.net/read/*",
     "*://*.mangafox.me/manga/*/*/*",
     "*://*.mangareader.net/*/*",
@@ -44,9 +44,9 @@
     {
       "matches": [
         "*://*.mangapanda.com/*/*",
-        "*://*.onepiece-tube.tv/*",
+        "*://*.onepiece-tube.net/*",
         "*://*.naruto-tube.com/*",
-        "*://*.fairytail-tube.com/*",
+        "*://*.fairytail-tube.tv/*",
         "*://*.batoto.net/read/*",
         "*://*.mangafox.me/manga/*/*/*",
         "*://*.mangareader.net/*/*",

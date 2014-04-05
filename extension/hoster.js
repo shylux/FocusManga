@@ -26,12 +26,13 @@ var mangapanda = {
   imgUrl: function() {return $('#img').attr('src');},
   nextUrl: function() {return $('.next a').attr('href');},
   currPage: function() {return parseInt($('#pageMenu option:selected').text());},
-  totalPages: function() {return parseInt($('#pageMenu option:last').text());}
+  totalPages: function() {return parseInt($('#pageMenu option:last').text());},
+  collectionName: function() {var s = $('#mangainfo .c2 a').text(); return s.substr(0,s.length-6);}
 }
 hoster_list.push(mangapanda);
 
 var onepiecetube = {
-  hostname: "onepiece-tube.tv",
+  hostname: "onepiece-tube.net",
   isMangaPage: function() {return ($('#p').length > 0);},
   imgUrl: function() {return $('#p').attr('src');},
   nextUrl: function() {return $('#p').parent().attr('href');},
@@ -45,7 +46,7 @@ narutotube.hostname = "naruto-tube.com";
 hoster_list.push(narutotube);
 
 var fairytailtube = $.extend(true, {}, onepiecetube);
-fairytailtube.hostname = "fairytail-tube.com";
+fairytailtube.hostname = "fairytail-tube.tv";
 hoster_list.push(fairytailtube);
 
 var mangahere = {
