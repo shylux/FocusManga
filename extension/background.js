@@ -28,6 +28,21 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 	    options.import(request.data);
     }
 
+    if (request.method == "download") {
+      chrome.downloads.download(
+          request.data,
+          function(downloadId) {
+            // on download finish
+            setTimeout(
+              function() {
+                chrome.downloads.erase({id: downloadId});
+              },
+              2000);
+          }
+      );
+    }
+
+
     // display page action
     if (request.method == "pageAction") {
       chrome.pageAction.show(sender.tab.id);

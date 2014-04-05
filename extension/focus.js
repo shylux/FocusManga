@@ -69,11 +69,6 @@ FocusManga = new function() {
     // check if it really is a manga page
     if (!FocusManga.isMangaPage()) return;
 
-    // online only actions
-    if (typeof chrome.downloads == 'undefined') {
-      $('#fm_download', FocusManga.overlay).hide();
-    }
-
     // show page action
     chrome.extension.sendRequest({'method': 'pageAction'}, function(response) {});
     
@@ -286,19 +281,27 @@ FocusManga = new function() {
     var folder = FocusManga.getCollectionName();
     if (typeof folder != "string" || folder.length == 0)
       folder = "unsorted";
-    chrome.downloads.download({
+    var download_options = {
       url: $('#fm_main').attr('src'),
       filename: FocusManga.title + "/" + folder + "/" + FocusManga.getFileName(),
       saveAs: false,
       conflictAction: "overwrite"
-    }, function(downloadId) {
-      // on download finish
-      setTimeout(
-        function() {
-          chrome.downloads.erase({id: downloadId});
-        },
-        2000);
-    });
+    }
+    if (typeof chrome.downloads != 'undefined') {
+      chrome.downloads.download(
+          download_options,
+          function(downloadId) {
+            // on download finish
+            setTimeout(
+              function() {
+                chrome.downloads.erase({id: downloadId});
+              },
+              2000);
+          }
+      );
+    } else {
+      chrome.extension.sendRequest({'method': 'download', 'data': download_options}, function(response) {});
+    }
   }
 
   /* KEY BINDINGS */

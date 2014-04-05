@@ -1,5 +1,6 @@
 # Unreleased
 
+F Added download option for single pages.
 F Added German hoster manga-tu.be.
 F Added hoster e-hentai.org.
 
