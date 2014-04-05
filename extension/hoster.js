@@ -17,7 +17,10 @@ var sample_hoster = {
   currPage: function() {return 3;},
   /* optional
    * parses the number of pages of the chapter */
-  totalPages: function() {return 20;}
+  totalPages: function() {return 20;},
+  /* optional
+   * returns the manga title. */
+  collectionName: function() {return "Bliz one RELOADED!";}
 }
 
 var mangapanda = {
@@ -31,22 +34,30 @@ var mangapanda = {
 }
 hoster_list.push(mangapanda);
 
+function tubeCollectionBase() {
+  var line = $('#top h3').text().trim();
+  return line.substr($('#top h3 a').text().length + " Manga ".length);
+}
+
 var onepiecetube = {
   hostname: "onepiece-tube.net",
   isMangaPage: function() {return ($('#p').length > 0);},
   imgUrl: function() {return $('#p').attr('src');},
   nextUrl: function() {return $('#p').parent().attr('href');},
   currPage: function() {return parseInt($('#controls a.active').text());},
-  totalPages: function() {return parseInt($('#controls a').size())-2;}
+  totalPages: function() {return parseInt($('#controls a').size())-2;},
+  collectionName: function() {return "One Piece "+tubeCollectionBase()}
 }
 hoster_list.push(onepiecetube);
 
 var narutotube = $.extend(true, {}, onepiecetube);
 narutotube.hostname = "naruto-tube.com";
+narutotube.collectionName = function() {return "Naruto "+tubeCollectionBase()}
 hoster_list.push(narutotube);
 
 var fairytailtube = $.extend(true, {}, onepiecetube);
 fairytailtube.hostname = "fairytail-tube.tv";
+fairytailtube.collectionName = function() {return "Fairy Tail "+tubeCollectionBase()}
 hoster_list.push(fairytailtube);
 
 var mangahere = {
@@ -55,7 +66,8 @@ var mangahere = {
   imgUrl: function() {return $('#image').attr('src');},
   nextUrl: function() {return $('.next_page').attr('href');},
   currPage: function() {return parseInt($('.wid60:first option:selected').text());},
-  totalPages: function() {return parseInt($('.wid60 option:last').text());}
+  totalPages: function() {return parseInt($('.wid60 option:last').text());},
+  collectionName: function() {return $('.title h1 a').text();}
 }
 hoster_list.push(mangahere);
 
@@ -65,7 +77,8 @@ var batoto = {
   imgUrl: function() {return $('#comic_page').attr('src');},
   nextUrl: function() {return $("img[title='Next Page']").parent().attr('href');},
   currPage: function() {return parseInt($('#page_select')[0].selectedIndex+1);},
-  totalPages: function() {return parseInt($('#page_select:first option').size());}
+  totalPages: function() {return parseInt($('#page_select:first option').size());},
+  collectionName: function() {return $('.moderation_bar li:first a').text();}
 }
 hoster_list.push(batoto);
 
@@ -75,7 +88,8 @@ var mangafox = {
   imgUrl: function() {return $('#image').attr('src');},
   nextUrl: function() {return $(".next_page").attr('href');},
   currPage: function() {return parseInt($('#top_bar .l .m option:selected').text());},
-  totalPages: function() {return parseInt($('#top_bar .l .m option').size())-1;}
+  totalPages: function() {return parseInt($('#top_bar .l .m option').size())-1;},
+  collectionName: function() {return $('#series h1.no:first a').text();}
 }
 hoster_list.push(mangafox);
 
@@ -85,7 +99,8 @@ var mangareader = {
   imgUrl: function() {return $('#img').attr('src');},
   nextUrl: function() {return $(".next a").attr('href');},
   currPage: function() {return parseInt($('#pageMenu').find(':selected').text());},
-  totalPages: function() {return $('#pageMenu option').size();}
+  totalPages: function() {return $('#pageMenu option').size();},
+  collectionName: function() {var s = $('#mangainfo .c2 a').text(); return s.substr(0,s.length-6);}
 }
 hoster_list.push(mangareader);
 
@@ -94,7 +109,8 @@ var mangainn = { /* timer no working */
   isMangaPage: function() {return ($('#imgPage').length > 0);},
   imgUrl: function() {return $('#imgPage').attr('src');},
   currPage: function() {return parseInt($('#cmbpages option:selected').val());},
-  totalPages: function() {return $('#cmbpages option').size();}
+  totalPages: function() {return $('#cmbpages option').size();},
+  collectionName: function() {return $('#gotoMangaInfo').text();}
 }
 hoster_list.push(mangainn);
 
@@ -104,7 +120,8 @@ var goodmanga = {
   imgUrl: function() {return $('#manga_viewer img').attr('src');},
   nextUrl: function() {return $('.next_page').attr('href');},
   currPage: function() {return parseInt($('.page_select').find(':selected').text());},
-  totalPages: function() {return $('.page_select:first option').size();}
+  totalPages: function() {return $('.page_select:first option').size();},
+  collectionName: function() {return $('#manga_head h3 a').text();}
 }
 hoster_list.push(goodmanga);
 
@@ -124,7 +141,8 @@ var animea = {
   imgUrl: function() {return $('.mangaimg').attr('src');},
   nextUrl: function() {return $('.mangaimg').parent().attr('href');},
   currPage: function() {return parseInt($('.pageselect').find(':selected').val());},
-  totalPages: function() {return $('.pageselect:first option').size();}
+  totalPages: function() {return $('.pageselect:first option').size();},
+  collectionName: function() {return $('#content h1 > a').text();}
 }
 hoster_list.push(animea);
 
@@ -134,7 +152,8 @@ var mangaeden = {
   imgUrl: function() {return $('#mainImg').attr('src');},
   nextUrl: function() {return $('.next').parent().attr('href');},
   currPage: function() {return parseInt($('.pagination .selected').text());},
-  totalPages: function() {return $('.pagination a').length-2}
+  totalPages: function() {return $('.pagination a').length-2},
+  collectionName: function() {return $('#top > a:last').text();}
 }
 hoster_list.push(mangaeden);
 
@@ -144,18 +163,13 @@ var hbrowse = {
   imgUrl: function() {return $('.pageImage img').attr('src');},
   nextUrl: function() {return $('.pageImage a').attr('href');},
   currPage: function() {return parseInt($('.pageList strong:last').text());},
-  totalPages: function() {return parseInt($('.pageList a').size())+1;}
+  totalPages: function() {return parseInt($('.pageList a').size())+1;},
+  collectionName: function() {return $('#pageMain table tr:first td.listLong').text();}
 }
 hoster_list.push(hbrowse);
 
-var perveden = {
-  hostname: "perveden.com",
-  isMangaPage: function() {return ($('#mainImg').length > 0);},
-  imgUrl: function() {return $('#mainImg').attr('src');},
-  nextUrl: function() {return $('.next').parent().attr('href');},
-  currPage: function() {return parseInt($('.pagination .selected').text());},
-  totalPages: function() {return $('.pagination a').length-2}
-}
+var perveden = $.extend(true, {}, mangaeden);
+perveden.hostname = "perveden.com";
 hoster_list.push(perveden);
 
 var fakku = {
@@ -164,7 +178,8 @@ var fakku = {
   imgUrl: function() {return $('.current-page').attr('src');},
   nextUrl: function() {return $('#image a').attr('href');},
   currPage: function() {return $('.chapter .right .drop:first').val();},
-  totalPages: function() {return parseInt($('.chapter .right .drop:first option').size())-1;}
+  totalPages: function() {return parseInt($('.chapter .right .drop:first option').size())-1;},
+  collectionName: function() {return $('.manga-title:first').text();}
 }
 hoster_list.push(fakku);
 
@@ -174,7 +189,8 @@ var mangatube = {
   imgUrl: function() {return $('#page img').attr('src');},
   nextUrl: function() {return $('#page a').attr('href');},
   currPage: function() {return parseInt($('.current_page').text());},
-  totalPages: function() {return parseInt($('.topbar_right .tbtitle .text').text());}
+  totalPages: function() {return parseInt($('.topbar_right .tbtitle .text').text());},
+  collectionName: function() {return $('.topbar_left .tbtitle.dropdown_parent:first a').text();}
 }
 hoster_list.push(mangatube);
 
@@ -184,7 +200,8 @@ var e_hentai = {
   imgUrl: function() {return $('#img').attr('src');},
   nextUrl: function() {return $('#img').parent().attr('href');},
   currPage: function() {return parseInt($('#i2 div span:first').text());},
-  totalPages: function() {return parseInt($('#i2 div span:last').text());}
+  totalPages: function() {return parseInt($('#i2 div span:last').text());},
+  collectionName: function() {return $('h1').text();}
 }
 hoster_list.push(e_hentai);
 
