@@ -177,12 +177,6 @@ var mangatube = {
 }
 hoster_list.push(mangatube);
 
-$(function() {
-  if (typeof FocusManga != 'undefined') {
-    $(document).keydown(FocusManga.onPageChange);
-  }
-});
-
 function getHoster(hoster_name, search_list) {
   if (search_list === undefined) search_list = hoster_list;
   if (hoster_name === undefined) hoster_name = window.location.hostname;

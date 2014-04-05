@@ -249,10 +249,19 @@ FocusManga = new function() {
 
   }
 
+  /** DETECT PAGE CHANGE **/
   this.onPageChange = function() {
     FocusManga.parsePage();
   }
-  window.onhashchange = this.onPageChange;
+
+  this.parsedUrl = window.location.toString();
+  this.checkPageChange = function() {
+    if (FocusManga.parsedUrl != window.location.toString()) {
+      setTimeout(FocusManga.onPageChange, 100);
+      FocusManga.parsedUrl = window.location.toString();
+    }
+  }
+  setInterval(this.checkPageChange, 10);
 
   this.startTimer = function() {
     FocusManga.show_timer.set({delay: 1000 * FocusManga.options.get("timer_delay", 20)}).start();
