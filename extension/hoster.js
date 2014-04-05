@@ -177,6 +177,17 @@ var mangatube = {
 }
 hoster_list.push(mangatube);
 
+var e_hentai = {
+  hostname: "e-hentai.org",
+  isMangaPage: function() {return ($('#img').length > 0);},
+  imgUrl: function() {return $('#img').attr('src');},
+  nextUrl: function() {return $('#img').parent().attr('href');},
+  currPage: function() {return parseInt($('#i2 div span:first').text());},
+  totalPages: function() {return parseInt($('#i2 div span:last').text());}
+}
+hoster_list.push(e_hentai);
+
+
 function getHoster(hoster_name, search_list) {
   if (search_list === undefined) search_list = hoster_list;
   if (hoster_name === undefined) hoster_name = window.location.hostname;

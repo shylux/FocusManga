@@ -25,7 +25,8 @@
     "*://*.mangahere.com/manga/*/*/*",
     "*://*.hbrowse.com/*/*",
     "*://*.fakku.net/*/*",
-    "*://*.manga-tu.be/reader/read/*"
+    "*://*.manga-tu.be/reader/read/*",
+    "*://g.e-hentai.org/*"
   ],
 
   "options_page": "options.html",
@@ -58,7 +59,8 @@
         "*://*.mangahere.com/manga/*/*/*",
         "*://*.hbrowse.com/*/*",
         "*://*.fakku.net/*/*",
-        "*://*.manga-tu.be/reader/read/*"
+        "*://*.manga-tu.be/reader/read/*",
+        "*://g.e-hentai.org/*"
       ],
       "js": ["lib/jquery.js", "lib/naturalsort.js", "timer.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],
       "css": ["hide.css", "focus.css"]

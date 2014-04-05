@@ -1,6 +1,7 @@
 # Unreleased
 
 F Added German hoster manga-tu.be.
+F Added hoster e-hentai.org.
 
 # Version 1.1.2
 
