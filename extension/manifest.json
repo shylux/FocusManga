@@ -37,7 +37,7 @@
 
   "page_action": {
     "default_title": "Start/Stop FocusManga",
-    "default_icon": "img/slideshow.png"
+    "default_icon": "img/icon128.png"
   },
 
   "content_scripts": [
