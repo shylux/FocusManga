@@ -45,6 +45,7 @@ html.fm_enabled, .fm_enabled body {
   top: 50%;
   height: auto;
   width: 100%;
+  -webkit-transform: translateY(-50%);
 }
 
 #fm_close, #fm_info, #fm_tools {
