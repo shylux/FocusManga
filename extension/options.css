@@ -56,17 +56,40 @@ label {
   margin-bottom: 0;
 }
 
-#hosters {
+.hosters {
   padding-left: 10px;
 }
 
-#hosters a {
+.hosters a {
   display: block;
   text-decoration: none;
   color: #303030;
   font-size: 1.2em;
 }
 
-#hosters a:hover {
+.hosters a:hover {
   text-decoration: underline;
+}
+
+#adult_content {
+  margin-top: 10px;
+  padding-bottom: 150px;
+}
+#adult_content span {
+  font-weight: bold;
+}
+#adult_content div {
+  opacity: 0;
+}
+#adult_content:hover div {
+  -webkit-animation: fadein 0.5s;
+  opacity: 1;
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
 }

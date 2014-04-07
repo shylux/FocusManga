@@ -32,16 +32,12 @@ $(function() {
   // list hoster
   var max_functions_count = 0;
   for (i in hoster_list) {
-    $('#hosters').append($('<a target="_blank"></a>').attr('href', "http://"+hoster_list[i].hostname).text(hoster_list[i].hostname).prepend('<span>★</span>'));
-    // put a star to the hosters with the most (all) functions
-    var functions_count = 0;
-    for (f in hoster_list[i]) functions_count++;
-    if (functions_count > max_functions_count) {
-      max_functions_count = functions_count;
-      $('#hosters a span').hide();
-      $('#hosters a span:last').show();
-    } else if (functions_count < max_functions_count) {
-      $('#hosters a span:last').hide();
+    var e = $('<a target="_blank"></a>').attr('href', "http://"+hoster_list[i].hostname).text(hoster_list[i].hostname);
+
+    if (!hoster_list[i].mature) {
+      $('#normal_content').append(e);
+    } else {
+      $('#adult_content .hosters').append(e);
     }
   }
 });
