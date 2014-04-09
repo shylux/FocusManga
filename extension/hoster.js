@@ -205,6 +205,17 @@ var e_hentai = {
 }
 hoster_list.push(e_hentai);
 
+var senmanga = {
+  hostname: "raw.senmanga.com",
+  isMangaPage: function() {return ($('#picture').length > 0);},
+  imgUrl: function() {return $('#picture').attr('src');},
+  nextUrl: function() {return $('#picture').parent().attr('href');},
+  currPage: function() {return parseInt($("select[name='page']:first option:selected").val());},
+  totalPages: function() {return parseInt($('.pager:first').text().match('of (.*) Next')[1]);},
+  collectionName: function() {return $('.walk:first a:nth-child(2)').text();}
+}
+hoster_list.push(senmanga);
+
 
 function getHoster(hoster_name, search_list) {
   if (search_list === undefined) search_list = hoster_list;
