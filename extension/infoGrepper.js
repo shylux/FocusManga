@@ -9,8 +9,8 @@ function qualifyURL(url) {
 if (hoster.isMangaPage)
   hoster.isMangaPage = hoster.isMangaPage();
 
-if (hoster.imgUrl)
-  hoster.imgUrl = qualifyURL(hoster.imgUrl());
+if (hoster.img)
+  hoster.imgUrl = qualifyURL(hoster.img().attr('src'));
 
 if (hoster.nextUrl)
   hoster.nextUrl = qualifyURL(hoster.nextUrl());
