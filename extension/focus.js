@@ -198,7 +198,7 @@ FocusManga = new function() {
     $(FocusManga.overlay).addClass('hideCursor');
   }
   this.updateTimerIcon = function(state) {
-    var url = (state) ? 'img/stop.png' : 'img/play.png';
+    var url = (state) ? 'img/pause.png' : 'img/play.png';
     $('#fm_play', FocusManga.overlay).attr('src', chrome.extension.getURL(url));
   }
 
