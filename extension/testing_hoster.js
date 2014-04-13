@@ -134,4 +134,36 @@ tests = [
   currPage: 3,
   totalPages: 24
 },
+{
+  hostname: "onepiece-tube.net",
+  targetUrl: "http://onepiece-tube.net/kapitel/744/2",
+  imgUrl: "http://onepiece-tube.net/kapitel/744/02.jpg",
+  nextUrl: "http://onepiece-tube.net/kapitel/744/3",
+  currPage: 2,
+  totalPages: 18
+},
+{
+  hostname: "fairytail-tube.tv",
+  targetUrl: "http://fairytail-tube.tv/kapitel/380/14",
+  imgUrl: "http://fairytail-tube.tv/kapitel/380/14.jpg",
+  nextUrl: "http://fairytail-tube.tv/kapitel/380/15",
+  currPage: 14,
+  totalPages: 20
+},
+{
+  hostname: "e-hentai.org",
+  targetUrl: "http://g.e-hentai.org/s/646e296355/691351-44",
+  imgUrl: "http://85.17.81.32:8080/h/646e29635536d15d1bb493eba34640c36ed93e30-312455-619-1074-jpg/keystamp=.*/049.jpg",
+  nextUrl: "http://g.e-hentai.org/s/2ee3217643/691351-45",
+  currPage: 44,
+  totalPages: 56
+},
+{
+  hostname: "raw.senmanga.com",
+  targetUrl: "http://raw.senmanga.com/Billionaire_Girl/12/4",
+  imgUrl: "http://raw.senmanga.com/SenMangaRaw/Billionaire%20Girl/12%20-%20Raw/Billionaire-Girl-12-04-raw-read-online.jpg",
+  nextUrl: "http://raw.senmanga.com/Billionaire_Girl/12/5",
+  currPage: 4,
+  totalPages: 17
+},
 ];
