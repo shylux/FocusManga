@@ -1,4 +1,4 @@
-# Unreleased
+# Version 1.2
 
 S Added download option for single pages.
 F Updated icons.
