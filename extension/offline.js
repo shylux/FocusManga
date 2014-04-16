@@ -36,9 +36,7 @@ $(function() {
     dragleave();
     if (file_index == -1) file_index = 0;
 
-    FocusManga.setImage();
-    FocusManga.updatePageNumber();
-    FocusManga.updateName();
+    FocusManga.parsePage();
     $('#fm_info').css('visibility', 'visible');
   });
 
@@ -78,6 +76,16 @@ $(function() {
     }
   });
 });
+
+/* PAGE CHANGE */
+var parsedUrl = window.location.toString();
+function checkPageChange() {
+  if (parsedUrl != window.location.toString()) {
+    FocusManga.parsePage();
+    parsedUrl = window.location.toString();
+  }
+}
+setInterval(checkPageChange, 10);
 
 function currFile() {
   return file_list[file_index];
