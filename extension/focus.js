@@ -42,16 +42,16 @@ FocusManga = new function() {
   this.overlay = $('\
     <div id="fm_overlay">\
       <div id="fm_progress"></div>\
-      <img id="fm_close" />\
+      <img id="fm_close" title="Close" />\
       <img id="fm_main" />\
       <div id="fm_info">\
         <span id="fm_numbers" />\
         <span id="fm_name">test asdf fb bjub</span>\
       </div>\
       <div id="fm_tools">\
-        <img id="fm_play">\
-        <img id="fm_download">\
-        <img id="fm_options">\
+        <img id="fm_play" title="Play / Pause">\
+        <img id="fm_download" title="Download image">\
+        <img id="fm_options" title="Settings">\
       </div>\
     </div>');
   $('#fm_close', this.overlay).attr('src', chrome.extension.getURL('img/close-circle.png'));

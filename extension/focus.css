@@ -62,7 +62,6 @@ html.fm_enabled, .fm_enabled body {
   width: 25px;
   height: 25px;
   color: white;
-  border-radius: 20px;
 }
 
 #fm_info {
@@ -70,7 +69,6 @@ html.fm_enabled, .fm_enabled body {
   left: 0;
   top: 0;
   padding: 5px;
-  border-bottom-right-radius: 10px;
   background-color: rgba(255,255,255,0.5);
 }
 
@@ -79,7 +77,6 @@ html.fm_enabled, .fm_enabled body {
 }
 
 #fm_name {
-  border-left: 1px solid black;
   padding-left: 3px;
 }
 
@@ -88,7 +85,6 @@ html.fm_enabled, .fm_enabled body {
   bottom: 0;
   right: 0;
   padding: 5px 0 0 5px;
-  border-top-left-radius: 10px;
 }
 
 #fm_tools img {
