@@ -156,7 +156,7 @@ FocusManga = new function() {
   }
 
   this.toggleFocusManga = function(force_state_enabled) {
-    if (typeof force_state !== 'undefined') {
+    if (typeof force_state_enabled !== 'undefined') {
       if (force_state_enabled) $('html').addClass('fm_enabled');
       else $('html').removeClass('fm_enabled');
     } else {
@@ -230,8 +230,9 @@ FocusManga = new function() {
     FocusManga.updateTimerIcon(FocusManga.options.get("timer_enabled", false));
 
     // check if focusmanga is active
-    if (FocusManga.options.get("focusmanga_enabled", true))
-      $('html').addClass('fm_enabled');
+    FocusManga.toggleFocusManga(
+      FocusManga.options.get("focusmanga_enabled", true)
+    );
 
     if (FocusManga.options.get("timer_enabled", false)) {
       FocusManga.startTimer();
@@ -297,10 +298,11 @@ FocusManga = new function() {
         break;
       case 70:
         // f for favorite or focusmanga
-        if (event.shiftKey)
+        if (event.shiftKey) {
           FocusManga.toggleFocusManga();
-        else
+        } else {
           if (FocusManga.isDisplaying()) FocusManga.download();
+        }
         break;
       case 27:
         FocusManga.toggleFocusManga(false);
