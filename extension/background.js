@@ -1,4 +1,5 @@
 var options = new OptionStorage();
+var savedWindowStates = {};
 
 // open options page on install and update
 var installed_version = new Version(options.get('version', "0.0.0"));
@@ -28,6 +29,22 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 	    options.import(request.data);
     }
 
+
+    //fullscreen
+    chrome.windows.get(sender.tab.windowId, function(window) {
+      if (options.get("focusmanga_enabled", true) && options.get("fullscreen_enabled", true)) {
+        if (window.state != "fullscreen") {
+          savedWindowStates[window.id] = window.state;
+          chrome.windows.update(window.id, { state: "fullscreen" });
+        }
+      } else {
+        if (window.state == "fullscreen") {
+          chrome.windows.update(window.id, { state: savedWindowStates[window.id] });
+          delete savedWindowStates[window.id];
+        }
+      }
+    });
+
     if (request.method == "download") {
       chrome.downloads.download(
           request.data,
@@ -41,7 +58,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
           }
       );
     }
-
 
     // display page action
     if (request.method == "pageAction") {
