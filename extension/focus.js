@@ -63,6 +63,16 @@ FocusManga = new function() {
   this.onready = function() {
     $('body').show();
     FocusManga.parsePage();
+    FocusManga.checkUrl();
+  }
+
+  this.lastUrl = window.location.href;
+  this.checkUrl = function() {
+    if (window.location.href != FocusManga.lastUrl) {
+      FocusManga.parsePage();
+      FocusManga.lastUrl = window.location.href;
+    }
+    setTimeout(FocusManga.checkUrl, 100);
   }
 
   this.setup = function() {
