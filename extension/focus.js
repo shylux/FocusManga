@@ -71,10 +71,10 @@ FocusManga = new function() {
 
     // show page action
     chrome.extension.sendRequest({'method': 'pageAction'}, function(response) {});
-    
+
     // add overlay
     $('body').prepend(FocusManga.overlay);
-    
+
     // check if timer is supported
     if (!FocusManga.hasNextPage())
       $('#fm_tools', FocusManga.overlay).addClass('fm_disabled');
@@ -100,7 +100,7 @@ FocusManga = new function() {
     $('#fm_main', FocusManga.overlay).load(function() {
       FocusManga.onImgLoad(this);
     });
-  
+
     // add handler for window resize
     $(window).resize(function() {
       FocusManga.onResize();
@@ -122,7 +122,7 @@ FocusManga = new function() {
       FocusManga.options.import(response);
       FocusManga.onOptions();
     });
-  
+
     // toggle timer/img
     FocusManga.updateTimerIcon(false);
     $('#fm_play').click(function() {
