@@ -1,3 +1,7 @@
+# Version 1.2.2
+B Fixed all hoster. Alot of them changed domain name.
+B Removed fullscreen support as it was quite buggy.
+
 # Version 1.2.1
 
 S Added fullscreen support.
