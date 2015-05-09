@@ -65,7 +65,7 @@ fairytailtube.collectionName = function() {return "Fairy Tail "+tubeCollectionBa
 hoster_list.push(fairytailtube);
 
 var mangahere = {
-  hostname: "mangahere.com",
+  hostname: "mangahere.co",
   mature: false,
   isMangaPage: function() {return ($('#image').length > 0);},
   img: function() {return $('#image');},
