@@ -145,6 +145,7 @@ function parseCollectionName(file) {
   return path[path.length-2];
 }
 
+FocusManga.isDisplaying = function() {return true;}
 FocusManga.isMangaPage = function() {return true;}
 FocusManga.hasNextPage = function() {return true;}
 FocusManga.next = function() {
