@@ -46,11 +46,17 @@ FocusManga = new function() {
       <img id="fm_main" />\
       <div id="fm_info">\
         <span id="fm_numbers" />\
-        <span id="fm_name">test asdf fb bjub</span>\
+        <span id="fm_name"></span>\
       </div>\
       <div id="fm_tools">\
         <img id="fm_play" title="Play / Pause">\
-        <img id="fm_download" title="Download image">\
+        <div id="fm_download_container">\
+          <span>\
+            <span id="fm_download_chap">Chapter</span>\
+            <span id="fm_download_page">Page</span>\
+          </span>\
+          <img id="fm_download" title="Download image">\
+        </div>\
         <img id="fm_options" title="Settings">\
       </div>\
     </div>');
@@ -102,8 +108,14 @@ FocusManga = new function() {
     });
 
     // download click handler
-    $('#fm_download', FocusManga.overlay).click(function() {
+    $('#fm_download, #fm_download_page', FocusManga.overlay).click(function() {
       FocusManga.download();
+    });
+    $('#fm_download_chap', FocusManga.overlay).click(function() {
+      var currentChapters = FocusManga.options.get("chapter_dl", []);
+      currentChapters.push(FocusManga.getCollectionName());
+      FocusManga.options.set("chapter_dl", currentChapters);
+      FocusManga.downloadChapter();
     });
 
     // add listener for image load
@@ -195,6 +207,10 @@ FocusManga = new function() {
       FocusManga.setup();
     }
 
+    // check if chapter download is available
+    if (!FocusManga.downloadChapterEnabled)
+      $('#fm_download_container span', FocusManga.overlay).remove();
+
     // load image
     FocusManga.setImage();
     FocusManga.updatePageNumber();
@@ -202,6 +218,7 @@ FocusManga = new function() {
     if (FocusManga.options.get("timer_enabled", false))
         FocusManga.show_timer.restart();
     FocusManga.preload();
+    FocusManga.downloadChapter();
   }
 
   this.onMouseInactive = function() {
@@ -282,21 +299,57 @@ FocusManga = new function() {
       saveAs: false,
       conflictAction: "overwrite"
     }
-    if (typeof chrome.downloads != 'undefined') {
-      chrome.downloads.download(
-          download_options,
-          function(downloadId) {
-            // on download finish
-            setTimeout(
-              function() {
-                chrome.downloads.erase({id: downloadId});
-              },
-              2000);
-          }
-      );
-    } else {
-      chrome.extension.sendRequest({'method': 'download', 'data': download_options}, function(response) {});
+    chrome.extension.sendRequest({
+      'method': 'download',
+      'data': download_options,
+      'erase': 2000,
+    });
+  }
+
+  this.downloadChapterEnabled = function() {
+    var folder = FocusManga.getCollectionName();
+    if (typeof folder != "string" || folder.length == 0) return false;
+    if (isNaN(FocusManga.currentPageNumber())) return false;
+    if (isNaN(FocusManga.currentChapterPages())) return false;
+    return true;
+  }
+  this.downloadChapter = function() {
+    var currentChapters = FocusManga.options.get("chapter_dl", []);
+    var index = currentChapters.indexOf(FocusManga.getCollectionName());
+    if (index == -1) return;
+    var lastPage = false;
+    if (FocusManga.currentPageNumber() == FocusManga.currentChapterPages()) {
+      currentChapters.splice(currentChapters.indexOf(index), 1);
+      FocusManga.options.set("chapter_dl", currentChapters);
+      lastPage = true;
     }
+
+    var folder = FocusManga.getCollectionName();
+    var page_number_len = (""+FocusManga.currentChapterPages()).length;
+    var download_options = {
+      url: $('#fm_main').attr('src'),
+      filename: folder + "/" + pad(FocusManga.currentPageNumber(), page_number_len) + "_" + FocusManga.getFileName(),
+      saveAs: false,
+      conflictAction: "overwrite"
+    }
+    chrome.extension.sendRequest(
+      {
+        'method': 'download',
+        'data': download_options,
+        'erase': 100,
+        'chapter': folder,
+      },
+      function(downloadId) {
+        if (lastPage)
+          chrome.extension.sendRequest(
+            {'method': 'show', 'data': folder},
+            function() {
+              FocusManga.next();
+            });
+        else
+          FocusManga.next();
+      }
+    );
   }
 
   /* KEY BINDINGS */
@@ -322,4 +375,10 @@ FocusManga = new function() {
     }
   }
   document.onkeydown = this.onKeyDown;
+}
+
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }

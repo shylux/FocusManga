@@ -84,12 +84,37 @@ html.fm_enabled, .fm_enabled body {
   position: absolute;
   bottom: 0;
   right: 0;
-  padding: 5px 0 0 5px;
+  padding: 5px;
 }
 
 #fm_tools img {
   height: 25px;
   width: 25px;
+}
+
+#fm_tools > * {
+  float: left;
+  margin: 3px;
+}
+
+#fm_download_container > * {
+  float: left;
+}
+
+#fm_download_container > span {
+  display: none;
+  line-height: 25px;
+  padding-right: 5px;
+  cursor: pointer;
+}
+#fm_download_container:hover > span {
+  display: block;
+}
+#fm_download_container > span > span {
+  color: black;
+}
+#fm_download_container > span > span:hover {
+  text-decoration: underline;
 }
 
 #fm_tools img:last-child {
