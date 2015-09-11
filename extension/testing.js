@@ -14,6 +14,12 @@ $(function() {
   template = $('.host').clone();
   $('.host').remove();
 
+  $('h1 a').click(function() {
+    for (i in tests) {
+      chrome.tabs.create({url: tests[i].targetUrl});
+    }
+  });
+
   for (i in tests) {
     console.log(">> Starting Test on %s", tests[i].hostname);
     chrome.tabs.create({
