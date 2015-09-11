@@ -39,27 +39,27 @@ FocusManga = new function() {
   this.img_h;
 
   // overlay html
-  this.overlay = $('\
-    <div id="fm_overlay">\
-      <div id="fm_progress"></div>\
-      <img id="fm_close" title="Close" />\
-      <img id="fm_main" />\
-      <div id="fm_info">\
-        <span id="fm_numbers" />\
-        <span id="fm_name"></span>\
-      </div>\
-      <div id="fm_tools">\
-        <img id="fm_play" title="Play / Pause">\
-        <div id="fm_download_container">\
-          <span>\
-            <span id="fm_download_chap">Chapter</span>\
-            <span id="fm_download_page">Page</span>\
-          </span>\
-          <img id="fm_download" title="Download image">\
-        </div>\
-        <img id="fm_options" title="Settings">\
-      </div>\
-    </div>');
+  this.overlay = $(`
+    <div id="fm_overlay">
+      <div id="fm_progress"></div>
+      <img id="fm_close" title="Close" />
+      <img id="fm_main" />
+      <div id="fm_info">
+        <span id="fm_numbers" />
+        <span id="fm_name"></span>
+      </div>
+      <div id="fm_tools">
+        <img id="fm_play" title="Play / Pause">
+        <div id="fm_download_container">
+          <span>
+            <span id="fm_download_chap">Chapter</span>
+          </span>
+          <img id="fm_download" title="Download image">
+        </div>
+        <img id="fm_options" title="Settings">
+      </div>
+    </div>
+  `);
   $('#fm_close', this.overlay).attr('src', chrome.extension.getURL('img/close-circle.png'));
   $('#fm_download', this.overlay).attr('src', chrome.extension.getURL('img/download.png'));
   $('#fm_options', this.overlay).attr('src', chrome.extension.getURL('img/options.png'));
@@ -108,7 +108,7 @@ FocusManga = new function() {
     });
 
     // download click handler
-    $('#fm_download, #fm_download_page', FocusManga.overlay).click(function() {
+    $('#fm_download', FocusManga.overlay).click(function() {
       FocusManga.download();
     });
     $('#fm_download_chap', FocusManga.overlay).click(function() {
