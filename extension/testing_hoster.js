@@ -64,13 +64,6 @@ tests = [
   totalPages: 24
 },
 {
-  hostname: "mangainn.com",
-  targetUrl: "http://www.mangainn.com/manga/chapter/19693_bleach-chapter-01/page_5",
-  imgUrl: "http://static2.mangainn.com/mangas/572/19693/005_10_22_2011_07_17_25.jpg",
-  currPage: 5,
-  totalPages: 57
-},
-{
   hostname: "goodmanga.net",
   targetUrl: "http://www.goodmanga.net/rosario-vampire_ii/chapter/63/4",
   imgUrl: "http://.*.goodmanga.net/images/manga/rosario-vampire_ii/63/4.jpg",
