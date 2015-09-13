@@ -96,8 +96,10 @@ chrome.downloads.onChanged.addListener(function(downloadDelta) {
 
 chrome.pageAction.onClicked.addListener(function(tab) {
     console.log("page action on tab "+tab.id);
-    options.set("focusmanga_enabled", !options.get("focusmanga_enabled", true));
-    chrome.tabs.sendMessage(tab.id, {method: "toggleFocusManga"}, function(response) {
-	  console.log("ack from "+tab.id);
-    });
+    if (tab.url.startsWith("chrome-extension")) {
+      chrome.windows.update(tab.windowId, { state: "fullscreen" });
+    } else {
+      options.set("focusmanga_enabled", !options.get("focusmanga_enabled", true));
+      chrome.tabs.sendMessage(tab.id, {method: "toggleFocusManga"}, function(response) {});
+    }
 });
