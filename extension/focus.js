@@ -1,3 +1,7 @@
+function cleanName(name) {
+  return name.replace(/[^a-zA-Z0-9\-\ \[\]]/gi, ''); // Strip any special charactere
+}
+
 FocusManga = new function() {
   this.title = "FocusManga",
 
@@ -291,6 +295,7 @@ FocusManga = new function() {
   /* DOWNLOAD */
   this.download = function() {
     var folder = FocusManga.getCollectionName();
+    folder = cleanName(folder);
     if (typeof folder != "string" || folder.length == 0)
       folder = "unsorted";
     var download_options = {
@@ -325,10 +330,13 @@ FocusManga = new function() {
     }
 
     var folder = FocusManga.getCollectionName();
+    folder = cleanName(folder);
     var page_number_len = (""+FocusManga.currentChapterPages()).length;
+    var filename = folder + "/" + pad(FocusManga.currentPageNumber(), page_number_len) + "_" + FocusManga.getFileName();
+
     var download_options = {
       url: $('#fm_main').attr('src'),
-      filename: folder + "/" + pad(FocusManga.currentPageNumber(), page_number_len) + "_" + FocusManga.getFileName(),
+      filename: filename,
       saveAs: false,
       conflictAction: "overwrite"
     }
