@@ -189,7 +189,7 @@ var fakku = {
 hoster_list.push(fakku);
 
 var mangatube = {
-  hostname: "manga-tube.org",
+  hostname: "manga-tube.com",
   mature: false,
   mangaPageSelector: '#page',
   img: function() {return $('#page img');},

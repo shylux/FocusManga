@@ -24,7 +24,7 @@
     "*://*.mangahere.co/manga/*",
     "*://*.hbrowse.com/*",
     "*://*.fakku.net/*",
-    "*://*.manga-tube.org/reader/read/*",
+    "*://*.manga-tube.com/reader/read/*",
     "*://g.e-hentai.org/*",
     "*://raw.senmanga.com/*",
     "*://nhentai.net/g/*/*"
@@ -59,7 +59,7 @@
         "*://*.mangahere.co/manga/*",
         "*://*.hbrowse.com/*",
         "*://*.fakku.net/*",
-        "*://*.manga-tube.org/reader/read/*",
+        "*://*.manga-tube.com/reader/read/*",
         "*://g.e-hentai.org/*",
         "*://raw.senmanga.com/*",
         "*://nhentai.net/g/*/*"
