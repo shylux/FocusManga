@@ -6,7 +6,6 @@ FocusManga = new function() {
   this.title = "FocusManga",
 
   //// OVERRIDE ////
-  this.isMangaPage = function() {return false;}
   this.hasNextPage = function() {return false;}
   this.setImage = function() {}
   this.getFileName = function() {}

@@ -1,7 +1,9 @@
 // handle focusmanga
 var hoster = getHoster();
 
-FocusManga.isMangaPage = function() {return hoster.isMangaPage();}
+FocusManga.isMangaPage = function() {
+  return $(hoster.mangaPageSelector).length > 0;
+}
 FocusManga.hasNextPage = function() {return hoster.nextUrl;}
 FocusManga.next = function() {console.log("next");window.location.href = hoster.nextUrl();}
 FocusManga.setImage = function() {$('#fm_main', FocusManga.overlay).attr('src', hoster.img().attr('src'));}

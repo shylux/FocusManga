@@ -6,7 +6,7 @@ var sample_hoster = {
   /* is the majority of the content targetet to  customers */
   mature: false,
   /* checks if page contains manga. returns true/false */
-  isMangaPage: function () {return true;},
+  mangaPageSelector: "#a .selector",
   /* parses the page and gets the url of the manga img */
   img: function() {return "img.png";},
   /* optional
@@ -28,7 +28,7 @@ var sample_hoster = {
 var mangapanda = {
   hostname: "mangapanda.com",
   mature: false,
-  isMangaPage: function() {return ($('#img').length > 0);},
+  mangaPageSelector: '#img',
   img: function() {return $('#img');},
   nextUrl: function() {return $('.next a').attr('href');},
   currPage: function() {return parseInt($('#pageMenu option:selected').text());},
@@ -45,7 +45,7 @@ function tubeCollectionBase() {
 var onepiecetube = {
   hostname: "onepiece-tube.com",
   mature: false,
-  isMangaPage: function() {return ($('#p').length > 0);},
+  mangaPageSelector: '#p',
   img: function() {return $('#p');},
   nextUrl: function() {return $('#p').parent().attr('href');},
   currPage: function() {return parseInt($('#controls a.active').text());},
@@ -67,7 +67,7 @@ hoster_list.push(fairytailtube);
 var mangahere = {
   hostname: "mangahere.co",
   mature: false,
-  isMangaPage: function() {return ($('#image').length > 0);},
+  mangaPageSelector: '#image',
   img: function() {return $('#image');},
   nextUrl: function() {return $('.next_page').attr('href');},
   currPage: function() {return parseInt($('.wid60:first option:selected').text());},
@@ -79,7 +79,7 @@ hoster_list.push(mangahere);
 var batoto = {
   hostname: "bato.to",
   mature: false,
-  isMangaPage: function() {return ($('#comic_page').length > 0);},
+  mangaPageSelector: '#comic_page',
   img: function() {return $('#comic_page');},
   nextUrl: function() {return $("img[title='Next Page']").parent().attr('href');},
   currPage: function() {return parseInt($('#page_select')[0].selectedIndex+1);},
@@ -91,7 +91,7 @@ hoster_list.push(batoto);
 var mangafox = {
   hostname: "mangafox.me",
   mature: false,
-  isMangaPage: function() {return ($('#image').length > 0);},
+  mangaPageSelector: '#image',
   img: function() {return $('#image');},
   nextUrl: function() {return $(".next_page").attr('href');},
   currPage: function() {return parseInt($('#top_bar .l .m option:selected').text());},
@@ -103,7 +103,7 @@ hoster_list.push(mangafox);
 var mangareader = {
   hostname: "mangareader.net",
   mature: false,
-  isMangaPage: function() {return ($('#img').length > 0);},
+  mangaPageSelector: '#img',
   img: function() {return $('#img');},
   nextUrl: function() {return $(".next a").attr('href');},
   currPage: function() {return parseInt($('#pageMenu').find(':selected').text());},
@@ -112,21 +112,10 @@ var mangareader = {
 }
 hoster_list.push(mangareader);
 
-// var mangainn = { /* timer no working */
-//   hostname: "mangainn.com",
-//   mature: false,
-//   isMangaPage: function() {return ($('#imgPage').length > 0);},
-//   img: function() {return $('#imgPage');},
-//   currPage: function() {return parseInt($('#cmbpages option:selected').val());},
-//   totalPages: function() {return $('#cmbpages option').size();},
-//   collectionName: function() {return $('#gotoMangaInfo').text();}
-// }
-// hoster_list.push(mangainn);
-
 var goodmanga = {
   hostname: "goodmanga.net",
   mature: false,
-  isMangaPage: function() {return ($('#manga_viewer img').length > 0);},
+  mangaPageSelector: '#manga_viewer img',
   img: function() {return $('#manga_viewer img');},
   nextUrl: function() {return $('.next_page').attr('href');},
   currPage: function() {return parseInt($('.page_select').find(':selected').text());},
@@ -138,7 +127,7 @@ hoster_list.push(goodmanga);
 var mangastream = {
   hostname: "mangastream.to",
   mature: false,
-  isMangaPage: function() {return ($('.manga-page').length > 0);},
+  mangaPageSelector: '.manga-page',
   img: function() {return $('.manga-page');},
   nextUrl: function() {return $('.manga-page').parent().attr('href');},
   currPage: function() {return parseInt($('#id_page').find(':selected').val());},
@@ -149,7 +138,7 @@ hoster_list.push(mangastream);
 var animea = {
   hostname: "manga.animea.net",
   mature: false,
-  isMangaPage: function() {return ($('.mangaimg').length > 0);},
+  mangaPageSelector: '.mangaimg',
   img: function() {return $('.mangaimg');},
   nextUrl: function() {return $('.mangaimg').parent().attr('href');},
   currPage: function() {return parseInt($('.pageselect').find(':selected').val());},
@@ -161,7 +150,7 @@ hoster_list.push(animea);
 var mangaeden = {
   hostname: "mangaeden.com",
   mature: false,
-  isMangaPage: function() {return ($('#mainImg').length > 0);},
+  mangaPageSelector: '#mainImg',
   img: function() {return $('#mainImg');},
   nextUrl: function() {return $('.ui-state-default.next').attr('href');},
   currPage: function() {return parseInt($('.top-title select:last option:selected').text());},
@@ -173,7 +162,7 @@ hoster_list.push(mangaeden);
 var hbrowse = {
   hostname: "hbrowse.com",
   mature: true,
-  isMangaPage: function() {return ($('.pageImage').length > 0);},
+  mangaPageSelector: '.pageImage',
   img: function() {return $('.pageImage img');},
   nextUrl: function() {return $('.pageImage a').attr('href');},
   currPage: function() {return parseInt($('#jsPageList a:not([href])').text());},
@@ -190,7 +179,7 @@ hoster_list.push(perveden);
 var fakku = {
   hostname: "fakku.net",
   mature: true,
-  isMangaPage: function() {return ($('.current-page:visible').length > 0);},
+  mangaPageSelector: '.current-page:visible',
   img: function() {return $('.current-page:visible');},
   nextUrl: function() {return $('#image a').attr('href');},
   currPage: function() {return $('#content .page .drop:first option:selected').val();},
@@ -202,7 +191,7 @@ hoster_list.push(fakku);
 var mangatube = {
   hostname: "manga-tube.org",
   mature: false,
-  isMangaPage: function() {return ($('#page').length > 0);},
+  mangaPageSelector: '#page',
   img: function() {return $('#page img');},
   nextUrl: function() {return $('#page a').attr('href');},
   currPage: function() {return parseInt($('.current_page').text());},
@@ -214,7 +203,7 @@ hoster_list.push(mangatube);
 var e_hentai = {
   hostname: "e-hentai.org",
   mature: true,
-  isMangaPage: function() {return ($('#img').length > 0);},
+  mangaPageSelector: '#img',
   img: function() {return $('#img');},
   nextUrl: function() {return $('#img').parent().attr('href');},
   currPage: function() {return parseInt($('#i2 div span:first').text());},
@@ -226,7 +215,7 @@ hoster_list.push(e_hentai);
 var senmanga = {
   hostname: "raw.senmanga.com",
   mature: false,
-  isMangaPage: function() {return ($('#picture').length > 0);},
+  mangaPageSelector: '#picture',
   img: function() {return $('#picture');},
   nextUrl: function() {return $('#picture').parent().attr('href');},
   currPage: function() {return parseInt($("select[name='page']:first option:selected").val());},
@@ -238,7 +227,7 @@ hoster_list.push(senmanga);
 var nhentai = {
   hostname: "nhentai.net",
   mature: true,
-  isMangaPage: function() {return ($('#image-container').length > 0);},
+  mangaPageSelector: '#image-container',
   img: function() {return $('#image-container a img');},
   nextUrl: function() {return $('#image-container a').attr('href');},
   currPage: function() {return parseInt($('.page-number .current:first').text());},
