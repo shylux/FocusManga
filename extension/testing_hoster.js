@@ -21,7 +21,7 @@ tests = [
   imgUrl: "http://naruto-tube.com/artbook/003/02.jpg",
   nextUrl: "http://naruto-tube.com/artbook/003/3",
   currPage: 2,
-  totalPages: 80 
+  totalPages: 80
 },
 {
   hostname: "fairytail-tube.com",
@@ -113,9 +113,9 @@ tests = [
 },
 {
   hostname: "fakku.net",
-  targetUrl: "http://www.fakku.net/manga/the-sexy-heart-pounding-study-my-first-love-of-an-onee-san-is-a-gravure-idol-english/read#page=2",
-  imgUrl: "http://t.fakku.net/images/manga/t/thesexyheartpoundingstudymyfirstloveofanoneesanisagravureidol_e/images/002.jpg",
-  nextUrl: "http://www.fakku.net/manga/the-sexy-heart-pounding-study-my-first-love-of-an-onee-san-is-a-gravure-idol-english/read#page=3",
+  targetUrl: "https://www.fakku.net/manga/the-sexy-heart-pounding-study-my-first-love-of-an-onee-san-is-a-gravure-idol-english/read#page=2",
+  imgUrl: "https://t.fakku.net/images/manga/t/thesexyheartpoundingstudymyfirstloveofanoneesanisagravureidol_e/images/002.jpg",
+  nextUrl: "https://www.fakku.net/manga/the-sexy-heart-pounding-study-my-first-love-of-an-onee-san-is-a-gravure-idol-english/read#page=3",
   currPage: 2,
   totalPages: 21
 },
