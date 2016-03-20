@@ -235,6 +235,18 @@ var senmanga = {
 }
 hoster_list.push(senmanga);
 
+var nhentai = {
+  hostname: "nhentai.net",
+  mature: true,
+  isMangaPage: function() {return ($('#image-container').length > 0);},
+  img: function() {return $('#image-container a img');},
+  nextUrl: function() {return $('#image-container a').attr('href');},
+  currPage: function() {return parseInt($('.page-number .current:first').text());},
+  totalPages: function() {return parseInt($('.page-number .num-pages:first').text());},
+  collectionName: function() {return document.title.match("(.*) - Page .* » nhentai: hentai doujinshi and manga")[1];}
+}
+hoster_list.push(nhentai);
+
 
 function getHoster(hoster_name, search_list) {
   if (search_list === undefined) search_list = hoster_list;

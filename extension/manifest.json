@@ -26,7 +26,8 @@
     "*://*.fakku.net/*",
     "*://*.manga-tube.org/reader/read/*",
     "*://g.e-hentai.org/*",
-    "*://raw.senmanga.com/*"
+    "*://raw.senmanga.com/*",
+    "*://nhentai.net/g/*/*"
   ],
 
   "options_page": "options.html",
@@ -60,7 +61,8 @@
         "*://*.fakku.net/*",
         "*://*.manga-tube.org/reader/read/*",
         "*://g.e-hentai.org/*",
-        "*://raw.senmanga.com/*"
+        "*://raw.senmanga.com/*",
+        "*://nhentai.net/g/*/*"
       ],
       "js": ["lib/jquery.js", "lib/naturalsort.js", "timer.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],
       "css": ["hide.css", "focus.css"]
