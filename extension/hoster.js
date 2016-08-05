@@ -144,7 +144,7 @@ var mangastream = {
   nextUrl: function() {return $('#manga-page').parent().attr('href');},
   currPage: function() {return parseInt(window.location.pathname.split('/').slice(-1)[0]);},
   totalPages: function() {return parseInt(getLocation($('.controls .btn-reader-page li:last a').attr('href')).pathname.split('/').slice(-1)[0]);},
-  examplePage: "/bakuman-chapter-1-page-3.html"
+  examplePage: "/r/onepunch_man/065/3587/2"
 };
 hoster_list.push(mangastream);
 
@@ -219,7 +219,7 @@ var mangatube = {
 hoster_list.push(mangatube);
 
 var e_hentai = {
-  hostname: "e-hentai.org",
+  hostname: "g.e-hentai.org",
   mature: true,
   mangaPageSelector: '#img',
   img: function() {return $('#img');},
