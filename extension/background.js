@@ -1,5 +1,4 @@
 var options = new OptionStorage();
-var savedWindowStates = {};
 var downloadJobs = {};
 var showJobs = {};
 
@@ -31,22 +30,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 	    options.import(request.data);
       sendResponse(options.export());
     }
-
-
-    //fullscreen
-    chrome.windows.get(sender.tab.windowId, function(window) {
-      if (options.get("focusmanga_enabled", true) && options.get("fullscreen_enabled", true)) {
-        if (window.state != "fullscreen") {
-          savedWindowStates[window.id] = window.state;
-          chrome.windows.update(window.id, { state: "fullscreen" });
-        }
-      } else {
-        if (window.state == "fullscreen") {
-          chrome.windows.update(window.id, { state: savedWindowStates[window.id] });
-          delete savedWindowStates[window.id];
-        }
-      }
-    });
 
     if (request.method == "download") {
       chrome.downloads.download(

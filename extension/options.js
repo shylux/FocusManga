@@ -2,7 +2,6 @@ $(function() {
   var options = new OptionStorage();
   // init values
   $('#focusmanga_enabled').prop('checked', options.get('focusmanga_enabled', true));
-  $('#fullscreen_enabled').prop('checked', options.get('fullscreen_enabled', true));
   $('#timer_enabled').prop('checked', options.get('timer_enabled', false));
   $('#timer_delay').val(options.get('timer_delay', 20));
   $('#page_numbers_enabled').prop('checked', options.get('page_numbers_enabled', true));
@@ -12,10 +11,6 @@ $(function() {
   $('#focusmanga_enabled').click(function() {
     options.set('focusmanga_enabled', this.checked);
     $('#toast').show().text('Set FocusManga enabled: '+this.checked);
-  });
-  $('#fullscreen_enabled').click(function() {
-    options.set('fullscreen_enabled', this.checked);
-    $('#toast').show().text('Set Fullscreen enabled: '+this.checked);
   });
   $('#timer_enabled').click(function() {
     options.set('timer_enabled', this.checked);
