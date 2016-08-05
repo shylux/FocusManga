@@ -19,7 +19,7 @@ html.fm_enabled, .fm_enabled body {
 #fm_overlay img {
   cursor: pointer;
 }
-#fm_overlay.hideCursor, #fm_overlay.hideCursor  img {
+#fm_overlay.hideCursor, #fm_overlay.hideCursor img {
   cursor: none;
 }
 
@@ -41,7 +41,7 @@ html.fm_enabled, .fm_enabled body {
 }
 
 #fm_overlay img.landscape {
-  position: absolute;
+  position: fixed;
   top: 50%;
   height: auto;
   width: 100%;
@@ -55,7 +55,7 @@ html.fm_enabled, .fm_enabled body {
 }
 
 #fm_close {
-  position: absolute;
+  position: fixed;
   right: 0;
   padding: 5px;
   margin: 5px;
@@ -65,11 +65,19 @@ html.fm_enabled, .fm_enabled body {
 }
 
 #fm_info {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   padding: 5px;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.25);
+  color: rgba(0,0,0,0.25);
+}
+#fm_info:hover {
+  background-color: gray;
+  color: black;
+}
+#fm_numbers {
+  color: black;
 }
 
 #fm_info span {
@@ -81,7 +89,7 @@ html.fm_enabled, .fm_enabled body {
 }
 
 #fm_tools {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   padding: 5px;

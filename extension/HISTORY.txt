@@ -1,5 +1,6 @@
 # Version 1.3
 S Added chapter download.
+F Make title more transparent to improve manga visibility.
 F Dropped official fakku.net support. I can't test it anymore since i don't have a subscription.
 
 # Version 1.2.2
