@@ -36,7 +36,7 @@ $(function() {
 
   // list hoster
   var max_functions_count = 0;
-  for (i in hoster_list) {
+  for (var i in hoster_list) {
     var e = $('<a target="_blank"></a>').attr('href', "http://"+hoster_list[i].hostname).text(hoster_list[i].hostname);
 
     if (!hoster_list[i].mature) {
@@ -45,4 +45,13 @@ $(function() {
       $('#adult_content .hosters').append(e);
     }
   }
+
+  // open example site of each hoster
+  $('#test_hoster').click(function() {
+    for (var i in hoster_list) {
+      var hoster = hoster_list[i];
+      if (hoster.hasOwnProperty("examplePage"))
+        chrome.tabs.create({url: 'http://'+hoster.hostname + hoster.examplePage});
+    }
+  });
 });
