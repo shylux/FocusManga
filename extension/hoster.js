@@ -136,13 +136,13 @@ var goodmanga = {
 hoster_list.push(goodmanga);
 
 var mangastream = {
-  hostname: "mangastream.to",
+  hostname: "mangastream.com",
   mature: false,
-  mangaPageSelector: '.manga-page',
-  img: function() {return $('.manga-page');},
-  nextUrl: function() {return $('.manga-page').parent().attr('href');},
-  currPage: function() {return parseInt($('#id_page').find(':selected').val());},
-  totalPages: function() {return $('#id_page option').size();},
+  mangaPageSelector: '#manga-page',
+  img: function() {return $('#manga-page');},
+  nextUrl: function() {return $('#manga-page').parent().attr('href');},
+  currPage: function() {return parseInt(window.location.pathname.split('/').slice(-1)[0]);},
+  totalPages: function() {return parseInt(getLocation($('.controls .btn-reader-page li:last a').attr('href')).pathname.split('/').slice(-1)[0]);},
   examplePage: "/bakuman-chapter-1-page-3.html"
 };
 hoster_list.push(mangastream);
@@ -265,3 +265,10 @@ function getHoster(hoster_name, search_list) {
       return search_list[i];
   }
 }
+
+// Utility
+var getLocation = function(href) {
+  var l = document.createElement("a");
+  l.href = href;
+  return l;
+};
