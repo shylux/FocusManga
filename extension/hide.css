@@ -1,3 +1,9 @@
+/*
+ * This css is used to reduce flickering. Prior there was always a flash of the original site before the FocusManga
+ * overlay was applied.
+ * The FocusManga overlay is applied with js on the onready event because i have to check if it is really a manga page.
+ * The css is applied immediately and prevents the original site from rendering, thus preventing the flash.
+ */
 body {
   display: none;
 }
