@@ -7,7 +7,8 @@ body {
 
 #toast {
   display: none;
-  font-style: bold;
+  font-size: 1.5em;
+  font-weight: bold;
   color: DarkGreen;
 }
 
@@ -26,9 +27,10 @@ img {
   border-top: none;
   border-right: none;
   border-bottom-left-radius: 20px;
-}
-.corner:hover {
-  text-decoration: underline;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 i {
@@ -53,43 +55,45 @@ label {
   border-radius: 20px;
   padding: 10px;
   margin-bottom: 10px;
-}
-#announcment h2 {
-  margin: 0;
-}
-#announcment p {
-  font-weight: bold;
-  margin-bottom: 0;
+
+  h2 {
+    margin: 0;
+  }
+
+  p {
+    font-weight: bold;
+    margin-bottom: 0;
+  }
 }
 
 .hosters {
   padding-left: 10px;
-}
 
-.hosters a {
-  display: block;
-  text-decoration: none;
-  color: #303030;
-  font-size: 1.2em;
-}
-
-.hosters a:hover {
-  text-decoration: underline;
+  a {
+    display: block;
+    text-decoration: none;
+    color: #303030;
+    font-size: 1.2em;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 #adult_content {
   margin-top: 10px;
+  span {
+    font-weight: bold;
+  }
+  div {
+    opacity: 0;
+  }
+  &:hover div {
+    -webkit-animation: fadein 0.5s;
+    opacity: 1;
+  }
 }
-#adult_content span {
-  font-weight: bold;
-}
-#adult_content div {
-  opacity: 0;
-}
-#adult_content:hover div {
-  -webkit-animation: fadein 0.5s;
-  opacity: 1;
-}
+
 @-webkit-keyframes fadein { /* Safari and Chrome */
     from {
         opacity:0;
