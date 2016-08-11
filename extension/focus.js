@@ -243,12 +243,11 @@ FocusManga = new function() {
   };
 
   this.onResize = function() {
-    if (FocusManga.img_w / FocusManga.img_h < $(window).width() / $(window).height()) {
-      $('#fm_main', FocusManga.overlay)
-        .removeClass('landscape');
-    } else {
-      $('#fm_main', FocusManga.overlay)
-        .addClass('landscape');
+    FocusManga.overlay.removeClass('landscape manhwa');
+    if (FocusManga.img_h / FocusManga.img_w > 2) {
+      FocusManga.overlay.addClass('manhwa');
+    } else if (FocusManga.img_w / FocusManga.img_h > $(window).width() / $(window).height()) {
+      FocusManga.overlay.addClass('landscape');
     }
   };
 

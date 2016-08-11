@@ -23,12 +23,6 @@ html.fm_enabled, .fm_enabled body {
   cursor: none;
 }
 
-#fm_main {
-  display: block;
-  margin: auto;
-  height: 100%;
-}
-
 #fm_progress {
   position: fixed;
   z-index: 9002;
@@ -40,12 +34,24 @@ html.fm_enabled, .fm_enabled body {
   transition: width 500ms ease-out, opacity 400ms linear;
 }
 
-#fm_overlay img.landscape {
+#fm_main {
+  display: block;
+  margin: auto;
+  height: 100%;
+}
+#fm_overlay.landscape #fm_main {
   position: fixed;
   top: 50%;
   height: auto;
   width: 100%;
   -webkit-transform: translateY(-50%);
+}
+#fm_overlay.manhwa {
+  overflow-y: scroll;
+}
+#fm_overlay.manhwa #fm_main {
+  height: auto;
+  max-width: 100%;
 }
 
 #fm_close, #fm_info, #fm_tools {

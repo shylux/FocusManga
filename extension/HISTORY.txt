@@ -1,3 +1,6 @@
+# Version 1.4
+F Added manhwa support.
+
 # Version 1.3.1
 B Now actually removing fullscreen support.
 
