@@ -44,25 +44,7 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.mangapanda.com/*",
-        "*://*.onepiece-tube.com/*",
-        "*://*.naruto-tube.org/*",
-        "*://*.fairytail-tube.org/*",
-        "*://*.bato.to/*",
-        "*://*.mangafox.me/manga/*",
-        "*://*.mangareader.net/*/*",
-        "*://*.goodmanga.net/*/chapter/*",
-        "*://*.mangastream.com/*",
-        "*://*.manga.animea.net/*",
-        "*://*.mangaeden.com/*",
-        "*://*.perveden.com/*",
-        "*://*.mangahere.co/manga/*",
-        "*://*.hbrowse.com/*",
-        "*://*.fakku.net/*",
-        "*://*.manga-tube.com/reader/read/*",
-        "*://g.e-hentai.org/*",
-        "*://raw.senmanga.com/*",
-        "*://nhentai.net/g/*/*"
+        "<all_urls>"
       ],
       "js": ["lib/jquery.js", "lib/naturalsort.js", "timer.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],
       "css": ["hide.css", "focus.css"]
