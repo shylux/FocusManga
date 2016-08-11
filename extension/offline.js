@@ -15,7 +15,7 @@ $(function() {
     // sort list alphabetically
     file_list.sort(function(a, b) {
       // sort first by collection
-      collectionCompare = naturalSort(parseCollectionName(a), parseCollectionName(b));
+      var collectionCompare = naturalSort(parseCollectionName(a), parseCollectionName(b));
       if (collectionCompare != 0) return collectionCompare;
       return naturalSort(a.webkitRelativePath, b.webkitRelativePath);
     });
@@ -141,19 +141,19 @@ function parseHashLocation() {
 
 // Extracts deepest folder name of file
 function parseCollectionName(file) {
-  path = file.webkitRelativePath.split('/');
+  var path = file.webkitRelativePath.split('/');
   return path[path.length-2];
 }
 
-FocusManga.isDisplaying = function() {return true;}
-FocusManga.isMangaPage = function() {return true;}
-FocusManga.hasNextPage = function() {return true;}
+FocusManga.isDisplaying = function() {return true;};
+FocusManga.isMangaPage = function() {return true;};
+FocusManga.hasNextPage = function() {return true;};
 FocusManga.next = function() {
   step(1);
   if (FocusManga.options.get("timer_enabled", false)) {
     FocusManga.startTimer();
   }
-}
+};
 FocusManga.currentPageNumber = function() {
   if (!currFile()) return file_index+1;
   var curr_collection = parseCollectionName(currFile());
@@ -163,7 +163,7 @@ FocusManga.currentPageNumber = function() {
     if (file == currFile()) return counter;
   }
   return 0;
-}
+};
 FocusManga.currentChapterPages = function() {
   if (!currFile()) return 0;
   var curr_collection = parseCollectionName(currFile());
@@ -172,11 +172,11 @@ FocusManga.currentChapterPages = function() {
     if (curr_collection == parseCollectionName(file)) counter++;
   }
   return counter;
-}
-FocusManga.onClose = function() {}
-FocusManga.onPageAction = function() {}
+};
+FocusManga.onClose = function() {};
+FocusManga.onPageAction = function() {};
 FocusManga.setImage = function() {
-  hash = parseHashLocation();
+  var hash = parseHashLocation();
   if (hash >= 0 && hash < file_list.length)
     file_index = hash;
   else
@@ -196,8 +196,8 @@ FocusManga.setImage = function() {
   })(file);
 
   reader.readAsDataURL(file);
-}
-FocusManga.getFileName = function() {return currFile().name;}
+};
+FocusManga.getFileName = function() {return currFile().name;};
 FocusManga.getCollectionName = function() {
   if (currFile()) {
     var name = parseCollectionName(currFile());
@@ -205,4 +205,4 @@ FocusManga.getCollectionName = function() {
     return name;
   }
   return undefined;
-}
+};

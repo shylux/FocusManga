@@ -5,7 +5,7 @@
 (function ($) {
   $.timer = function(options) {
     return jQuery.extend(true, {}, $.timer_prototype).set(options);
-  }
+  };
   $.timer_prototype = {
     name: "UNNAMED",
     delay: 0, // time in ms after the timer activates

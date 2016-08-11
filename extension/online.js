@@ -3,21 +3,21 @@ var hoster = getHoster();
 
 FocusManga.isMangaPage = function() {
   return $(hoster.mangaPageSelector).length > 0;
-}
-FocusManga.hasNextPage = function() {return hoster.nextUrl;}
-FocusManga.next = function() {console.log("next");window.location.href = hoster.nextUrl();}
-FocusManga.setImage = function() {$('#fm_main', FocusManga.overlay).attr('src', hoster.img().attr('src'));}
-FocusManga.getFileName = function() {return hoster.img().attr('src').replace(/^.*[\\\/]/, '');}
+};
+FocusManga.hasNextPage = function() {return hoster.nextUrl;};
+FocusManga.next = function() {console.log("next");window.location.href = hoster.nextUrl();};
+FocusManga.setImage = function() {$('#fm_main', FocusManga.overlay).attr('src', hoster.img().attr('src'));};
+FocusManga.getFileName = function() {return hoster.img().attr('src').replace(/^.*[\\\/]/, '');};
 if (hoster.collectionName) {
   FocusManga.getCollectionName = hoster.collectionName;
 }
-FocusManga.currentPageNumber = function() {return hoster.currPage();}
-FocusManga.currentChapterPages = function() {return hoster.totalPages();}
+FocusManga.currentPageNumber = function() {return hoster.currPage();};
+FocusManga.currentChapterPages = function() {return hoster.totalPages();};
 FocusManga.preload = function() {
     $('head').append(
         $('<link rel="prerender" />').attr('src', hoster.nextUrl())
     );
-}
+};
 
 /**
  * What has to be detected:

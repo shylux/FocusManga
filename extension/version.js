@@ -23,11 +23,11 @@ function Version(version_input) {
     } else {
       console.warn("Please call Version() with the version string or an object with major, minor and patch attributes.");
     }
-  }
+  };
 
   this.toString = function() {
     return [this.major, this.minor, this.patch].join('.');
-  }
+  };
 
   this.isNewerThan = function(other) {
     if (this.major > other.major ||

@@ -8,18 +8,18 @@ function OptionStorage(initial_values) {
   this.get = function(key, default_value) {
     if (!this.storage.hasOwnProperty(key)) return default_value;
     return this.storage[key];
-  }
+  };
 
   // set property
   this.set = function(key, value) {
     this.storage[key] = value;
     localStorage[this.key] = this.export();
-  }
+  };
 
   // check if key exists
   this.hasKey = function(key) {
     return this.storage.hasOwnProperty(key);
-  }
+  };
 
   // return a string representing all propertys
   this.printAll = function() {
@@ -28,12 +28,12 @@ function OptionStorage(initial_values) {
       str += key + ": " + this.storage[key] + "\n";
     }
     return str;
-  }
+  };
 
   // return storage as json string
   this.export = function() {
     return JSON.stringify(this.storage);
-  }
+  };
 
   // update with propertys from json string or object
   this.import = function(options) {
@@ -45,7 +45,7 @@ function OptionStorage(initial_values) {
     for (var key in options) {
       this.set(key, options[key]);
     }
-  }
+  };
 
   // writes initial_values into storage
   this.storage = {};
