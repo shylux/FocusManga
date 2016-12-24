@@ -202,7 +202,7 @@ var fakku = {
   currPage: function() {return $('#content .page .drop:first option:selected').val();},
   totalPages: function() {return $('#content .page .drop:first option').length-1;},
   collectionName: function() {return $('.manga-title:first').text();}
-}
+};
 hoster_list.push(fakku);
 
 var mangatube = {

@@ -1,6 +1,8 @@
 // handle focusmanga
 var hoster = getHoster();
 
+if (hoster === undefined) throw new Error("No hoster found.");
+
 FocusManga.isMangaPage = function() {
   return $(hoster.mangaPageSelector).length > 0;
 };
