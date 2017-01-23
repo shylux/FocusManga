@@ -219,7 +219,7 @@ var mangatube = {
 hoster_list.push(mangatube);
 
 var e_hentai = {
-  hostname: "g.e-hentai.org",
+  hostname: "e-hentai.org",
   mature: true,
   mangaPageSelector: '#img',
   img: function() {return $('#img');},

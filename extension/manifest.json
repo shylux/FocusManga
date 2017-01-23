@@ -25,7 +25,7 @@
     "*://*.hbrowse.com/*",
     "*://*.fakku.net/*",
     "*://*.manga-tube.com/reader/read/*",
-    "*://g.e-hentai.org/*",
+    "*://e-hentai.org/*",
     "*://raw.senmanga.com/*",
     "*://nhentai.net/g/*/*"
   ],
@@ -60,7 +60,7 @@
         "*://*.hbrowse.com/*",
         "*://*.fakku.net/*",
         "*://*.manga-tube.com/reader/read/*",
-        "*://g.e-hentai.org/*",
+        "*://e-hentai.org/*",
         "*://raw.senmanga.com/*",
         "*://nhentai.net/g/*/*"
       ],
