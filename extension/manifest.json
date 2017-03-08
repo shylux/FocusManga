@@ -28,7 +28,8 @@
     "*://e-hentai.org/*",
     "*://raw.senmanga.com/*",
     "*://nhentai.net/g/*/*",
-    "*://www.hentaibox.net/*"
+    "*://www.hentaibox.net/*",
+    "*://*.pururin.us/view/*"
   ],
 
   "options_page": "options.html",
@@ -64,7 +65,8 @@
         "*://e-hentai.org/*",
         "*://raw.senmanga.com/*",
         "*://nhentai.net/g/*/*",
-        "*://www.hentaibox.net/*"
+        "*://www.hentaibox.net/*",
+        "*://*.pururin.us/view/*"
       ],
       "js": ["lib/jquery.js", "lib/naturalsort.js", "timer.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],
       "css": ["css/hide.css", "css/focus.css"]

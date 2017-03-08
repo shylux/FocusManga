@@ -270,6 +270,23 @@ var hentaibox = {
 };
 hoster_list.push(hentaibox);
 
+var pururin = {
+  hostname: "pururin.us",
+  mature: true,
+  mangaPageSelector: '.image-page',
+  img: function() {return $('.image-next img');},
+  nextUrl: function() {
+    var newPage = parseInt(/\/view\/\d+\/(\d+)\/.*/g.exec(window.location.pathname)[1]) + 1;
+    return window.location.toString().replace(/(\/view\/\d+\/)(\d+)/g, "$1"+newPage);
+  },
+  currPage: function() {return parseInt($('.image-pageSelect option:selected').val());},
+  totalPages: function() {return $('.image-pageSelect option').size();},
+  collectionName: function() {return $('h1').text();},
+  examplePage: "/view/32315/6/futaba-chan-prpr.html"
+};
+hoster_list.push(pururin);
+
+
 
 function getHoster(hoster_name, search_list) {
   if (search_list === undefined) search_list = hoster_list;
