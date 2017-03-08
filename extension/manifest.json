@@ -27,7 +27,8 @@
     "*://*.manga-tube.com/reader/read/*",
     "*://e-hentai.org/*",
     "*://raw.senmanga.com/*",
-    "*://nhentai.net/g/*/*"
+    "*://nhentai.net/g/*/*",
+    "*://www.hentaibox.net/*"
   ],
 
   "options_page": "options.html",
@@ -62,7 +63,8 @@
         "*://*.manga-tube.com/reader/read/*",
         "*://e-hentai.org/*",
         "*://raw.senmanga.com/*",
-        "*://nhentai.net/g/*/*"
+        "*://nhentai.net/g/*/*",
+        "*://www.hentaibox.net/*"
       ],
       "js": ["lib/jquery.js", "lib/naturalsort.js", "timer.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],
       "css": ["css/hide.css", "css/focus.css"]

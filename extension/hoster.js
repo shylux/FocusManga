@@ -257,6 +257,19 @@ var nhentai = {
 };
 hoster_list.push(nhentai);
 
+var hentaibox = {
+  hostname: "hentaibox.net",
+  mature: true,
+  mangaPageSelector: 'body > center > table > tbody > tr:nth-child(2) > td > center > a > img',
+  img: function() {return $('body > center > table > tbody > tr:nth-child(2) > td > center > a > img');},
+  nextUrl: function() {return $('body > center > table > tbody > tr:nth-child(2) > td > center > a').attr('href');},
+  currPage: function() {return parseInt($('.page-number .current:first').text());},
+  totalPages: function() {return parseInt($('.page-number .num-pages:first').text());},
+  collectionName: function() {return $('body > div:nth-child(5) > h2 > a:nth-child(3)').text();},
+  examplePage: "/hentai-manga/20_23_Original_Kousei-Shisetsu/00"
+};
+hoster_list.push(hentaibox);
+
 
 function getHoster(hoster_name, search_list) {
   if (search_list === undefined) search_list = hoster_list;
