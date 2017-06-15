@@ -1,11 +1,18 @@
 var file_list = [];
 var file_index = parseHashLocation();
 var collection_list = [];
+var collection_start_indices = {};
 
 $(function() {
   $('html').addClass('fm_enabled');
 
-  $('body').append('<div class="filedrop">Drop your picture folder here.</div><input class="filedrop" type="file" webkitdirectory />');
+  $('body').append(`<div class="filedrop">Drop your picture folder here.</div><input class="filedrop" type="file" webkitdirectory /><div id="fm_catalog"></div>`);
+  $('#fm_tools').prepend('<img id="fm_catalog_icon" title="Catalog">');
+  $('#fm_catalog_icon', this.overlay).attr('src', chrome.extension.getURL('img/catalog.png'));
+
+  $('#fm_catalog_icon').on('click', toggleCatalog);
+  $('#fm_catalog').on('click', toggleCatalog);
+
   $('input.filedrop').on('change', function(event) {
     for (var i = 0, file; file=event.target.files[i]; i++) {
       if (file.type.match('image.*'))
@@ -23,8 +30,10 @@ $(function() {
     // build collection dict
     for (var i = 0, file; file=file_list[i]; i++) {
       var name = parseCollectionName(file);
-      if (collection_list.indexOf(name) == -1)
+      if (collection_list.indexOf(name) == -1) {
         collection_list.push(name);
+        collection_start_indices[name] = i;
+      }
     }
 
     // check if user used other source than last time
@@ -81,8 +90,8 @@ $(function() {
 var parsedUrl = window.location.toString();
 function checkPageChange() {
   if (parsedUrl != window.location.toString()) {
-    FocusManga.parsePage();
     parsedUrl = window.location.toString();
+    FocusManga.parsePage();
   }
 }
 setInterval(checkPageChange, 10);
@@ -145,6 +154,40 @@ function parseCollectionName(file) {
   return path[path.length-2];
 }
 
+// Catalog
+function toggleCatalog() {
+  // hide
+  if ($('#fm_catalog').is(':visible')) {
+    $('#fm_catalog').hide();
+    return;
+  }
+
+  // show
+  $('#fm_catalog').show();
+
+
+  if ($('#fm_catalog a').size() == 0) {
+    for (var key in collection_start_indices) {
+      var file = file_list[collection_start_indices[key]];
+      var reader = new FileReader();
+      reader.onload = (function (collection) {
+        return function (e) {
+          var template = $('<a><img /><span></span></a>');
+          template.attr('href', '#' + (collection_start_indices[collection] + 1));
+          template.find('span').text(collection);
+          template.find('img').attr('src', e.target.result);
+          $('#fm_catalog').append(template);
+        }
+      })(key);
+      reader.readAsDataURL(file);
+    }
+  }
+}
+
+$('#fm_catalog img', FocusManga.overlay).on('load', function(img) {
+  debugger;
+});
+
 FocusManga.isDisplaying = function() {return true;};
 FocusManga.isMangaPage = function() {return true;};
 FocusManga.hasNextPage = function() {return true;};
@@ -205,4 +248,12 @@ FocusManga.getCollectionName = function() {
     return name;
   }
   return undefined;
+};
+FocusManga.toggleFocusManga = function() {}; // disable disable
+document.onkeydown = function(event) {
+  switch (event.which) {
+    case 27:
+      if ($('#fm_catalog').is(':visible'))
+        toggleCatalog();
+  }
 };

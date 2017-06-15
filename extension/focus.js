@@ -374,6 +374,7 @@ FocusManga = new function() {
         }
         break;
       case 27:
+        // esc
         FocusManga.toggleFocusManga(false);
         break;
       default:

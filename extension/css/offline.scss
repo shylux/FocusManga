@@ -1,0 +1,100 @@
+body {
+  font-family: 'Cabin Condensed', arial;
+}
+
+.filedrop {
+  display: none;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+div.filedrop {
+  display: block;
+  width: 70%;
+  height: 70%;
+  top: 15%;
+  left: 15%;
+  opacity: 1;
+  border: 10px dashed gray;
+  border-radius: 10%;
+  color: gray;
+  font-size: 3em;
+  line-height: 5em;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.hack div.filedrop {
+  background-color: #242424;
+}
+
+.hack {
+  pointer-events: none;
+}
+
+.hack .filedrop {
+  pointer-events: auto;
+}
+
+#fm_close {
+  visibility: hidden;
+}
+
+#fm_overlay {
+  display: block;
+  z-index: 0;
+}
+
+#fm_tools {
+  #fm_download_container:hover > span,
+  #fm_download_chap {
+    display: none;
+  }
+}
+
+#fm_catalog {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  background-color: rgba(33, 33, 33, 0.8);
+  overflow-y: scroll;
+
+  a {
+    display: block;
+    float: left;
+    width: 250px;
+    height: 250px;
+    padding: 10px;
+    margin: 5px;
+    background-color: #333333;
+    border: 2px solid gray;
+    overflow: hidden;
+
+    &:hover {
+      background-color: #aaaaaa;
+    }
+
+    img {
+      position: relative;
+      display: block;
+      top: 50%;
+      height: auto;
+      max-height: 100%;
+      max-width: 100%;
+      margin: auto;
+      -webkit-transform: translateY(-50%);
+    }
+
+    span {
+      display: none;
+    }
+  }
+}
