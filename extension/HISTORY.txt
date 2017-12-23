@@ -1,4 +1,6 @@
 # Version 1.4.1
+B Fix mangastream after domain change.
+B Fix mangafox.la after domain change.
 B Fix mangahere.cc after domain change.
 B Removed hentaibox.net because it wen't down. The only version i found is ad-infested and french..
 B Removed manga.animea.net because it went down in '15.

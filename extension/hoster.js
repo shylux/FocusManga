@@ -98,7 +98,7 @@ var batoto = {
 hoster_list.push(batoto);
 
 var mangafox = {
-  hostname: "mangafox.me",
+  hostname: "mangafox.la",
   mature: false,
   mangaPageSelector: '#image',
   img: function() {return $('#image');},
@@ -137,7 +137,7 @@ var goodmanga = {
 hoster_list.push(goodmanga);
 
 var mangastream = {
-  hostname: "mangastream.com",
+  hostname: "readms.net",
   mature: false,
   mangaPageSelector: '#manga-page',
   img: function() {return $('#manga-page');},
