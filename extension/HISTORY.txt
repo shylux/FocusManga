@@ -1,4 +1,5 @@
 # Version 1.4.1
+F Removed hentaibox.net because it wen't down. The only version i found is ad-infested and french..
 F Removed manga.animea.net because it went down in '15.
 
 # Version 1.4
