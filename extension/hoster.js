@@ -72,7 +72,7 @@ fairytailtube.examplePage = "/omake/001/3";
 hoster_list.push(fairytailtube);
 
 var mangahere = {
-  hostname: "mangahere.co",
+  hostname: "mangahere.cc",
   mature: false,
   mangaPageSelector: '#image',
   img: function() {return $('#image');},
