@@ -12,8 +12,6 @@ if (package_version.isNewerThan(installed_version) &&
     // check if first install
     if (!options.hasKey('version')) {
       chrome.tabs.create({url: "options.html"});
-    } else {
-      chrome.tabs.create({url: "version_history.html"});
     }
     // update version
     options.set('version', package_version);
