@@ -61,6 +61,10 @@ $(function() {
       case 37:
         // left
         step(-1);
+        break;
+      case 27:
+          if ($('#fm_catalog').is(':visible'))
+              toggleCatalog();
     }
   });
 
@@ -250,10 +254,3 @@ FocusManga.getCollectionName = function() {
   return undefined;
 };
 FocusManga.toggleFocusManga = function() {}; // disable disable
-document.onkeydown = function(event) {
-  switch (event.which) {
-    case 27:
-      if ($('#fm_catalog').is(':visible'))
-        toggleCatalog();
-  }
-};
