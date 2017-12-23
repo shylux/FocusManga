@@ -247,15 +247,15 @@ hoster_list.push(nhentai);
 var pururin = {
   hostname: "pururin.us",
   mature: true,
-  mangaPageSelector: '.image-page',
-  img: function() {return $('.image-next img');},
+  mangaPageSelector: '.image-viewer',
+  img: function() {return $('.image-next');},
   nextUrl: function() {
-    var newPage = parseInt(/\/view\/\d+\/(\d+)\/.*/g.exec(window.location.pathname)[1]) + 1;
-    return window.location.toString().replace(/(\/view\/\d+\/)(\d+)/g, "$1"+newPage);
+    var newPage = parseInt(/\/read\/\d+\/(\d+)\/.*/g.exec(window.location.pathname)[1]) + 1;
+    return window.location.toString().replace(/(\/read\/\d+\/)(\d+)/g, "$1"+newPage);
   },
-  currPage: function() {return parseInt($('.image-pageSelect option:selected').val());},
-  totalPages: function() {return $('.image-pageSelect option').size();},
-  collectionName: function() {return $('h1').text();},
+  currPage: function() {return parseInt($('.control select option:selected').val());},
+  totalPages: function() {return $('.control select option').size();},
+  collectionName: function() {return $('.title').text();},
   examplePage: "/view/32315/6/futaba-chan-prpr.html"
 };
 hoster_list.push(pururin);

@@ -1,4 +1,5 @@
 # Version 1.4.1
+B Fix pururin after reader change.
 B Fix mangastream after domain change.
 B Fix mangafox.la after domain change.
 B Fix mangahere.cc after domain change.
