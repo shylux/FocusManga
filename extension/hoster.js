@@ -148,19 +148,6 @@ var mangastream = {
 };
 hoster_list.push(mangastream);
 
-var animea = {
-  hostname: "manga.animea.net",
-  mature: false,
-  mangaPageSelector: '.scan .scanmr',
-  img: function() {return $('.scan .scanmr');},
-  nextUrl: function() {return $('.scan .scanmr').parent().attr('href');},
-  currPage: function() {return parseInt($('.pageselect').find(':selected').val());},
-  totalPages: function() {return $('.pageselect:first option').size();},
-  collectionName: function() {return $('#content h1 > a').text();},
-  examplePage: "/umi-no-misaki-chapter-120-page-3.html"
-};
-hoster_list.push(animea);
-
 var mangaeden = {
   hostname: "mangaeden.com",
   mature: false,
