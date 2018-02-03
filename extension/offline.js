@@ -176,15 +176,27 @@ function toggleCatalog() {
       var reader = new FileReader();
       reader.onload = (function (collection) {
         return function (e) {
-          var template = $('<a><img /><span></span></a>');
+          var template = $('<a><img src="" /><span></span></a>');
+          template.data('collection-name', collection);
           template.attr('href', '#' + (collection_start_indices[collection] + 1));
           template.find('span').text(collection);
           template.find('img').attr('src', e.target.result);
           $('#fm_catalog').append(template);
+          sortCatalog();
         }
       })(key);
       reader.readAsDataURL(file);
     }
+  }
+}
+
+function sortCatalog() {
+  var collections = $('#fm_catalog > a').get();
+  collections.sort(function(a, b) {
+    return collection_start_indices[$(a).data('collection-name')] - collection_start_indices[$(b).data('collection-name')];
+  });
+  for (var i = 0; i < collections.length; i++) {
+      collections[i].parentNode.appendChild(collections[i]);
   }
 }
 
