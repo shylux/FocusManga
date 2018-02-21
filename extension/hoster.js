@@ -98,7 +98,7 @@ var batoto = {
 hoster_list.push(batoto);
 
 var mangafox = {
-  hostname: "mangafox.la",
+  hostname: "fanfox.net",
   mature: false,
   mangaPageSelector: '#image',
   img: function() {return $('#image');},

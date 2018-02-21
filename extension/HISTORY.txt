@@ -1,4 +1,5 @@
 # Version 1.5.1
+B Fix outdated mangafox url: mangafox.la -> fanfox.net
 B Fix outdated pururin url: pururin.us -> pururin.io
 B Fix not existing pururin examplePage
 
