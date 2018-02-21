@@ -245,7 +245,7 @@ var nhentai = {
 hoster_list.push(nhentai);
 
 var pururin = {
-  hostname: "pururin.us",
+  hostname: "pururin.io",
   mature: true,
   mangaPageSelector: '.image-viewer',
   img: function() {return $('.image-next');},
