@@ -1,4 +1,5 @@
 # Version 1.5.1
+B Fix outdated manga-tube url: manga-tube.com -> manga-tube.me
 B Fix outdated mangafox url: mangafox.la -> fanfox.net
 B Fix outdated pururin url: pururin.us -> pururin.io
 B Fix not existing pururin examplePage

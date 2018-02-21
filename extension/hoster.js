@@ -193,7 +193,7 @@ var fakku = {
 hoster_list.push(fakku);
 
 var mangatube = {
-  hostname: "manga-tube.com",
+  hostname: "manga-tube.me",
   mature: false,
   mangaPageSelector: '#page',
   img: function() {return $('#page img');},
@@ -201,7 +201,7 @@ var mangatube = {
   currPage: function() {return parseInt($('.current_page').text());},
   totalPages: function() {return parseInt($('.topbar_right .tbtitle .text').text());},
   collectionName: function() {return $('.topbar_left .tbtitle.dropdown_parent:first a').text();},
-  examplePage: "/reader/read/fairy_tail/de/0/474/page/1"
+  examplePage: "/series/fairy_tail/read/8763/1"
 };
 hoster_list.push(mangatube);
 
