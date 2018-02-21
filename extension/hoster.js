@@ -256,7 +256,7 @@ var pururin = {
   currPage: function() {return parseInt($('.control select option:selected').val());},
   totalPages: function() {return $('.control select option').size();},
   collectionName: function() {return $('.title').text();},
-  examplePage: "/view/32315/6/futaba-chan-prpr.html"
+  examplePage: "/read/35815/1/horny-androids"
 };
 hoster_list.push(pururin);
 
