@@ -87,13 +87,13 @@ hoster_list.push(mangahere);
 var batoto = {
   hostname: "bato.to",
   mature: false,
-  mangaPageSelector: '#comic_page',
-  img: function() {return $('#comic_page');},
-  nextUrl: function() {return $("img[title='Next Page']").parent().attr('href');},
-  currPage: function() {return parseInt($('#page_select')[0].selectedIndex+1);},
-  totalPages: function() {return parseInt($('#page_select:first option').size());},
-  collectionName: function() {return $('.moderation_bar li:first a').text();},
-  examplePage: "/reader#cf2868f52e24ee4a_4"
+  mangaPageSelector: '.nav-page',
+  img: function() {return $('.page-img');},
+  nextUrl: function() {return $(".nav-next a").attr('href');},
+  currPage: function() {return parseInt($('.nav-page option:selected').val());},
+  totalPages: function() {return parseInt($('.nav-page option').size());},
+  collectionName: function() {return $('.nav-title a').text();},
+  examplePage: "/chapter/1162733/6"
 };
 hoster_list.push(batoto);
 
