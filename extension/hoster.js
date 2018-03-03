@@ -98,7 +98,7 @@ var batoto = {
 hoster_list.push(batoto);
 
 var mangafox = {
-  hostname: "mangafox.la",
+  hostname: "fanfox.net",
   mature: false,
   mangaPageSelector: '#image',
   img: function() {return $('#image');},
@@ -193,15 +193,15 @@ var fakku = {
 hoster_list.push(fakku);
 
 var mangatube = {
-  hostname: "manga-tube.com",
+  hostname: "manga-tube.me",
   mature: false,
-  mangaPageSelector: '#page',
-  img: function() {return $('#page img');},
-  nextUrl: function() {return $('#page a').attr('href');},
-  currPage: function() {return parseInt($('.current_page').text());},
-  totalPages: function() {return parseInt($('.topbar_right .tbtitle .text').text());},
-  collectionName: function() {return $('.topbar_left .tbtitle.dropdown_parent:first a').text();},
-  examplePage: "/reader/read/fairy_tail/de/0/474/page/1"
+  mangaPageSelector: '.reader-body',
+  img: function() {return $('.reader-body img');},
+  nextUrl: function() {return $('.reader-navigation .page-dropdown li.active').next().find('a').attr('href');},
+  currPage: function() {return parseInt($('.reader-navigation .page-dropdown li.active').data('page'));},
+  totalPages: function() {return parseInt($('.reader-navigation .page-dropdown li').length);},
+  collectionName: function() {return $('.reader-navigation .series-control .leave-reader').text();},
+  examplePage: "/series/fairy_tail/read/8763/1"
 };
 hoster_list.push(mangatube);
 
@@ -245,7 +245,7 @@ var nhentai = {
 hoster_list.push(nhentai);
 
 var pururin = {
-  hostname: "pururin.us",
+  hostname: "pururin.io",
   mature: true,
   mangaPageSelector: '.image-viewer',
   img: function() {return $('.image-next');},
@@ -256,7 +256,7 @@ var pururin = {
   currPage: function() {return parseInt($('.control select option:selected').val());},
   totalPages: function() {return $('.control select option').size();},
   collectionName: function() {return $('.title').text();},
-  examplePage: "/view/32315/6/futaba-chan-prpr.html"
+  examplePage: "/read/35815/1/horny-androids"
 };
 hoster_list.push(pururin);
 
