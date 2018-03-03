@@ -1,13 +1,11 @@
-# Version 1.5.1
+# Version 1.5.0
+F Show collection size in collection overview.
+B Sort the offline collections so the order is the same as in the viewer.
 B Fix manga-tube.me hoster selectors due to HTML structure change
 B Fix outdated manga-tube url: manga-tube.com -> manga-tube.me
 B Fix outdated mangafox url: mangafox.la -> fanfox.net
 B Fix outdated pururin url: pururin.us -> pururin.io
 B Fix not existing pururin examplePage
-
-# Version 1.5.0
-F Show collection size in collection overview.
-B Sort the offline collections so the order is the same as in the viewer.
 
 # Version 1.4.1
 B Fix pururin after reader change.
