@@ -77,6 +77,7 @@ div.filedrop {
     background-color: #333333;
     border: 2px solid gray;
     overflow: hidden;
+    position: relative;
 
     &:hover {
       background-color: #aaaaaa;
@@ -94,7 +95,14 @@ div.filedrop {
     }
 
     span {
-      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: gray;
+      padding: 2px 10px 2px 5px;
+      font-size: 16px;
+      font-weight: bold;
+      color: black;
     }
   }
 }

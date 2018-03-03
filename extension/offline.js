@@ -2,6 +2,7 @@ var file_list = [];
 var file_index = parseHashLocation();
 var collection_list = [];
 var collection_start_indices = {};
+var collection_sizes = {};
 
 $(function() {
   $('html').addClass('fm_enabled');
@@ -33,7 +34,9 @@ $(function() {
       if (collection_list.indexOf(name) == -1) {
         collection_list.push(name);
         collection_start_indices[name] = i;
+        collection_sizes[name] = 0;
       }
+      collection_sizes[name]++;
     }
 
     // check if user used other source than last time
@@ -179,7 +182,7 @@ function toggleCatalog() {
           var template = $('<a><img src="" /><span></span></a>');
           template.data('collection-name', collection);
           template.attr('href', '#' + (collection_start_indices[collection] + 1));
-          template.find('span').text(collection);
+          template.find('span').text(collection_sizes[collection]);
           template.find('img').attr('src', e.target.result);
           $('#fm_catalog').append(template);
           sortCatalog();

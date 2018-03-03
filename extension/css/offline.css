@@ -64,7 +64,8 @@ div.filedrop {
     margin: 5px;
     background-color: #333333;
     border: 2px solid gray;
-    overflow: hidden; }
+    overflow: hidden;
+    position: relative; }
     #fm_catalog a:hover {
       background-color: #aaaaaa; }
     #fm_catalog a img {
@@ -77,6 +78,13 @@ div.filedrop {
       margin: auto;
       -webkit-transform: translateY(-50%); }
     #fm_catalog a span {
-      display: none; }
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: gray;
+      padding: 2px 10px 2px 5px;
+      font-size: 16px;
+      font-weight: bold;
+      color: black; }
 
 /*# sourceMappingURL=offline.css.map */
