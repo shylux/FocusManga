@@ -7,50 +7,18 @@ var collection_sizes = {};
 $(function() {
   $('html').addClass('fm_enabled');
 
-  $('body').append(`<div class="filedrop">Drop your picture folder here.</div><input class="filedrop" type="file" webkitdirectory /><div id="fm_catalog"></div>`);
+  $('body').append(`<div class="filedrop">Drop your picture folder here.</div><input class="filedrop" type="file" webkitdirectory multiple /><div id="fm_catalog"></div>`);
   $('#fm_tools').prepend('<img id="fm_catalog_icon" title="Catalog">');
   $('#fm_catalog_icon', this.overlay).attr('src', chrome.extension.getURL('img/catalog.png'));
 
   $('#fm_catalog_icon').on('click', toggleCatalog);
   $('#fm_catalog').on('click', toggleCatalog);
 
-  $('input.filedrop').on('change', function(event) {
-    for (var i = 0, file; file=event.target.files[i]; i++) {
-      if (file.type.match('image.*'))
-        file_list.push(file);
-    }
-
-    // sort list alphabetically
-    file_list.sort(function(a, b) {
-      // sort first by collection
-      var collectionCompare = naturalSort(parseCollectionName(a), parseCollectionName(b));
-      if (collectionCompare != 0) return collectionCompare;
-      return naturalSort(a.webkitRelativePath, b.webkitRelativePath);
-    });
-
-    // build collection dict
-    for (var i = 0, file; file=file_list[i]; i++) {
-      var name = parseCollectionName(file);
-      if (collection_list.indexOf(name) == -1) {
-        collection_list.push(name);
-        collection_start_indices[name] = i;
-        collection_sizes[name] = 0;
-      }
-      collection_sizes[name]++;
-    }
-
-    // check if user used other source than last time
-    if (parseCollectionName(currFile()) != localStorage.lastCollection) {
-      window.location.hash = 1;
-    }
-
-
-    dragleave();
-    if (file_index == -1) file_index = 0;
-
-    FocusManga.parsePage();
-    $('#fm_info').css('visibility', 'visible');
+  $('input.filedrop').on('dragover', function(event) {
+    event.preventDefault();
   });
+  $('input.filedrop').on('drop', loadImages);
+
 
   $('body').on('dragenter', dragenter);
   //$('#filedrop').on('dragleave', dragleave);
@@ -92,6 +60,84 @@ $(function() {
     }
   });
 });
+
+// traverse dropped folders
+// add all files to file_list
+async function traverseFileTree(item, path) {
+  path = path || "";
+  if (item.isFile) {
+    // Get file
+    await new Promise(resolve => {
+      item.file(function (file) {
+        file.fullPath = this.fullPath;
+        if (file.type.match('image.*'))
+          file_list.push(file);
+        resolve();
+      }.bind(item));
+    });
+  } else if (item.isDirectory) {
+    // Get folder contents
+    let dirReader = item.createReader();
+    await new Promise(resolve => {
+      function keepReading() {
+        dirReader.readEntries(async function (entries) {
+          if (entries.length === 0) {resolve(); return;}
+          for (let i = 0; i < entries.length; i++) {
+            await traverseFileTree(entries[i], path + item.name + "/");
+          }
+          keepReading();
+        })
+      }
+      keepReading();
+    });
+  }
+}
+
+// load dropped images
+async function loadImages(event) {
+  let items = event.originalEvent.dataTransfer.items;
+  let promises = [];
+  for (let i = 0; i < items.length; i++) {
+    // webkitGetAsEntry is where the magic happens
+    let item = items[i].webkitGetAsEntry();
+    if (item) {
+      promises.push(traverseFileTree(item, ""));
+    }
+  }
+  Promise.all(promises).then(processLoadedFiles);
+}
+
+function processLoadedFiles() {
+  // sort list alphabetically
+  file_list.sort(function(a, b) {
+    // sort first by collection
+    var collectionCompare = naturalSort(parseCollectionName(a), parseCollectionName(b));
+    if (collectionCompare != 0) return collectionCompare;
+    return naturalSort(a.fullPath, b.fullPath);
+  });
+
+  // build collection dict
+  for (var i = 0, file; file=file_list[i]; i++) {
+    var name = parseCollectionName(file);
+    if (collection_list.indexOf(name) == -1) {
+      collection_list.push(name);
+      collection_start_indices[name] = i;
+      collection_sizes[name] = 0;
+    }
+    collection_sizes[name]++;
+  }
+
+  // check if user used other source than last time
+  if (file_list.length < file_index || parseCollectionName(currFile()) !== localStorage.lastCollection) {
+    window.location.hash = '1';
+  }
+
+  dragleave();
+  if (file_index == -1) file_index = 0;
+
+  FocusManga.parsePage();
+  $('#fm_info').css('visibility', 'visible');
+}
 
 /* PAGE CHANGE */
 var parsedUrl = window.location.toString();
@@ -157,7 +203,7 @@ function parseHashLocation() {
 
 // Extracts deepest folder name of file
 function parseCollectionName(file) {
-  var path = file.webkitRelativePath.split('/');
+  var path = file.fullPath.split('/');
   return path[path.length-2];
 }
 
