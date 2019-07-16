@@ -1,5 +1,6 @@
 body {
-  font-family: 'Cabin Condensed', arial; }
+  font-family: "Cabin Condensed", arial;
+}
 
 .filedrop {
   display: none;
@@ -8,7 +9,8 @@ body {
   width: 100%;
   height: 100%;
   top: 0;
-  left: 0; }
+  left: 0;
+}
 
 div.filedrop {
   display: block;
@@ -23,27 +25,34 @@ div.filedrop {
   font-size: 3em;
   line-height: 5em;
   text-align: center;
-  vertical-align: middle; }
+  vertical-align: middle;
+}
 
 .hack div.filedrop {
-  background-color: #242424; }
+  background-color: #242424;
+}
 
 .hack {
-  pointer-events: none; }
+  pointer-events: none;
+}
 
 .hack .filedrop {
-  pointer-events: auto; }
+  pointer-events: auto;
+}
 
 #fm_close {
-  visibility: hidden; }
+  visibility: hidden;
+}
 
 #fm_overlay {
   display: block;
-  z-index: 0; }
+  z-index: 0;
+}
 
 #fm_tools #fm_download_container:hover > span,
 #fm_tools #fm_download_chap {
-  display: none; }
+  display: none;
+}
 
 #fm_catalog {
   display: none;
@@ -54,37 +63,42 @@ div.filedrop {
   height: 100%;
   padding: 20px;
   background-color: rgba(33, 33, 33, 0.8);
-  overflow-y: scroll; }
-  #fm_catalog a {
-    display: block;
-    float: left;
-    width: 250px;
-    height: 250px;
-    padding: 10px;
-    margin: 5px;
-    background-color: #333333;
-    border: 2px solid gray;
-    overflow: hidden;
-    position: relative; }
-    #fm_catalog a:hover {
-      background-color: #aaaaaa; }
-    #fm_catalog a img {
-      position: relative;
-      display: block;
-      top: 50%;
-      height: auto;
-      max-height: 100%;
-      max-width: 100%;
-      margin: auto;
-      -webkit-transform: translateY(-50%); }
-    #fm_catalog a span {
-      position: absolute;
-      top: 0;
-      right: 0;
-      background-color: gray;
-      padding: 2px 10px 2px 5px;
-      font-size: 16px;
-      font-weight: bold;
-      color: black; }
+  overflow-y: scroll;
+}
+#fm_catalog a {
+  display: block;
+  float: left;
+  width: 250px;
+  height: 250px;
+  padding: 10px;
+  margin: 5px;
+  background-color: #333333;
+  border: 2px solid gray;
+  overflow: hidden;
+  position: relative;
+}
+#fm_catalog a:hover {
+  background-color: #aaaaaa;
+}
+#fm_catalog a img {
+  position: relative;
+  display: block;
+  top: 50%;
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+  margin: auto;
+  -webkit-transform: translateY(-50%);
+}
+#fm_catalog a span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: gray;
+  padding: 2px 10px 2px 5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+}
 
 /*# sourceMappingURL=offline.css.map */

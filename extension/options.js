@@ -6,6 +6,7 @@ $(function() {
   $('#timer_delay').val(options.get('timer_delay', 20));
   $('#page_numbers_enabled').prop('checked', options.get('page_numbers_enabled', true));
   $('#chapter_progressbar_enabled').prop('checked', options.get('chapter_progressbar_enabled', true));
+  $('#exif_rotation_correction_enabled').prop('checked', options.get('exif_rotation_correction_enabled', false));
 
   // save handler
   $('#focusmanga_enabled').click(function() {
@@ -27,6 +28,10 @@ $(function() {
   $('#chapter_progressbar_enabled').click(function() {
     options.set('chapter_progressbar_enabled', this.checked);
     $('#toast').show().text('Set show progressbar to: '+this.checked);
+  });
+  $('#exif_rotation_correction_enabled').click(function() {
+    options.set('exif_rotation_correction_enabled', this.checked);
+    $('#toast').show().text('Set exif image rotation correction to: '+this.checked);
   });
 
   // list hoster

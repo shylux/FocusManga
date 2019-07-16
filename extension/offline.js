@@ -249,10 +249,6 @@ function sortCatalog() {
   }
 }
 
-$('#fm_catalog img', FocusManga.overlay).on('load', function(img) {
-  debugger;
-});
-
 FocusManga.isDisplaying = function() {return true;};
 FocusManga.isMangaPage = function() {return true;};
 FocusManga.hasNextPage = function() {return true;};
@@ -295,16 +291,43 @@ FocusManga.setImage = function() {
   var file = currFile();
   if (!file) return;
 
-  var reader = new FileReader();
-  reader.onload = (function(file) {
+  if (FocusManga.options.get("exif_rotation_correction_enabled", false)) {
+    loadImageExifRotationCorrection(file);
+  } else {
+    loadImageFast(file);
+  }
+};
+
+function loadImageFast(imgFile) {
+  let reader = new FileReader();
+  reader.onload = (function() {
     return function(e) {
       $('#fm_main', FocusManga.overlay).attr('src', e.target.result);
       FocusManga.updatePageNumber();
     }
-  })(file);
+  })(imgFile);
 
-  reader.readAsDataURL(file);
-};
+  reader.readAsDataURL(imgFile);
+}
+function loadImageExifRotationCorrection(imgFile) {
+  let reader = new FileReader();
+  reader.onload = (function() {
+    return function(e) {
+      let ImageBuffer = e.target.result;
+      //TODO: check image type (jpeg assumed)
+      let ImageBase64 = "data:image/jpeg;base64," + _arrayBufferToBase64(ImageBuffer);
+      resetOrientation(ImageBase64, getOrientation(ImageBuffer), function(ImageDataUrl) {
+        debugger;
+        $('#fm_main', FocusManga.overlay).attr('src', ImageDataUrl);
+        FocusManga.updatePageNumber();
+      });
+    }
+  })(imgFile);
+
+  reader.readAsArrayBuffer(imgFile);
+}
+
+
 FocusManga.getFileName = function() {return currFile().name;};
 FocusManga.getCollectionName = function() {
   if (currFile()) {
