@@ -4,14 +4,40 @@
     <title>FocusManga Options</title>
     <meta charset="utf-8">
     <link rel="icon" href="img/icon128.png" />
-    <link rel="stylesheet" href="css/options.css">
+    <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/bootstrap/bootstrap-toggle.min.css">
+    <!--<link rel="stylesheet" href="css/options.css">-->
     <link href='http://fonts.googleapis.com/css?family=Cabin+Condensed' rel='stylesheet' type='text/css'>
-    <script src="lib/jquery.js"></script>
-    <script src="hoster.js"></script>
-    <script src="option_storage.js"></script>
-    <script src="options.js"></script>
+
   </head>
-  <body>
+  <body class="bg-light">
+    <div class="container">
+      <div class="bg-white rounded box-shadow p-3 mb-3">
+        <h1>FocusManga</h1>
+      </div>
+
+      <div class="bg-white rounded box-shadow p-3 mb-3">
+        <h3 class="border-bottom">Key Bindings</h3>
+        <dl class="row">
+
+          <dt class="col-sm-3">Toggle FocusManga</dt>
+          <dd class="col-sm-9"><kbd><kbd>shift</kbd> + <kbd>F</kbd></kbd> (<kbd>Esc</kbd> to disable)</dd>
+
+          <dt class="col-sm-3">Toggle Timer</dt>
+          <dd class="col-sm-9"><kbd>space</kbd></dd>
+
+          <dt class="col-sm-3">Download image to FocusManga folder</dt>
+          <dd class="col-sm-9"><kbd>f</kbd></dd>
+        </dl>
+      </div>
+
+      <div class="bg-white rounded box-shadow p-3 mb-3">
+        <h3 class="border-bottom">Options</h3>
+        <input type="checkbox" checked data-toggle="toggle">
+      </div>
+    </div>
+
+  <!--
     <a class="corner" href="version_history.html"><h1>Version History</h1></a>
     <h1>FocusManga</h1>
     <h2><a href="offline.html">Offline Version</a></h2>
@@ -67,5 +93,14 @@
       </div>
     </div>
     <div id="test_hoster">π</div>
+-->
+
+    <script src="lib/jquery.js"></script>
+    <script src="hoster.js"></script>
+    <script src="option_storage.js"></script>
+    <script src="options.js"></script>
+    <script src="lib/bootstrap/popper.min.js"></script>
+    <script src="lib/bootstrap/bootstrap.min.js"></script>
+    <script src="lib/bootstrap/bootstrap-toggle.min.js"></script>
   </body>
 </html>
