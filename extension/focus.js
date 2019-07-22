@@ -40,31 +40,39 @@ FocusManga = new function() {
   this.img_w = 0;
   this.img_h = 0;
 
+  this.timer_delays = [3, 5, 10, 20, 30, 40, 60, 120, 300, 600];
+
   // overlay html
   this.overlay = $(`
     <div id="fm_overlay">
       <div id="fm_progress"></div>
       <img id="fm_close" title="Close" alt="Close FocusManga" src=""/>
-      <img id="fm_main" alt="Manga Image" src="" />
+      <img id="fm_main" src="" />
       <div id="fm_info">
         <span id="fm_numbers" />
         <span id="fm_name"></span>
       </div>
       <div id="fm_tools">
-        <img id="fm_play" title="Play / Pause" alt="Play / Pause" src="" />
+        <div><img id="fm_play" title="Play / Pause" alt="Play / Pause" src="" /></div>
         <div id="fm_download_container">
-          <span>
-            <span id="fm_download_chap">Chapter</span>
-          </span>
           <img id="fm_download" title="Download Image" alt="Download Image" src="" />
+          <div id="fm_download_chap" class="dropup">Download Chapter</div>
         </div>
-        <img id="fm_options" title="Settings" alt="Settings" src="">
+        <div id="fm_options">
+          <img title="Settings" alt="Settings" src="">
+          <div class="dropup">
+            <dl>
+              <dt>Timer</dt>
+              <dd><input id="fm_option_timer" placeholder="Loading.." spellcheck="false" /></dd>
+             </dl>
+          </div>
+        </div>
       </div>
     </div>
   `);
   $('#fm_close', this.overlay).attr('src', chrome.extension.getURL('img/close-circle.png'));
   $('#fm_download', this.overlay).attr('src', chrome.extension.getURL('img/download.png'));
-  $('#fm_options', this.overlay).attr('src', chrome.extension.getURL('img/options.png'));
+  $('#fm_options img', this.overlay).attr('src', chrome.extension.getURL('img/options.png'));
 
   // setup everything
   $('body').ready(function() {FocusManga.onready();});
@@ -153,8 +161,35 @@ FocusManga = new function() {
       FocusManga.toggleTimer();
     });
 
+    // timer delay
+    $('#fm_option_timer').bind('mousewheel', function(event) {
+      event.preventDefault();
+      let currDelay = $(this).val();
+      if (!currDelay) return;
+      currDelay = FocusManga.show_timer.pretty_string_to_seconds(currDelay);
+      let stepUp = (event.originalEvent.wheelDelta >= 0);
+      let newDelay = -1;
+      for (let i = 0; i < FocusManga.timer_delays.length; i++) {
+        if (stepUp && currDelay < FocusManga.timer_delays[i]) {
+          newDelay = FocusManga.timer_delays[i];
+          break;
+        }
+        if (!stepUp && i > 0 &&
+            currDelay <= FocusManga.timer_delays[i] &&
+            currDelay > FocusManga.timer_delays[i-1]) {
+          newDelay = FocusManga.timer_delays[i-1];
+          break;
+        }
+      }
+      if (newDelay !== -1) {
+        $(this).val(FocusManga.show_timer.seconds_to_pretty_time(newDelay));
+        FocusManga.show_timer.set({delay: newDelay * 1000})
+        chrome.extension.sendRequest({'method': 'options', 'timer_delay': newDelay});
+      }
+    });
+
     // options page
-    $('#fm_options', FocusManga.overlay).click(function() {
+    $('#fm_options .dropup .settings_link', FocusManga.overlay).click(function() {
       chrome.extension.sendRequest({'method': 'tabs'}, function(response) {});
     });
 
@@ -262,6 +297,7 @@ FocusManga = new function() {
       FocusManga.options.get("focusmanga_enabled", true)
     );
 
+    $('#fm_option_timer').val(FocusManga.show_timer.seconds_to_pretty_time(FocusManga.options.get("timer_delay", 20)));
     if (FocusManga.options.get("timer_enabled", false)) {
       FocusManga.startTimer();
     }

@@ -25,7 +25,10 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     console.log("request with method: "+request.method);
     // update options with new data
     if (request.method === "options") {
-	    options.import(request.data);
+      if (request['timer_delay'] !== undefined) {
+          options.set('timer_delay', request['timer_delay']);
+      }
+      options.import(request.data);
       sendResponse(options.export());
     }
 

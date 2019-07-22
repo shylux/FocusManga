@@ -1,5 +1,6 @@
 # Version 1.6.0
 F Added EXIF rotation correction in offline mode.
+F Added ability to change the timer delay on the manga page.
 B Fix 3 broken sites and 4 half-broken sites (mostly collection name etc.).
 
 # Version 1.5.0

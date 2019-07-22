@@ -64,7 +64,7 @@ html.fm_enabled, .fm_enabled body {
     }
   }
 
-  #fm_close, #fm_info, #fm_tools {
+  #fm_close, #fm_info, #fm_tools, #fm_tools .dropup {
     background-color: gray;
     color: black;
     font-weight: bold;
@@ -104,43 +104,66 @@ html.fm_enabled, .fm_enabled body {
     padding-left: 3px;
   }
 
+  $tools_height: 45px;
   #fm_tools {
+    box-sizing: border-box;
     position: fixed;
     bottom: 0;
     right: 0;
-    padding: 5px;
+    height: $tools_height;
 
-    img {
-      height: 25px;
-      width: 25px;
+    > * {
+      float: left;
+      padding: 8px 3px;
+
+      img {
+        $img_height: $tools_height - 16;
+        width: $img_height;
+        height: $img_height;
+      }
     }
-    img:last-child {
+    > *:first-child {
+      margin-left: 3px;
+    }
+    > *:last-child {
       margin-right: 3px;
     }
 
-    > * {
-      float: left;
-      margin: 3px;
-    }
-  }
-
-  #fm_download_container {
-    > * {
-      float: left;
-    }
-    > span {
-      display: none;
-      line-height: 25px;
-      padding-right: 5px;
-      cursor: pointer;
-    }
-    &:hover > span {
+    > div:hover .dropup {
       display: block;
     }
-    > span > span {
-      color: black;
-      &:hover {
-        text-decoration: underline;
+    .dropup {
+      display: none;
+      position: fixed;
+      bottom: $tools_height;
+      right: 0;
+    }
+    #fm_download_container .dropup {
+      font-size: 12pt;
+      padding: 8px;
+      cursor: pointer;
+    }
+    #fm_options .dropup {
+      dl { margin: 0; }
+      dt {
+        float: left;
+        padding: 8px;
+      }
+      dd {
+        float: right;
+        margin-left: 5px;
+        input {
+          box-sizing: border-box;
+          width: 45px;
+          padding: 8px 8px 8px 0;
+          border: none;
+          background-color: gray;
+          color: black;
+          text-align: right;
+          font-size: 12pt;
+          font-weight: bold;
+          cursor: ns-resize;
+        }
       }
     }
   }

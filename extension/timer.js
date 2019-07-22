@@ -75,6 +75,32 @@
     endMarker: function() {
       return this.startMarker + this.delay;
     },
+
+    seconds_to_pretty_time: function(seconds) {
+      let pretty_string = "";
+      let minutes = Math.floor(seconds/60);
+      if (minutes > 0) {
+        pretty_string += minutes+"m ";
+        seconds -= minutes * 60;
+      }
+      if (seconds > 0 || pretty_string.length === 0)
+        pretty_string += seconds+"s";
+
+      return pretty_string;
+    },
+
+    pretty_string_to_seconds: function(pretty) {
+      let seconds = 0;
+      let reg_m_result = /(\d+)m/.exec(pretty);
+      if (reg_m_result) {
+        seconds += 60 * parseInt(reg_m_result[1]);
+      }
+      let reg_s_result = /(\d+)s/.exec(pretty);
+      if (reg_s_result) {
+        seconds += parseInt(reg_s_result[1]);
+      }
+      return seconds;
+    }
   }
 }(jQuery));
 

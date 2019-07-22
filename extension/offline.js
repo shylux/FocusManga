@@ -8,8 +8,8 @@ $(function() {
   $('html').addClass('fm_enabled');
 
   $('body').append(`<div class="filedrop">Drop your picture folder here.</div><input class="filedrop" type="file" webkitdirectory multiple /><div id="fm_catalog"></div>`);
-  $('#fm_tools').prepend('<img id="fm_catalog_icon" title="Catalog" src="" alt="Manga Image">');
-  $('#fm_catalog_icon', this.overlay).attr('src', chrome.extension.getURL('img/catalog.png'));
+  $('#fm_tools').prepend('<div id="fm_catalog_icon"><img title="Catalog" src="" alt="Manga Image"></div>');
+  $('#fm_catalog_icon img', this.overlay).attr('src', chrome.extension.getURL('img/catalog.png'));
 
   $('#fm_catalog_icon').on('click', toggleCatalog);
   $('#fm_catalog').on('click', toggleCatalog);
