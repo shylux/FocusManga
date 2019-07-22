@@ -24,7 +24,7 @@
 
     start: function(options) {
       this.startMarker = this.ms();
-      var that = this;
+      let that = this;
       this.intervalId = setInterval(function() {that.onInterval();}, this.checkingInterval);
       return this;
     },
@@ -41,14 +41,12 @@
     },
 
     isRunning: function() {
-      if (typeof this.intervalId === "undefined")
-        return false;
-      return true;
+      return typeof this.intervalId !== "undefined";
     },
 
     getProgressFracture: function() {
       if (!this.isRunning()) return false;
-      var prog_ms = this.ms() - this.startMarker;
+      let prog_ms = this.ms() - this.startMarker;
       return prog_ms / this.delay;
     },
 
@@ -58,7 +56,6 @@
     },
 
     onInterval: function() {
-      var ms = this.ms();
       if (this.ms() > this.endMarker() && typeof this.intervalId !== "undefined") {
         this.action();
         this.stop();

@@ -1,5 +1,5 @@
 $(function() {
-  var options = new OptionStorage();
+  const options = new OptionStorage();
   // init values
   $('#focusmanga_enabled').prop('checked', options.get('focusmanga_enabled', true));
   $('#timer_enabled').prop('checked', options.get('timer_enabled', false));
@@ -35,9 +35,8 @@ $(function() {
   });
 
   // list hoster
-  var max_functions_count = 0;
-  for (var i in hoster_list) {
-    var e = $('<a target="_blank"></a>').attr('href', "http://"+hoster_list[i].hostname).text(hoster_list[i].hostname);
+  for (let i in hoster_list) {
+    let e = $('<a target="_blank"></a>').attr('href', "http://"+hoster_list[i].hostname).text(hoster_list[i].hostname);
 
     if (!hoster_list[i].mature) {
       $('#normal_content').append(e);
@@ -48,8 +47,8 @@ $(function() {
 
   // open example site of each hoster
   $('#test_hoster').click(function() {
-    for (var i in hoster_list) {
-      var hoster = hoster_list[i];
+    for (let i in hoster_list) {
+      let hoster = hoster_list[i];
       if (hoster.hasOwnProperty("examplePage"))
         chrome.tabs.create({url: 'http://'+hoster.hostname + hoster.examplePage});
     }

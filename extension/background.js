@@ -1,11 +1,11 @@
-var options = new OptionStorage();
-var downloadJobs = {};
-var showJobs = {};
+const options = new OptionStorage();
+const downloadJobs = {};
+const showJobs = {};
 
 // open options page on install and update
-var installed_version = new Version(options.get('version', "0.0.0"));
+const installed_version = new Version(options.get('version', "0.0.0"));
 
-var package_version = new Version(chrome.app.getDetails().version);
+const package_version = new Version(chrome.app.getDetails().version);
 package_version.patch = 0; // ignore patches
 if (package_version.isNewerThan(installed_version) &&
     options.get('version_on_update', true)) {
@@ -24,18 +24,18 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 
     console.log("request with method: "+request.method);
     // update options with new data
-    if (request.method == "options") {
+    if (request.method === "options") {
 	    options.import(request.data);
       sendResponse(options.export());
     }
 
-    if (request.method == "download") {
+    if (request.method === "download") {
       chrome.downloads.download(
           request.data,
           function(downloadId) {
-              if (downloadId != undefined &&
-                  request['chapter'] != undefined &&
-                  showJobs[request.chapter] == undefined)
+              if (downloadId !== undefined &&
+                  request['chapter'] !== undefined &&
+                  showJobs[request.chapter] === undefined)
                   showJobs[request.chapter] = downloadId;
               else
                 downloadJobs[downloadId] = request.erase;
@@ -43,17 +43,17 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
           }
       );
     }
-    if (request.method == "show") {
-      if (showJobs[request.data] != undefined) {
+    if (request.method === "show") {
+      if (showJobs[request.data] !== undefined) {
         chrome.downloads.show(showJobs[request.data]);
         chrome.downloads.erase({id: showJobs[request.data]});
       }
     }
 
     // display page action
-    if (request.method == "pageAction") {
+    if (request.method === "pageAction") {
       chrome.pageAction.show(sender.tab.id);
-    } else if (request.method == "tabs") {
+    } else if (request.method === "tabs") {
 	    var optionsUrl = chrome.extension.getURL('options.html');
 	    chrome.tabs.query({url: optionsUrl}, function(tabs) {
 	      if (tabs.length) {
@@ -66,9 +66,9 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 });
 
 chrome.downloads.onChanged.addListener(function(downloadDelta) {
-    if (downloadJobs[downloadDelta.id] != undefined &&
-        downloadDelta['state'] != undefined &&
-        downloadDelta['state'].current == "complete") {
+    if (downloadJobs[downloadDelta.id] !== undefined &&
+        downloadDelta['state'] !== undefined &&
+        downloadDelta['state'].current === "complete") {
         setTimeout(function() {
           chrome.downloads.erase({id: downloadDelta.id});
         }, downloadJobs[downloadDelta.id]);

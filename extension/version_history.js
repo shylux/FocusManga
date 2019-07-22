@@ -1,7 +1,7 @@
 function parseHistoryFile(data) {
-  var lines = data.split(/[\r\n]+/);
-  for (i in lines) {
-    var line = lines[i];
+  let lines = data.split(/[\r\n]+/);
+  for (let i in lines) {
+    let line = lines[i];
     switch(line[0]) {
       case '#':
         $('body').append($("<h3></h3>").text(line.substring(1)));
@@ -23,7 +23,7 @@ function parseHistoryFile(data) {
 }
 
 $(function() {
-  var options = new OptionStorage();
+  let options = new OptionStorage();
   // set checkbox and handler
   $('#version_on_update').prop('checked', options.get('version_on_update', true));
     $('#version_on_update').click(function() {
@@ -32,7 +32,7 @@ $(function() {
   });
 
   // load history
-  var history_url = chrome.extension.getURL('HISTORY.txt');
+  let history_url = chrome.extension.getURL('HISTORY.txt');
   $.ajax({
     url: history_url,
     success: parseHistoryFile

@@ -1,12 +1,14 @@
-var hoster_list = [];
+const hoster_list = [];
 
-var sample_hoster = {
+let sample_hoster = {
   /* check for hostname is currUrl.contains(hostname) */
   hostname: "example.com",
   /* is the majority of the content targetet to  customers */
   mature: false,
   /* checks if page contains manga. returns true/false */
   mangaPageSelector: "#a .selector",
+  /* alternative for mangaPageSelector which executes a function that returns a boolean */
+  isMangaPage: function() {return true},
   /* parses the page and gets the url of the manga img */
   img: function() {return "img.png";},
   /* A relative manga page on the hoster to test
@@ -26,9 +28,9 @@ var sample_hoster = {
   /* optional
    * returns the manga title. */
   collectionName: function() {return "Bliz one RELOADED!";}
-}
+};
 
-var mangapanda = {
+let mangapanda = {
   hostname: "mangapanda.com",
   mature: false,
   mangaPageSelector: '#img',
@@ -42,11 +44,11 @@ var mangapanda = {
 hoster_list.push(mangapanda);
 
 function tubeCollectionBase() {
-  var line = $('#top h3').text().trim();
+  let line = $('#top h3').text().trim();
   return line.substr($('#top h3 a').text().length + " Manga ".length);
 }
 
-var onepiecetube = {
+let onepiecetube = {
   hostname: "onepiece-tube.com",
   mature: false,
   mangaPageSelector: '#p',
@@ -59,19 +61,19 @@ var onepiecetube = {
 };
 hoster_list.push(onepiecetube);
 
-var narutotube = $.extend(true, {}, onepiecetube);
+let narutotube = $.extend(true, {}, onepiecetube);
 narutotube.hostname = "naruto-tube.org";
 narutotube.collectionName = function() {return "Naruto "+tubeCollectionBase()};
 narutotube.examplePage = "/artbook/003/2";
 hoster_list.push(narutotube);
 
-var fairytailtube = $.extend(true, {}, onepiecetube);
+let fairytailtube = $.extend(true, {}, onepiecetube);
 fairytailtube.hostname = "fairytail-tube.org";
 fairytailtube.collectionName = function() {return "Fairy Tail "+tubeCollectionBase()};
 fairytailtube.examplePage = "/omake/001/3";
 hoster_list.push(fairytailtube);
 
-var mangahere = {
+let mangahere = {
   hostname: "mangahere.cc",
   mature: false,
   mangaPageSelector: '.reader-main-img',
@@ -84,7 +86,7 @@ var mangahere = {
 };
 hoster_list.push(mangahere);
 
-var batoto = {
+let batoto = {
   hostname: "bato.to",
   mature: false,
   mangaPageSelector: '.nav-page',
@@ -97,7 +99,7 @@ var batoto = {
 };
 hoster_list.push(batoto);
 
-var mangafox = {
+let mangafox = {
   hostname: "fanfox.net",
   mature: false,
   mangaPageSelector: '.reader-main-img',
@@ -110,7 +112,7 @@ var mangafox = {
 };
 hoster_list.push(mangafox);
 
-var mangareader = {
+let mangareader = {
   hostname: "mangareader.net",
   mature: false,
   mangaPageSelector: '#img',
@@ -123,7 +125,7 @@ var mangareader = {
 };
 hoster_list.push(mangareader);
 
-var goodmanga = {
+let goodmanga = {
   hostname: "goodmanga.net",
   mature: false,
   mangaPageSelector: '#manga_viewer img',
@@ -136,7 +138,7 @@ var goodmanga = {
 };
 hoster_list.push(goodmanga);
 
-var mangastream = {
+let mangastream = {
   hostname: "readms.net",
   mature: false,
   mangaPageSelector: '#manga-page',
@@ -149,7 +151,7 @@ var mangastream = {
 };
 hoster_list.push(mangastream);
 
-var mangaeden = {
+let mangaeden = {
   hostname: "mangaeden.com",
   mature: false,
   mangaPageSelector: '#mainImg',
@@ -162,7 +164,7 @@ var mangaeden = {
 };
 hoster_list.push(mangaeden);
 
-var hbrowse = {
+let hbrowse = {
   hostname: "hbrowse.com",
   mature: true,
   mangaPageSelector: '.pageImage',
@@ -175,13 +177,13 @@ var hbrowse = {
 };
 hoster_list.push(hbrowse);
 
-var perveden = $.extend(true, {}, mangaeden);
+let perveden = $.extend(true, {}, mangaeden);
 perveden.hostname = "perveden.com";
 perveden.mature = true;
 perveden.examplePage = "/en/en-manga/cartoonists-nsfw-season-1-chapter-1-10-english/1/3/";
 hoster_list.push(perveden);
 
-var fakku = {
+let fakku = {
   hostname: "fakku.net",
   mature: true,
   mangaPageSelector: '.current-page:visible',
@@ -193,7 +195,7 @@ var fakku = {
 };
 hoster_list.push(fakku);
 
-var mangatube = {
+let mangatube = {
   hostname: "manga-tube.me",
   mature: false,
   mangaPageSelector: '.reader-body',
@@ -206,7 +208,7 @@ var mangatube = {
 };
 hoster_list.push(mangatube);
 
-var e_hentai = {
+let e_hentai = {
   hostname: "e-hentai.org",
   mature: true,
   mangaPageSelector: '#img',
@@ -219,7 +221,7 @@ var e_hentai = {
 };
 hoster_list.push(e_hentai);
 
-var senmanga = {
+let senmanga = {
   hostname: "raw.senmanga.com",
   mature: false,
   mangaPageSelector: '#picture',
@@ -232,7 +234,7 @@ var senmanga = {
 };
 hoster_list.push(senmanga);
 
-var nhentai = {
+let nhentai = {
   hostname: "nhentai.net",
   mature: true,
   mangaPageSelector: '#image-container',
@@ -245,7 +247,7 @@ var nhentai = {
 };
 hoster_list.push(nhentai);
 
-var pururin = {
+let pururin = {
   hostname: "pururin.io",
   mature: true,
   isMangaPage: function() {
@@ -269,14 +271,14 @@ function getHoster(hoster_name, search_list) {
   if (search_list === undefined) search_list = hoster_list;
   if (hoster_name === undefined) hoster_name = window.location.hostname;
   for (var i in search_list) {
-    if (hoster_name.indexOf(search_list[i].hostname) != -1)
+    if (hoster_name.indexOf(search_list[i].hostname) !== -1)
       return search_list[i];
   }
 }
 
 // Utility
-var getLocation = function(href) {
-  var l = document.createElement("a");
+let getLocation = function(href) {
+  let l = document.createElement("a");
   l.href = href;
   return l;
 };

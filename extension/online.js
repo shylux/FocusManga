@@ -1,5 +1,5 @@
 // handle focusmanga
-var hoster = getHoster();
+const hoster = getHoster();
 
 if (hoster === undefined) throw new Error("No hoster found.");
 
@@ -35,10 +35,10 @@ FocusManga.preload = function() {
  * The url was updated bevore the dom. (url update -> ajax request -> dom update)
  * Resulted in my script parsing the page before the dom got updated.
  */
-var lastImg = hoster.img().get(0);
+let lastImg = hoster.img().get(0);
 function checkImg() {
   let currImg = hoster.img().get(0);
-  if (currImg != lastImg ||
+  if (currImg !== lastImg ||
       $('#fm_main').attr('src') !== $(lastImg).attr('src')) {
     FocusManga.parsePage();
     lastImg = hoster.img().get(0);

@@ -4,14 +4,14 @@
 
 function Version(version_input) {
   /** VARIABLES **/
-  major = 0;
-  minor = 0;
-  patch = 0;
+  this.major = 0;
+  this.minor = 0;
+  this.patch = 0;
 
   /** FUNCTIONS **/
   this.parse = function(version_input) {
     if (typeof version_input == "string") {
-      var x = version_input.split('.');
+      let x = version_input.split('.');
       // parse from string or default to 0 if can't parse
       this.major = parseInt(x[0]) || 0;
       this.minor = parseInt(x[1]) || 0;
@@ -30,10 +30,9 @@ function Version(version_input) {
   };
 
   this.isNewerThan = function(other) {
-    if (this.major > other.major ||
-        this.minor > other.minor ||
-        this.patch > other.patch) return true;
-    return false;
+    return this.major > other.major ||
+           this.minor > other.minor ||
+           this.patch > other.patch;
 };
 
   /** CONSTRUCTOR **/

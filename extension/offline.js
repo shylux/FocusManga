@@ -1,14 +1,14 @@
-var file_list = [];
-var file_index = parseHashLocation();
-var collection_list = [];
-var collection_start_indices = {};
-var collection_sizes = {};
+const file_list = [];
+let file_index = parseHashLocation();
+const collection_list = [];
+const collection_start_indices = {};
+const collection_sizes = {};
 
 $(function() {
   $('html').addClass('fm_enabled');
 
   $('body').append(`<div class="filedrop">Drop your picture folder here.</div><input class="filedrop" type="file" webkitdirectory multiple /><div id="fm_catalog"></div>`);
-  $('#fm_tools').prepend('<img id="fm_catalog_icon" title="Catalog">');
+  $('#fm_tools').prepend('<img id="fm_catalog_icon" title="Catalog" src="" alt="Manga Image">');
   $('#fm_catalog_icon', this.overlay).attr('src', chrome.extension.getURL('img/catalog.png'));
 
   $('#fm_catalog_icon').on('click', toggleCatalog);
@@ -21,7 +21,6 @@ $(function() {
 
 
   $('body').on('dragenter', dragenter);
-  //$('#filedrop').on('dragleave', dragleave);
 
   $(window).keydown(function(event) {
     switch(event.which) {
@@ -111,15 +110,15 @@ function processLoadedFiles() {
   // sort list alphabetically
   file_list.sort(function(a, b) {
     // sort first by collection
-    var collectionCompare = naturalSort(parseCollectionName(a), parseCollectionName(b));
-    if (collectionCompare != 0) return collectionCompare;
+    let collectionCompare = naturalSort(parseCollectionName(a), parseCollectionName(b));
+    if (collectionCompare !== 0) return collectionCompare;
     return naturalSort(a.fullPath, b.fullPath);
   });
 
   // build collection dict
-  for (var i = 0, file; file=file_list[i]; i++) {
-    var name = parseCollectionName(file);
-    if (collection_list.indexOf(name) == -1) {
+  for (let i = 0, file = file_list[0]; i < file_list.length; i++, file=file_list[i]) {
+    let name = parseCollectionName(file);
+    if (collection_list.indexOf(name) === -1) {
       collection_list.push(name);
       collection_start_indices[name] = i;
       collection_sizes[name] = 0;
@@ -133,16 +132,16 @@ function processLoadedFiles() {
   }
 
   dragleave();
-  if (file_index == -1) file_index = 0;
+  if (file_index === -1) file_index = 0;
 
   FocusManga.parsePage();
   $('#fm_info').css('visibility', 'visible');
 }
 
 /* PAGE CHANGE */
-var parsedUrl = window.location.toString();
+let parsedUrl = window.location.toString();
 function checkPageChange() {
-  if (parsedUrl != window.location.toString()) {
+  if (parsedUrl !== window.location.toString()) {
     parsedUrl = window.location.toString();
     FocusManga.parsePage();
   }
@@ -163,7 +162,7 @@ function dragleave() {
 }
 
 function step(delta) {
-  if (file_list.length == 0) return;
+  if (file_list.length === 0) return;
   file_index = file_index + delta;
   if (file_index < 0) file_index = file_list.length-1;
   if (file_index >= file_list.length) file_index = 0;
@@ -173,13 +172,13 @@ function step(delta) {
 
 function stepCollection(delta) {
   if (!currFile()) return;
-  var currColName = parseCollectionName(currFile());
-  var col_index = collection_list.indexOf(currColName);
-  var new_index = (col_index+delta) % collection_list.length;
-  if (new_index<0) new_index+=collection_list.length; // fix modulo bug
-  var newColName = collection_list[new_index];
-  for (var i = 0, file; file=file_list[i]; i++) {
-    if (newColName == parseCollectionName(file)) {
+  let currColName = parseCollectionName(currFile());
+  let col_index = collection_list.indexOf(currColName);
+  let new_index = (col_index+delta) % collection_list.length;
+  if (new_index<0) new_index+=collection_list.length; // fix modulo "feature"
+  let newColName = collection_list[new_index];
+  for (let i = 0, file = file_list[0]; i < file_list.length; i++, file=file_list[i]) {
+    if (newColName === parseCollectionName(file)) {
       file_index = i;
       window.location.hash = file_index+1;
       return;
@@ -189,12 +188,12 @@ function stepCollection(delta) {
 
 function parseHashLocation() {
   // strip hash symbol
-  var str_index = window.location.hash.substring(1);
+  let str_index = window.location.hash.substring(1);
   // check if user deleted the number
-  if (str_index.length == 0) return 0; // redirect to pic 0
+  if (str_index.length === 0) return 0; // redirect to pic 0
   // check if hash is number
   if (str_index.length >= 0 && !isNaN(str_index)) {
-    var index = parseInt(str_index);
+    let index = parseInt(str_index);
     if (index <= 0) return 0;
     return index-1;
   }
@@ -203,7 +202,7 @@ function parseHashLocation() {
 
 // Extracts deepest folder name of file
 function parseCollectionName(file) {
-  var path = file.fullPath.split('/');
+  let path = file.fullPath.split('/');
   return path[path.length-2];
 }
 
@@ -219,13 +218,13 @@ function toggleCatalog() {
   $('#fm_catalog').show();
 
 
-  if ($('#fm_catalog a').size() == 0) {
-    for (var key in collection_start_indices) {
-      var file = file_list[collection_start_indices[key]];
-      var reader = new FileReader();
+  if ($('#fm_catalog a').size() === 0) {
+    for (let key in collection_start_indices) {
+      let file = file_list[collection_start_indices[key]];
+      let reader = new FileReader();
       reader.onload = (function (collection) {
         return function (e) {
-          var template = $('<a><img src="" /><span></span></a>');
+          var template = $('<a><img src="" alt="First page in collection" /><span></span></a>');
           template.data('collection-name', collection);
           template.attr('href', '#' + (collection_start_indices[collection] + 1));
           template.find('span').text(collection_sizes[collection]);
@@ -240,11 +239,11 @@ function toggleCatalog() {
 }
 
 function sortCatalog() {
-  var collections = $('#fm_catalog > a').get();
+  let collections = $('#fm_catalog > a').get();
   collections.sort(function(a, b) {
     return collection_start_indices[$(a).data('collection-name')] - collection_start_indices[$(b).data('collection-name')];
   });
-  for (var i = 0; i < collections.length; i++) {
+  for (let i = 0; i < collections.length; i++) {
       collections[i].parentNode.appendChild(collections[i]);
   }
 }
@@ -260,27 +259,27 @@ FocusManga.next = function() {
 };
 FocusManga.currentPageNumber = function() {
   if (!currFile()) return file_index+1;
-  var curr_collection = parseCollectionName(currFile());
-  var counter = 0;
-  for (var i = 0, file; file=file_list[i]; i++) {
-    if (curr_collection == parseCollectionName(file)) counter++;
-    if (file == currFile()) return counter;
+  let curr_collection = parseCollectionName(currFile());
+  let counter = 0;
+  for (let i = 0, file = file_list[0]; i < file_list.length; i++, file=file_list[i]) {
+    if (curr_collection === parseCollectionName(file)) counter++;
+    if (file === currFile()) return counter;
   }
   return 0;
 };
 FocusManga.currentChapterPages = function() {
   if (!currFile()) return 0;
-  var curr_collection = parseCollectionName(currFile());
-  var counter = 0;
-  for (var i = 0, file; file=file_list[i]; i++) {
-    if (curr_collection == parseCollectionName(file)) counter++;
+  let curr_collection = parseCollectionName(currFile());
+  let counter = 0;
+  for (let i = 0, file = file_list[0]; i < file_list.length; i++, file=file_list[i]) {
+    if (curr_collection === parseCollectionName(file)) counter++;
   }
   return counter;
 };
 FocusManga.onClose = function() {};
 FocusManga.onPageAction = function() {};
 FocusManga.setImage = function() {
-  var hash = parseHashLocation();
+  let hash = parseHashLocation();
   if (hash >= 0 && hash < file_list.length)
     file_index = hash;
   else
@@ -288,7 +287,7 @@ FocusManga.setImage = function() {
     if (file_list.length > 0)
       window.location.hash = file_index+1;
 
-  var file = currFile();
+  let file = currFile();
   if (!file) return;
 
   if (FocusManga.options.get("exif_rotation_correction_enabled", false)) {

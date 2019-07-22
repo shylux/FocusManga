@@ -23,8 +23,8 @@ function OptionStorage(initial_values) {
 
   // return a string representing all propertys
   this.printAll = function() {
-    var str = "Options:\n";
-    for (var key in this.storage) {
+    let str = "Options:\n";
+    for (let key in this.storage) {
       str += key + ": " + this.storage[key] + "\n";
     }
     return str;
@@ -42,7 +42,7 @@ function OptionStorage(initial_values) {
         options = JSON.parse(options);
       } catch(err) {console.error(err); return;}
     }
-    for (var key in options) {
+    for (let key in options) {
       this.set(key, options[key]);
     }
   };
@@ -51,7 +51,7 @@ function OptionStorage(initial_values) {
   this.storage = {};
   this.import(localStorage[this.key]);
 
-  for (var key in initial_values)
+  for (let key in initial_values)
       this.storage[key] = initial_values[key];
 
 }
