@@ -36,7 +36,7 @@ var mangapanda = {
   nextUrl: function() {return $('.next a').attr('href');},
   currPage: function() {return parseInt($('#pageMenu option:selected').text());},
   totalPages: function() {return parseInt($('#pageMenu option:last').text());},
-  collectionName: function() {var s = $('#mangainfo .c2 a').text(); return s.substr(0,s.length-6);},
+  collectionName: function() {var s = $('#mangainfo h2 a').text(); return s.substr(0,s.length-6);},
   examplePage: "/113-4017-4/death-note/chapter-1.html"
 };
 hoster_list.push(mangapanda);
@@ -74,12 +74,12 @@ hoster_list.push(fairytailtube);
 var mangahere = {
   hostname: "mangahere.cc",
   mature: false,
-  mangaPageSelector: '#image',
-  img: function() {return $('#image');},
-  nextUrl: function() {return $('.next_page').attr('href');},
-  currPage: function() {return parseInt($('.wid60:first option:selected').text());},
-  totalPages: function() {return parseInt($('.wid60 option:last').text());},
-  collectionName: function() {return $('.title h1 a').text();},
+  mangaPageSelector: '.reader-main-img',
+  img: function() {return $('.reader-main-img');},
+  nextUrl: function() {return $('.pager-list-left:last span a:last').attr('href');},
+  currPage: function() {return parseInt($('.pager-list-left:last span a.active').text());},
+  totalPages: function() {return parseInt($('.pager-list-left:last span a').last().prev().text());},
+  collectionName: function() {return $('.reader-header-title-2').text();},
   examplePage: "/manga/fairy_tail/v01/c001/4.html"
 };
 hoster_list.push(mangahere);
@@ -100,12 +100,12 @@ hoster_list.push(batoto);
 var mangafox = {
   hostname: "fanfox.net",
   mature: false,
-  mangaPageSelector: '#image',
-  img: function() {return $('#image');},
-  nextUrl: function() {return $(".next_page").attr('href');},
-  currPage: function() {return parseInt($('#top_bar .l .m option:selected').text());},
-  totalPages: function() {return parseInt($('#top_bar .l .m option').size())-1;},
-  collectionName: function() {return $('#series h1.no:first a').text();},
+  mangaPageSelector: '.reader-main-img',
+  img: function() {return $('.reader-main-img');},
+  nextUrl: function() {return $('.pager-list-left:last span a:last').attr('href');},
+  currPage: function() {return parseInt($('.pager-list-left:last span a.active').text());},
+  totalPages: function() {return parseInt($('.pager-list-left:last span a').last().prev().text());},
+  collectionName: function() {return $('.reader-header-title-2').text();},
   examplePage: "/manga/horimiya/v03/c015/2.html"
 };
 hoster_list.push(mangafox);
@@ -118,7 +118,7 @@ var mangareader = {
   nextUrl: function() {return $(".next a").attr('href');},
   currPage: function() {return parseInt($('#pageMenu').find(':selected').text());},
   totalPages: function() {return $('#pageMenu option').size();},
-  collectionName: function() {var s = $('#mangainfo .c2 a').text(); return s.substr(0,s.length-6);},
+  collectionName: function() {var s = $('#mangainfo h2 a').text(); return s.substr(0,s.length-6);},
   examplePage: "/337-23513-2/historys-strongest-disciple-kenichi/chapter-7.html"
 };
 hoster_list.push(mangareader);
@@ -144,6 +144,7 @@ var mangastream = {
   nextUrl: function() {return $('#manga-page').parent().attr('href');},
   currPage: function() {return parseInt(window.location.pathname.split('/').slice(-1)[0]);},
   totalPages: function() {return parseInt(getLocation($('.controls .btn-reader-page li:last a').attr('href')).pathname.split('/').slice(-1)[0]);},
+  collectionName: function() {return $('.btn-reader-chapter .dropdown-toggle').text()},
   examplePage: "/r/onepunch_man/065/3587/2"
 };
 hoster_list.push(mangastream);
@@ -177,7 +178,7 @@ hoster_list.push(hbrowse);
 var perveden = $.extend(true, {}, mangaeden);
 perveden.hostname = "perveden.com";
 perveden.mature = true;
-perveden.examplePage = "/en-manga/my-sister/1/4/";
+perveden.examplePage = "/en/en-manga/cartoonists-nsfw-season-1-chapter-1-10-english/1/3/";
 hoster_list.push(perveden);
 
 var fakku = {
@@ -201,7 +202,7 @@ var mangatube = {
   currPage: function() {return parseInt($('.reader-navigation .page-dropdown li.active').data('page'));},
   totalPages: function() {return parseInt($('.reader-navigation .page-dropdown li').length);},
   collectionName: function() {return $('.reader-navigation .series-control .leave-reader').text();},
-  examplePage: "/series/fairy_tail/read/8763/1"
+  examplePage: "/series/boruto__naruto_next_generations/read/11279/3"
 };
 hoster_list.push(mangatube);
 
@@ -225,8 +226,8 @@ var senmanga = {
   img: function() {return $('#picture');},
   nextUrl: function() {return $('#picture').parent().attr('href');},
   currPage: function() {return parseInt($("select[name='page']:first option:selected").val());},
-  totalPages: function() {return parseInt($('.pager:first').text().match('of (.*) Next')[1]);},
-  collectionName: function() {return $('.walk:first a:nth-child(2)').text();},
+  totalPages: function() {return parseInt($('.pager:last').text().match('of (.*)')[1]);},
+  collectionName: function() {return $('.location .walk:first a:nth-child(4)').text();},
   examplePage: "/Billionaire_Girl/12/4"
 };
 hoster_list.push(senmanga);
@@ -247,14 +248,16 @@ hoster_list.push(nhentai);
 var pururin = {
   hostname: "pururin.io",
   mature: true,
-  mangaPageSelector: '.image-viewer',
-  img: function() {return $('.image-next');},
-  nextUrl: function() {
-    var newPage = parseInt(/\/read\/\d+\/(\d+)\/.*/g.exec(window.location.pathname)[1]) + 1;
-    return window.location.toString().replace(/(\/read\/\d+\/)(\d+)/g, "$1"+newPage);
+  isMangaPage: function() {
+    return ($('.image-viewer .images-inline').length === 0);
   },
-  currPage: function() {return parseInt($('.control select option:selected').val());},
-  totalPages: function() {return $('.control select option').size();},
+  img: function() {return $('.image-viewer img');},
+  nextUrl: function() {
+    let newPage = parseInt(/\/read\/\d+\/(\d+)\/.*/g.exec(window.location.pathname)[1]) + 1;
+    return window.location.toString().replace(/(\/read\/\d+\/)(\d+)/g, "$1"+pad(newPage, 2));
+  },
+  currPage: function() {return parseInt($('.image-meta select option:selected').text());},
+  totalPages: function() {return $('.image-meta select option').length;},
   collectionName: function() {return $('.title').text();},
   examplePage: "/read/35815/1/horny-androids"
 };

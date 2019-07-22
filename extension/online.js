@@ -4,7 +4,8 @@ var hoster = getHoster();
 if (hoster === undefined) throw new Error("No hoster found.");
 
 FocusManga.isMangaPage = function() {
-  return $(hoster.mangaPageSelector).length > 0;
+    if (hoster.mangaPageSelector) return $(hoster.mangaPageSelector).length > 0;
+    if (hoster.isMangaPage) return hoster.isMangaPage();
 };
 FocusManga.hasNextPage = function() {return hoster.nextUrl;};
 FocusManga.next = function() {console.log("next");window.location.href = hoster.nextUrl();};
@@ -36,7 +37,9 @@ FocusManga.preload = function() {
  */
 var lastImg = hoster.img().get(0);
 function checkImg() {
-  if (hoster.img().get(0) != lastImg) {
+  let currImg = hoster.img().get(0);
+  if (currImg != lastImg ||
+      $('#fm_main').attr('src') !== $(lastImg).attr('src')) {
     FocusManga.parsePage();
     lastImg = hoster.img().get(0);
   }
