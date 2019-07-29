@@ -125,19 +125,6 @@ let mangareader = {
 };
 hoster_list.push(mangareader);
 
-let goodmanga = {
-  hostname: "goodmanga.net",
-  mature: false,
-  mangaPageSelector: '#manga_viewer img',
-  img: function() {return $('#manga_viewer img');},
-  nextUrl: function() {return $('.next_page').attr('href');},
-  currPage: function() {return parseInt($('.page_select').find(':selected').text());},
-  totalPages: function() {return $('.page_select:first option').size();},
-  collectionName: function() {return $('#manga_head h3 a').text();},
-  examplePage: "/rosario-vampire_ii/chapter/63/4"
-};
-hoster_list.push(goodmanga);
-
 let mangastream = {
   hostname: "readms.net",
   mature: false,

@@ -2,6 +2,7 @@
 F Added EXIF rotation correction in offline mode.
 F Added ability to change the timer delay on the manga page.
 B Fix 3 broken sites and 4 half-broken sites (mostly collection name etc.).
+B Removed goodmanga.net. It is dead and links to mangareader.net.
 
 # Version 1.5.0
 F Show collection size in collection overview.
