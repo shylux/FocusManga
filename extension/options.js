@@ -1,56 +1,98 @@
-$(function() {
-  const options = new OptionStorage();
-  // init values
-  $('#focusmanga_enabled').prop('checked', options.get('focusmanga_enabled', true));
-  $('#timer_enabled').prop('checked', options.get('timer_enabled', false));
-  $('#timer_delay').val(options.get('timer_delay', 20));
-  $('#page_numbers_enabled').prop('checked', options.get('page_numbers_enabled', true));
-  $('#chapter_progressbar_enabled').prop('checked', options.get('chapter_progressbar_enabled', true));
-  $('#exif_rotation_correction_enabled').prop('checked', options.get('exif_rotation_correction_enabled', false));
+const options = new OptionStorage();
 
-  // save handler
-  $('#focusmanga_enabled').click(function() {
-    options.set('focusmanga_enabled', this.checked);
-    $('#toast').show().text('Set FocusManga enabled: '+this.checked);
-  });
-  $('#timer_enabled').click(function() {
-    options.set('timer_enabled', this.checked);
-    $('#toast').show().text('Set timer enabled: '+this.checked);
-  });
-  $('#timer_delay').keyup(function() {
-    options.set('timer_delay', $(this).val());
-    $('#toast').show().text('Set timer delay to: '+$(this).val());
-  });
-  $('#page_numbers_enabled').click(function() {
-    options.set('page_numbers_enabled', this.checked);
-    $('#toast').show().text('Set show page numbers to: '+this.checked);
-  });
-  $('#chapter_progressbar_enabled').click(function() {
-    options.set('chapter_progressbar_enabled', this.checked);
-    $('#toast').show().text('Set show progressbar to: '+this.checked);
-  });
-  $('#exif_rotation_correction_enabled').click(function() {
-    options.set('exif_rotation_correction_enabled', this.checked);
-    $('#toast').show().text('Set exif image rotation correction to: '+this.checked);
-  });
+const defaultValues = {
+    'timer-delay': 20,
+    'focusmanga-enabled': true,
+    'timer-enabled': false,
+    'page-numbers-enabled': true,
+    'progressbar-enabled': true,
+    'exif-rotation-correction-enabled': false
+};
 
-  // list hoster
-  for (let i in hoster_list) {
-    let e = $('<a target="_blank"></a>').attr('href', "http://"+hoster_list[i].hostname).text(hoster_list[i].hostname);
+const changeTypes = {
+    'B': ['Bugfix', 'img/bug.png'],
+    'S': ['Awesome Feature', 'img/rocket.png'],
+    'F': ['Feature', 'img/truck.png']
+};
 
-    if (!hoster_list[i].mature) {
-      $('#normal_content').append(e);
-    } else {
-      $('#adult_content .hosters').append(e);
-    }
-  }
+$(document).ready(function() {
 
-  // open example site of each hoster
-  $('#test_hoster').click(function() {
+    // load checkbox options
+    $('#options :checkbox').each(function() {
+        let id = $(this).attr('id');
+        let value = options.get(id, defaultValues[id]);
+        $(this).prop('checked', value);
+    });
+
+    // load timer delay
+    $('#timer-delay').val(options.get('timer-delay', defaultValues['timer-delay']));
+
+    // list hoster
+    let hosterTemplate = $('#hoster-list .hoster').remove();
     for (let i in hoster_list) {
-      let hoster = hoster_list[i];
-      if (hoster.hasOwnProperty("examplePage"))
-        chrome.tabs.create({url: 'http://'+hoster.hostname + hoster.examplePage});
+        let host = hoster_list[i];
+        let copy = hosterTemplate.clone();
+        copy.attr('href', 'http://' + host.hostname);
+        $('.name', copy).text(host.hostname);
+        // icon
+        let icon = (host.icon) ? host.icon : 'http://' + host.hostname + '/favicon.ico';
+        $('img.icon', copy).attr('src', icon);
+        if (host.mature) {
+            $('#hoster-list .mature .list-group').append(copy);
+        } else {
+            $('#hoster-list .everyone .list-group').append(copy);
+        }
     }
-  });
+
+    // load version history
+    let history_url = chrome.extension.getURL('HISTORY.txt');
+    let versionTemplate = $('#version-history .version').remove();
+    $.ajax({
+        url: history_url,
+        success: function(data) {
+            for (const versionEntry of data.split('#')) {
+                if (versionEntry.trim().length === 0) continue;
+
+                let versionCopy = versionTemplate.clone();
+                let lines = versionEntry.split('\n');
+                // version number
+                //let versionNumber = lines.shift().replace('Version', '').trim();
+                $('.card-header', versionCopy).text(lines.shift().trim());
+
+                // changes
+                let changeTemplate = $('.change', versionCopy).remove();
+                for (const change of lines) {
+                    if (change.trim().length === 0) continue;
+                    let changeCopy = changeTemplate.clone();
+                    // type image
+                    let changeType = changeTypes[change.substr(0, change.indexOf(' '))];
+                    $('img', changeCopy).attr({src: changeType[1], alt: changeType[0]});
+
+                    // message
+                    let changeMessage = change.substr(change.indexOf(' ') + 1);
+                    $('.change-desc', changeCopy).text(changeMessage);
+                    $('.changes', versionCopy).append(changeCopy);
+                }
+
+                $('#version-history .col').append(versionCopy);
+            }
+        }
+    });
+});
+
+// handle option changes
+$('#options :checkbox').on('change', function() {
+    let id = $(this).attr('id');
+    options.set(id, $(this).prop('checked'));
+});
+$('#timer-delay').on('input', function() {
+    options.set('timer-delay', $(this).val());
+});
+
+// open all hoster
+$('#open-all-hoster').on('click', function() {
+    for (let i in hoster_list) {
+        let hoster = hoster_list[i];
+        chrome.tabs.create({url: 'http://' + hoster.hostname + hoster.examplePage});
+    }
 });

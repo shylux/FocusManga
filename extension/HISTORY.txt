@@ -1,6 +1,7 @@
 # Version 1.6.0
 F Added EXIF rotation correction in offline mode.
 F Added ability to change the timer delay on the manga page.
+F Updated options page to a bootstrap design.
 B Fix 3 broken sites and 4 half-broken sites (mostly collection name etc.).
 B Removed goodmanga.net. It is dead and links to mangareader.net.
 
@@ -38,28 +39,23 @@ B Fixed all hoster. Alot of them changed domain name.
 B Removed fullscreen support as it was quite buggy.
 
 # Version 1.2.1
-
 S Added fullscreen support.
 B Fixed bug in offline mode where page didn't change.
 
 # Version 1.2
-
 S Added download option for single pages.
 F Updated icons.
 F Added German hoster manga-tu.be.
 F Added hoster e-hentai.org.
 
 # Version 1.1.2
-
 F Updated sorting algorithm.
 
 # Version 1.1.1
-
 F Natural Sorting Algorithm.
 B Fixed bug in version parsing.
 
 # Version 1.1
-
 S Pictures are now sorted by their parent folder name.
 S Navigating to the next/previous picture/folder can now be done by scrolling.
 F The progress of the timer is now displayed by a little bar at the top of the page.
@@ -67,5 +63,4 @@ F Added version history to inform the user about the new features.
 B Deleting the location hash now resets the file index.
 
 # Version 1.0
-
-initial release
+S initial release

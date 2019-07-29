@@ -1,106 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>FocusManga Options</title>
-    <meta charset="utf-8">
-    <link rel="icon" href="img/icon128.png" />
-    <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="lib/bootstrap/bootstrap-toggle.min.css">
-    <!--<link rel="stylesheet" href="css/options.css">-->
-    <link href='http://fonts.googleapis.com/css?family=Cabin+Condensed' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="img/icon128.png"/>
+    <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="lib/bootstrap/bootstrap4-toggle.min.css"/>
+    <link rel="stylesheet" href="css/options.css">
+    <link href='http://fonts.googleapis.com/css?family=Cabin+Condensed' rel='stylesheet' type='text/css'/>
+</head>
+<body>
+<main class="container">
 
-  </head>
-  <body class="bg-light">
-    <div class="container">
-      <div class="bg-white rounded box-shadow p-3 mb-3">
+    <div class="rounded box-shadow p-3 mb-5">
         <h1>FocusManga</h1>
-      </div>
-
-      <div class="bg-white rounded box-shadow p-3 mb-3">
-        <h3 class="border-bottom">Key Bindings</h3>
-        <dl class="row">
-
-          <dt class="col-sm-3">Toggle FocusManga</dt>
-          <dd class="col-sm-9"><kbd><kbd>shift</kbd> + <kbd>F</kbd></kbd> (<kbd>Esc</kbd> to disable)</dd>
-
-          <dt class="col-sm-3">Toggle Timer</dt>
-          <dd class="col-sm-9"><kbd>space</kbd></dd>
-
-          <dt class="col-sm-3">Download image to FocusManga folder</dt>
-          <dd class="col-sm-9"><kbd>f</kbd></dd>
-        </dl>
-      </div>
-
-      <div class="bg-white rounded box-shadow p-3 mb-3">
-        <h3 class="border-bottom">Options</h3>
-        <input type="checkbox" checked data-toggle="toggle">
-      </div>
     </div>
 
-  <!--
-    <a class="corner" href="version_history.html"><h1>Version History</h1></a>
-    <h1>FocusManga</h1>
-    <h2><a href="offline.html">Offline Version</a></h2>
-    <h2>Key Bindings</h2>
-    <table>
-      <tr>
-        <th>FocusManga disabled</th>
-      </tr>
-      <tr>
-        <td><code>shift + F</code></td>
-        <td>Enable FocusManga</dd></td>
-      </tr>
-      <tr>
-        <th>FocusManga enabled</th>
-      </tr>
-      <tr>
-        <td><code>shift + F / Esc</code></td>
-        <td>Disable FocusManga</td>
-      </tr>
-      <tr>
-        <td><code>Space</code></td>
-        <td>Toggle Timer</td>
-      </tr>
-      <tr>
-        <th>Offline mode</th>
-      </tr>
-      <tr>
-        <td><code>F</code></td>
-        <td>Copy image to FocusManga folder</td>
-      </tr>
-    </table>
-    <h2>Options</h2>
-    <div id="toast">Toast</div>
-    <dl>
-      <dt>FocusManga enabled:</dt>
-      <dd><input id="focusmanga_enabled" type="checkbox" /></dd>
-      <dt>Timer enabled:</dt>
-      <dd><input id="timer_enabled" type="checkbox" /></dd>
-      <dt>Timer delay:</dt>
-      <dd><input id="timer_delay" type="number" /><label for="timer_delay">Seconds</label></dd>
-      <dt>Page Numbers:</dt>
-      <dd><input id="page_numbers_enabled" type="checkbox" /></dd>
-      <dt>Chapter progressbar:</dt>
-      <dd><input id="chapter_progressbar_enabled" type="checkbox" /></dd>
-      <dt>Offline Mode: Fix EXIF image rotation (very slow):</dt>
-      <dd><input id="exif_rotation_correction_enabled" type="checkbox" /></dd>
-    </dl>
-    <h2>Supported Hoster</h2>
-    <div id="normal_content" class="hosters"></div>
-    <div id="adult_content">
-      <span>Adult Content</span>
-      <div class="hosters">
-      </div>
-    </div>
-    <div id="test_hoster">π</div>
--->
+    <div class="row mb-5">
 
-    <script src="lib/jquery.js"></script>
-    <script src="hoster.js"></script>
-    <script src="option_storage.js"></script>
-    <script src="options.js"></script>
-    <script src="lib/bootstrap/popper.min.js"></script>
-    <script src="lib/bootstrap/bootstrap.min.js"></script>
-    <script src="lib/bootstrap/bootstrap-toggle.min.js"></script>
-  </body>
+        <div id="options" class="col">
+            <h3 class="border-bottom">Options</h3>
+            <div class="mb-3">
+                <label for="timer-delay">Timer Delay</label>
+                <input id="timer-delay"
+                       class="form-control"
+                       type="number"/>
+            </div>
+            <div>
+                <input id="focusmanga-enabled"
+                       type="checkbox"
+                       checked
+                       data-toggle="toggle"
+                       data-on="FocusManga Enabled"
+                       data-off="FocusManga Disabled"
+                       data-style="mb-3"
+                       data-onstyle="outline-success"
+                       data-offstyle="outline-danger"
+                       data-width="250"
+                       data-height="50"/>
+            </div>
+            <div>
+                <input id="timer-enabled"
+                       type="checkbox"
+                       checked
+                       data-toggle="toggle"
+                       data-style="mb-3"
+                       data-on="Timer Enabled"
+                       data-off="Timer Disabled"
+                       data-onstyle="outline-success"
+                       data-offstyle="outline-danger"
+                       data-width="250"
+                       data-height="50"/>
+            </div>
+            <div>
+                <input id="page-numbers-enabled"
+                       type="checkbox"
+                       checked
+                       data-toggle="toggle"
+                       data-style="mb-3"
+                       data-on="Page Numbers Enabled"
+                       data-off="Page Numbers Disabled"
+                       data-onstyle="outline-success"
+                       data-offstyle="outline-danger"
+                       data-width="250"
+                       data-height="50"/>
+            </div>
+            <div>
+                <input id="progressbar-enabled"
+                       type="checkbox"
+                       checked
+                       data-toggle="toggle"
+                       data-style="mb-3"
+                       data-on="Progressbar Enabled"
+                       data-off="Progressbar Disabled"
+                       data-onstyle="outline-success"
+                       data-offstyle="outline-danger"
+                       data-width="250"
+                       data-height="50"/>
+            </div>
+            <div>
+                <input id="exif-rotation-correction-enabled"
+                       type="checkbox"
+                       checked
+                       data-toggle="toggle"
+                       data-style="mb-3"
+                       data-on="EXIF Rotation Correction Enabled"
+                       data-off="EXIF Rotation Correction Disabled"
+                       data-onstyle="outline-success"
+                       data-offstyle="outline-danger"
+                       data-width="250"
+                       data-height="50"/>
+            </div>
+        </div>
+
+        <div class="col">
+            <h3 class="border-bottom">Key Bindings</h3>
+            <dl class="row">
+
+                <dt class="col-sm-6">Toggle FocusManga</dt>
+                <dd class="col-sm-6"><kbd><kbd>shift</kbd> + <kbd>F</kbd></kbd> (<kbd>Esc</kbd> to disable)</dd>
+
+                <dt class="col-sm-6">Toggle Timer</dt>
+                <dd class="col-sm-6"><kbd>space</kbd></dd>
+
+                <dt class="col-sm-6">Download image to FocusManga folder</dt>
+                <dd class="col-sm-6"><kbd>f</kbd></dd>
+            </dl>
+        </div>
+    </div>
+    <h3 class="border-bottom">Supported Sites</h3>
+    <div id="hoster-list" class="row mb-5">
+        <div class="col everyone">
+            <div class="list-group">
+                <a class="hoster list-group-item list-group-item-action" href="#">
+                    <img class="icon" src="" />
+                    <strong class="name ml-3">Hoster Name</strong>
+                </a>
+            </div>
+        </div>
+        <div class="col mature">
+            <div class="card">
+                <a href="#mature-list" class="card-header" role="button" data-toggle="collapse" aria-controls="mature-list" aria-expanded="false">
+                    Mature Sites
+                </a>
+                <div id="mature-list" class="list-group list-group-flush collapse">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="border-bottom">Version History</h3>
+    <div id="version-history" class="row">
+        <div class="col">
+            <div class="version card mb-3">
+                <div class="card-header">v0.0.1</div>
+                <div class="changes list-group list-group-flush">
+                    <div class="change list-group-item">
+                        <img src="img/bug.png" />
+                        <span class="change-desc m-3">This change happened.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer fixed-bottom container border-top">
+    <div class="row p-4">
+        <a class="col-4 text-nowrap" href="https://chrome.google.com/webstore/detail/focusmanga/dcbijlajpaaohliimbnjifkhnebmbhfk">
+            <svg width="100%" height="100%" viewBox="0 0 192 192"><defs><path id="a" d="M8 20v140c0 6.6 5.4 12 12 12h152c6.6 0 12-5.4 12-12V20H8zm108 32H76c-4.42 0-8-3.58-8-8s3.58-8 8-8h40c4.42 0 8 3.58 8 8s-3.58 8-8 8z"></path></defs><clipPath id="b"><use xlink:href="#a" overflow="visible"></use></clipPath><path clip-path="url(#b)" fill="#eee" d="M8 20h176v152H8z"></path><path fill="#fff" d="M116 36H76c-4.42 0-8 3.58-8 8s3.58 8 8 8h40c4.42 0 8-3.58 8-8s-3.58-8-8-8z" clip-path="url(#b)"></path><g clip-path="url(#b)"><defs><circle id="c" cx="96" cy="160" r="76"></circle></defs><clipPath id="d"><use xlink:href="#c" overflow="visible"></use></clipPath><path d="M32.07 84v93.27h34.01L96 125.45h76V84zm0 0v93.27h34.01L96 125.45h76V84z" clip-path="url(#d)" fill="#DB4437"></path><path d="M20 236h72.34l33.58-33.58v-25.14l-59.84-.01L20 98.24zm0 0h72.34l33.58-33.58v-25.14l-59.84-.01L20 98.24z" clip-path="url(#d)" fill="#0F9D58"></path><path d="M96 125.45l29.92 51.82L92.35 236H172V125.45zm0 0l29.92 51.82L92.35 236H172V125.45z" clip-path="url(#d)" fill="#FFCD40"></path><g clip-path="url(#d)"><circle fill="#F1F1F1" cx="96" cy="160" r="34.55"></circle><circle fill="#4285F4" cx="96" cy="160" r="27.64"></circle></g></g><path clip-path="url(#b)" fill="#212121" fill-opacity=".05" d="M8 20h176v76H8z"></path><path fill="#212121" fill-opacity=".02" d="M8 95h176v1H8z"></path><path fill="#fff" fill-opacity=".05" d="M8 96h176v1H8z"></path><path fill="#212121" fill-opacity=".02" d="M116 52H76c-4.25 0-7.72-3.32-7.97-7.5-.02.17-.03.33-.03.5 0 4.42 3.58 8 8 8h40c4.42 0 8-3.58 8-8 0-.17-.01-.33-.03-.5-.25 4.18-3.72 7.5-7.97 7.5zM8 20v1h176v-1H8z"></path><path fill="#231F20" fill-opacity=".1" d="M76 36h40c4.25 0 7.72 3.32 7.97 7.5.01-.17.03-.33.03-.5 0-4.42-3.58-8-8-8H76c-4.42 0-8 3.58-8 8 0 .17.01.33.03.5.25-4.18 3.72-7.5 7.97-7.5zm96 135H20c-6.6 0-12-5.4-12-12v1c0 6.6 5.4 12 12 12h152c6.6 0 12-5.4 12-12v-1c0 6.6-5.4 12-12 12z"></path><radialGradient id="e" cx="7.502" cy="19.344" r="227.596" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity=".1"></stop><stop offset="1" stop-color="#fff" stop-opacity="0"></stop></radialGradient><path fill="url(#e)" d="M8 20v140c0 6.6 5.4 12 12 12h152c6.6 0 12-5.4 12-12V20H8zm108 32H76c-4.42 0-8-3.58-8-8s3.58-8 8-8h40c4.42 0 8 3.58 8 8s-3.58 8-8 8z"></path><path fill="none" d="M0 0h192v192H0z"></path></svg>
+            <span class="m-3">FocusManga</span>
+        </a>
+        <a class="col-4 text-center" href="https://github.com/shylux/FocusManga/issues/new">
+            Request a new site / feature or report an issue
+        </a>
+        <a class="col-4" href="https://github.com/shylux/FocusManga">
+            <div class="float-right text-nowrap">
+                <span class="m-3">Contribute</span>
+                <img src="img/GitHub-Mark-Light-64px.png" alt="GitHub" />
+            </div>
+        </a>
+    </div>
+</footer>
+
+<a id="open-all-hoster" href="#" class="m-1" title="Open ALL Example Pages">π</a>
+
+<script src="lib/jquery.js"></script>
+<script src="hoster.js"></script>
+<script src="option_storage.js"></script>
+<script src="options.js"></script>
+<script src="lib/bootstrap/bootstrap.min.js"></script>
+<script src="lib/bootstrap/bootstrap4-toggle.min.js"></script>
+</body>
 </html>

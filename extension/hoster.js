@@ -5,6 +5,8 @@ let sample_hoster = {
   hostname: "example.com",
   /* is the majority of the content targetet to  customers */
   mature: false,
+  /* alternative link to icon */
+  icon: "http://static.example.com/favicon.ico",
   /* checks if page contains manga. returns true/false */
   mangaPageSelector: "#a .selector",
   /* alternative for mangaPageSelector which executes a function that returns a boolean */
@@ -71,6 +73,7 @@ let fairytailtube = $.extend(true, {}, onepiecetube);
 fairytailtube.hostname = "fairytail-tube.org";
 fairytailtube.collectionName = function() {return "Fairy Tail "+tubeCollectionBase()};
 fairytailtube.examplePage = "/omake/001/3";
+fairytailtube.icon = "http://" + fairytailtube.hostname + "/templates/caprica/favicon.ico";
 hoster_list.push(fairytailtube);
 
 let mangahere = {
@@ -89,6 +92,7 @@ hoster_list.push(mangahere);
 let batoto = {
   hostname: "bato.to",
   mature: false,
+  icon: "http://static.bato.to/img/manga/favicon.gif",
   mangaPageSelector: '.nav-page',
   img: function() {return $('.page-img');},
   nextUrl: function() {return $(".nav-next a").attr('href');},
@@ -115,6 +119,7 @@ hoster_list.push(mangafox);
 let mangareader = {
   hostname: "mangareader.net",
   mature: false,
+  icon: "https://s4.mangareader.net/favicon.ico",
   mangaPageSelector: '#img',
   img: function() {return $('#img');},
   nextUrl: function() {return $(".next a").attr('href');},
@@ -178,13 +183,15 @@ let fakku = {
   nextUrl: function() {return $('#image a').attr('href');},
   currPage: function() {return $('#content .page .drop:first option:selected').val();},
   totalPages: function() {return $('#content .page .drop:first option').length-1;},
-  collectionName: function() {return $('.manga-title:first').text();}
+  collectionName: function() {return $('.manga-title:first').text();},
+  examplePage: "/" // sorry i don't have an account
 };
 hoster_list.push(fakku);
 
 let mangatube = {
   hostname: "manga-tube.me",
   mature: false,
+  icon: "https://manga-tube.me/assets/img/favicon.ico",
   mangaPageSelector: '.reader-body',
   img: function() {return $('.reader-body img');},
   nextUrl: function() {return $('.reader-navigation .page-dropdown li.active').next().find('a').attr('href');},
@@ -237,6 +244,7 @@ hoster_list.push(nhentai);
 let pururin = {
   hostname: "pururin.io",
   mature: true,
+  icon: "https://pururin.io/assets/images/favicon.ico",
   isMangaPage: function() {
     return ($('.image-viewer .images-inline').length === 0);
   },
