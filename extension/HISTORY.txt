@@ -1,4 +1,5 @@
 # Version 1.6.1
+F Fixed bug where the timer delay could not be changed.
 B Added link to offline version in new options page.
 
 # Version 1.6.0

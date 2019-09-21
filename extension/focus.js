@@ -184,7 +184,7 @@ FocusManga = new function() {
       if (newDelay !== -1) {
         $(this).val(FocusManga.show_timer.seconds_to_pretty_time(newDelay));
         FocusManga.show_timer.set({delay: newDelay * 1000})
-        chrome.extension.sendRequest({'method': 'options', 'timer_delay': newDelay});
+        chrome.extension.sendRequest({'method': 'options', 'timer-delay': newDelay});
       }
     });
 
@@ -200,15 +200,15 @@ FocusManga = new function() {
 
   this.toggleTimer = function() {
     if (FocusManga.show_timer.isRunning()) {
-      FocusManga.options.set('timer_enabled', false);
-      chrome.extension.sendRequest({'method': 'options', 'data': {timer_enabled: false}}, function(response) {});
+      FocusManga.options.set('timer-enabled', false);
+      chrome.extension.sendRequest({'method': 'options', 'data': {'timer-enabled': false}}, function(response) {});
       FocusManga.show_timer.stop();
       console.log('stopped timer');
       FocusManga.updateTimerIcon(false);
     } else {
       // start timer
-      FocusManga.options.set('timer_enabled', true);
-      chrome.extension.sendRequest({'method': 'options', 'data': {timer_enabled: true}}, function(response) {});
+      FocusManga.options.set('timer-enabled', true);
+      chrome.extension.sendRequest({'method': 'options', 'data': {'timer-enabled': true}}, function(response) {});
       FocusManga.next();
       FocusManga.updateTimerIcon(true);
     }
@@ -252,7 +252,7 @@ FocusManga = new function() {
     FocusManga.setImage();
     FocusManga.updatePageNumber();
     FocusManga.updateName();
-    if (FocusManga.options.get("timer_enabled", false))
+    if (FocusManga.options.get("timer-enabled", false))
         FocusManga.show_timer.restart();
     FocusManga.preload();
     FocusManga.downloadChapter();
@@ -290,15 +290,15 @@ FocusManga = new function() {
   };
 
   this.onOptions = function() {
-    FocusManga.updateTimerIcon(FocusManga.options.get("timer_enabled", false));
+    FocusManga.updateTimerIcon(FocusManga.options.get("timer-enabled", false));
 
     // check if focusmanga is active
     FocusManga.toggleFocusManga(
       FocusManga.options.get("focusmanga_enabled", true)
     );
 
-    $('#fm_option_timer').val(FocusManga.show_timer.seconds_to_pretty_time(FocusManga.options.get("timer_delay", 20)));
-    if (FocusManga.options.get("timer_enabled", false)) {
+    $('#fm_option_timer').val(FocusManga.show_timer.seconds_to_pretty_time(FocusManga.options.get("timer-delay", 20)));
+    if (FocusManga.options.get("timer-enabled", false)) {
       FocusManga.startTimer();
     }
 
@@ -308,7 +308,7 @@ FocusManga = new function() {
   };
 
   this.startTimer = function() {
-    FocusManga.show_timer.set({delay: 1000 * FocusManga.options.get("timer_delay", 20)}).start();
+    FocusManga.show_timer.set({delay: 1000 * FocusManga.options.get("timer-delay", 20)}).start();
     FocusManga.updateTimerIcon(true);
   };
 

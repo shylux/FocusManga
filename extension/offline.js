@@ -253,7 +253,7 @@ FocusManga.isMangaPage = function() {return true;};
 FocusManga.hasNextPage = function() {return true;};
 FocusManga.next = function() {
   step(1);
-  if (FocusManga.options.get("timer_enabled", false)) {
+  if (FocusManga.options.get("timer-enabled", false)) {
     FocusManga.startTimer();
   }
 };
