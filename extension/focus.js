@@ -183,7 +183,8 @@ FocusManga = new function() {
       }
       if (newDelay !== -1) {
         $(this).val(FocusManga.show_timer.seconds_to_pretty_time(newDelay));
-        FocusManga.show_timer.set({delay: newDelay * 1000})
+        FocusManga.show_timer.set({delay: newDelay * 1000});
+        FocusManga.options.set('timer-delay', newDelay);
         chrome.extension.sendRequest({'method': 'options', 'timer-delay': newDelay});
       }
     });

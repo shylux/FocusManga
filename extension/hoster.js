@@ -130,19 +130,6 @@ let mangareader = {
 };
 hoster_list.push(mangareader);
 
-let mangastream = {
-  hostname: "readms.net",
-  mature: false,
-  mangaPageSelector: '#manga-page',
-  img: function() {return $('#manga-page');},
-  nextUrl: function() {return $('#manga-page').parent().attr('href');},
-  currPage: function() {return parseInt(window.location.pathname.split('/').slice(-1)[0]);},
-  totalPages: function() {return parseInt(getLocation($('.controls .btn-reader-page li:last a').attr('href')).pathname.split('/').slice(-1)[0]);},
-  collectionName: function() {return $('.btn-reader-chapter .dropdown-toggle').text()},
-  examplePage: "/r/onepunch_man/065/3587/2"
-};
-hoster_list.push(mangastream);
-
 let mangaeden = {
   hostname: "mangaeden.com",
   mature: false,
@@ -152,7 +139,7 @@ let mangaeden = {
   currPage: function() {return parseInt($('.top-title select:last option:selected').text());},
   totalPages: function() {return $('.top-title select:last option').length},
   collectionName: function() {return $('.top-title a:last').text();},
-  examplePage: "/en-manga/detective-conan/3/10/"
+  examplePage: "/en/en-manga/bleach/686/3/"
 };
 hoster_list.push(mangaeden);
 
@@ -241,37 +228,37 @@ let nhentai = {
 };
 hoster_list.push(nhentai);
 
-let pururin = {
-  hostname: "pururin.io",
-  mature: true,
-  icon: "https://pururin.io/assets/images/favicon.ico",
-  isMangaPage: function() {
-    return ($('.image-viewer .images-inline').length === 0);
-  },
-  img: function() {return $('.image-viewer img');},
-  nextUrl: function() {
-    let newPage = parseInt(/\/read\/\d+\/(\d+)\/.*/g.exec(window.location.pathname)[1]) + 1;
-    return window.location.toString().replace(/(\/read\/\d+\/)(\d+)/g, "$1"+pad(newPage, 2));
-  },
-  currPage: function() {return parseInt($('.image-meta select option:selected').text());},
-  totalPages: function() {return $('.image-meta select option').length;},
-  collectionName: function() {return $('.title').text();},
-  examplePage: "/read/35815/1/horny-androids"
-};
-hoster_list.push(pururin);
+// let pururin = {
+//   hostname: "pururin.io",
+//   mature: true,
+//   icon: "https://pururin.io/assets/images/favicon.ico",
+//   isMangaPage: function() {
+//     return ($('.image-viewer .images-inline').length === 0);
+//   },
+//   img: function() {return $('.image-viewer img');},
+//   nextUrl: function() {
+//     let newPage = parseInt(/\/read\/\d+\/(\d+)\/.*/g.exec(window.location.pathname)[1]) + 1;
+//     return window.location.toString().replace(/(\/read\/\d+\/)(\d+)/g, "$1"+pad(newPage, 2));
+//   },
+//   currPage: function() {return parseInt($('.image-meta select option:selected').text());},
+//   totalPages: function() {return $('.image-meta select option').length;},
+//   collectionName: function() {return $('.title').text();},
+//   examplePage: "/read/35815/1/horny-androids"
+// };
+// hoster_list.push(pururin);
 
-let luscious = {
-  hostname: "luscious.net",
-  mature: true,
-  mangaPageSelector: '#single_picture',
-  img: function() {return $('#single_picture');},
-  nextUrl: function() {return $('#next').attr('href');},
-  currPage: function() {return parseInt($('#pj_page_no').val());},
-  totalPages: function() {return parseInt($('#pj_no_pictures').text());},
-  collectionName: function() {return $('.three_column_details h3 a').text()},
-  examplePage: "/pictures/album/csp5-kabayakiya-unagimaru-pet-bakuman-english-rookie84_164675/sorted/position/id/8942515/@_0002"
-};
-hoster_list.push(luscious);
+// let luscious = {
+//   hostname: "luscious.net",
+//   mature: true,
+//   mangaPageSelector: '#single_picture',
+//   img: function() {return $('#single_picture');},
+//   nextUrl: function() {return $('#next').attr('href');},
+//   currPage: function() {return parseInt($('#pj_page_no').val());},
+//   totalPages: function() {return parseInt($('#pj_no_pictures').text());},
+//   collectionName: function() {return $('.three_column_details h3 a').text()},
+//   examplePage: "/pictures/album/csp5-kabayakiya-unagimaru-pet-bakuman-english-rookie84_164675/sorted/position/id/8942515/@_0002"
+// };
+// hoster_list.push(luscious);
 
 
 function getHoster(hoster_name, search_list) {
