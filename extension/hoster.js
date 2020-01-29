@@ -260,6 +260,18 @@ let pururin = {
 };
 hoster_list.push(pururin);
 
+let luscious = {
+  hostname: "luscious.net",
+  mature: true,
+  mangaPageSelector: '#single_picture',
+  img: function() {return $('#single_picture');},
+  nextUrl: function() {return $('#next').attr('href');},
+  currPage: function() {return parseInt($('#pj_page_no').val());},
+  totalPages: function() {return parseInt($('#pj_no_pictures').text());},
+  collectionName: function() {return $('.three_column_details h3 a').text()},
+  examplePage: "/pictures/album/csp5-kabayakiya-unagimaru-pet-bakuman-english-rookie84_164675/sorted/position/id/8942515/@_0002"
+};
+hoster_list.push(luscious);
 
 
 function getHoster(hoster_name, search_list) {
