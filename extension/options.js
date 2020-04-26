@@ -6,6 +6,7 @@ const defaultValues = {
     'timer-enabled': false,
     'page-numbers-enabled': true,
     'progressbar-enabled': true,
+    'manhwa-autoscroll': true,
     'exif-rotation-correction-enabled': false
 };
 

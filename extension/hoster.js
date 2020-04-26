@@ -266,7 +266,6 @@ hoster_list.push(nhentai);
 // };
 // hoster_list.push(luscious);
 
-
 function getHoster(hoster_name, search_list) {
   if (search_list === undefined) search_list = hoster_list;
   if (hoster_name === undefined) hoster_name = window.location.hostname;

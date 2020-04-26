@@ -20,14 +20,13 @@ FocusManga = new function() {
   this.show_timer = $.timer({
     name: "Picture change timer.",
     delay: 20*1000,
+    autoStart: false,
     action: function() {
       if (FocusManga.isDisplaying()) FocusManga.next();
       else FocusManga.show_timer.restart();
     },
     onProgress: function(percentage) {
-      if (FocusManga.options.get("chapter_progressbar_enabled", true))
-        $('#fm_progress', FocusManga.overlay)
-          .css('width', Math.round(percentage)+"%");
+      FocusManga.onProgress(percentage);
     }
   });
   this.mouse_timer = $.timer({
@@ -80,6 +79,19 @@ FocusManga = new function() {
     $('body').show();
     FocusManga.parsePage();
     FocusManga.checkUrl();
+  };
+
+  this.onProgress = function(percentage) {
+    if (FocusManga.options.get("chapter_progressbar_enabled", true))
+      $('#fm_progress', FocusManga.overlay)
+          .css('width', Math.round(percentage)+"%");
+    if (FocusManga.overlay.hasClass('manhwa') && // activate only on manhwa
+        FocusManga.options.get("timer-enabled", false) &&
+        FocusManga.options.get("manhwa-autoscroll", true)) {
+      // this scroll from top to bottom with a stop at the top and bottom
+      let scrollTo = percentage * $('#fm_main', FocusManga.overlay).height() / 100 - window.innerHeight / 2;
+      FocusManga.overlay.get(0).scroll({top: scrollTo});
+    }
   };
 
   this.lastUrl = window.location.href;
@@ -201,11 +213,12 @@ FocusManga = new function() {
 
   this.toggleTimer = function() {
     if (FocusManga.show_timer.isRunning()) {
+      // stop timer
+      FocusManga.show_timer.stop();
       FocusManga.options.set('timer-enabled', false);
       chrome.extension.sendRequest({'method': 'options', 'data': {'timer-enabled': false}}, function(response) {});
-      FocusManga.show_timer.stop();
-      console.log('stopped timer');
       FocusManga.updateTimerIcon(false);
+      console.log('stopped timer');
     } else {
       // start timer
       FocusManga.options.set('timer-enabled', true);

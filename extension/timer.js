@@ -52,10 +52,11 @@
 
     getProgressPercentage: function() {
       if (!this.isRunning()) return false;
-      return Math.round(this.getProgressFracture() * 100);
+      return this.getProgressFracture() * 100;
     },
 
     onInterval: function() {
+      if (!this.isRunning()) return;
       if (this.ms() > this.endMarker() && typeof this.intervalId !== "undefined") {
         this.action();
         this.stop();

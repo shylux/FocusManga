@@ -1,4 +1,5 @@
 # Version 1.7.0
+S Added manhwa auto-scroll.
 F Added exhentai.org support.
 
 # Version 1.6.2
