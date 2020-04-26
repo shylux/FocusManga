@@ -1,3 +1,6 @@
+# Version 1.7.0
+F Added exhentai.org support.
+
 # Version 1.6.2
 B Fixed bug where timer delay was not saved in offline mode.
 B Disabled luscious.net and pururin.io as they don't work. Will maybe fix them later.

@@ -202,6 +202,12 @@ let e_hentai = {
 };
 hoster_list.push(e_hentai);
 
+let exhentai = $.extend(true, {}, e_hentai);
+exhentai.hostname = "exhentai.org";
+exhentai.mature = true;
+exhentai.examplePage = "/s/a11714cc16/1590156-1";
+hoster_list.push(exhentai);
+
 let senmanga = {
   hostname: "raw.senmanga.com",
   mature: false,
