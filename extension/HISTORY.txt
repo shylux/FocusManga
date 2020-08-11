@@ -1,3 +1,6 @@
+# Version 1.8.0
+F Added scroll support for the online reader.
+
 # Version 1.7.0
 S Added manhwa auto-scroll.
 F Added exhentai.org support.

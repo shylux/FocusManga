@@ -14,6 +14,7 @@ FocusManga = new function() {
   this.currentChapterPages = function() {};
   this.preload = function() {};
   this.next = function() {};
+  this.previous = function() {};
 
 
   this.options = new OptionStorage();
@@ -204,6 +205,18 @@ FocusManga = new function() {
     // options page
     $('#fm_options .dropup .settings_link', FocusManga.overlay).click(function() {
       chrome.extension.sendRequest({'method': 'tabs'}, function(response) {});
+    });
+
+    // scrolling to change page
+    $('#fm_main, #fm_numbers').bind('mousewheel', function(event) {
+      if (FocusManga.overlay.hasClass('manhwa')) return; // disable on manhwa
+      if (event.originalEvent.wheelDelta >= 0) {
+        // up
+        FocusManga.previous();
+      } else {
+        // down
+        FocusManga.next();
+      }
     });
 
     FocusManga.setImage();

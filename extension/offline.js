@@ -48,16 +48,6 @@ $(function() {
       stepCollection(1);
     }
   });
-
-  $('#fm_main, #fm_numbers').bind('mousewheel', function(event) {
-    if (event.originalEvent.wheelDelta >= 0) {
-      // up
-      step(-1);
-    } else {
-      // down
-      step(1);
-    }
-  });
 });
 
 // traverse dropped folders
@@ -256,6 +246,9 @@ FocusManga.next = function() {
   if (FocusManga.options.get("timer-enabled", false)) {
     FocusManga.startTimer();
   }
+};
+FocusManga.previous = function() {
+  step(-1);
 };
 FocusManga.currentPageNumber = function() {
   if (!currFile()) return file_index+1;
