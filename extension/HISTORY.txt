@@ -1,5 +1,6 @@
 # Version 1.8.0
 F Added scroll support for the online reader.
+F Added close button on file drop dialog. ESC works as well.
 
 # Version 1.7.0
 S Added manhwa auto-scroll.

@@ -7,7 +7,7 @@ const collection_sizes = {};
 $(function() {
   $('html').addClass('fm_enabled');
 
-  $('body').append(`<div class="filedrop">Drop your picture folder here.</div><input class="filedrop" type="file" webkitdirectory multiple /><div id="fm_catalog"></div>`);
+  $('body').append(`<div class="filedrop">Drop your picture folder here.<img src="img/close.png" class="close" alt="close"/></div><input class="filedrop" type="file" webkitdirectory multiple /><div id="fm_catalog"></div>`);
   $('#fm_tools').prepend('<div id="fm_catalog_icon"><img title="Catalog" src="" alt="Manga Image"></div>');
   $('#fm_catalog_icon img', this.overlay).attr('src', chrome.extension.getURL('img/catalog.png'));
 
@@ -33,9 +33,17 @@ $(function() {
         step(-1);
         break;
       case 27:
-          if ($('#fm_catalog').is(':visible'))
-              toggleCatalog();
+        // esc
+        if ($('#fm_catalog').is(':visible'))
+          toggleCatalog();
+        if ($('.filedrop').is(':visible'))
+          dragleave();
     }
+  });
+
+  // close filedrop dialog
+  $('.filedrop img').click(function() {
+    dragleave();
   });
 
   // scroll event
@@ -147,6 +155,7 @@ function dragenter() {
   $('.filedrop').show();
 }
 function dragleave() {
+  if (file_list.length === 0) return; // dont hide dialog if no pictures are present
   $('body').removeClass('hack');
   $('.filedrop').hide();
 }

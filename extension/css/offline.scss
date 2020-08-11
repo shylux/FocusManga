@@ -26,6 +26,16 @@ div.filedrop {
   line-height: 5em;
   text-align: center;
   vertical-align: middle;
+
+  img {
+    // close button
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    z-index: 1;
+  }
 }
 
 .hack div.filedrop {

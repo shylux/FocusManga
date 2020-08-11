@@ -27,6 +27,14 @@ div.filedrop {
   text-align: center;
   vertical-align: middle;
 }
+div.filedrop img {
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  z-index: 1;
+}
 
 .hack div.filedrop {
   background-color: #242424;
