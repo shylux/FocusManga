@@ -120,13 +120,13 @@ let mangareader = {
   hostname: "mangareader.net",
   mature: false,
   icon: "https://s4.mangareader.net/favicon.ico",
-  mangaPageSelector: '#img',
-  img: function() {return $('#img');},
-  nextUrl: function() {return $(".next a").attr('href');},
-  currPage: function() {return parseInt($('#pageMenu').find(':selected').text());},
-  totalPages: function() {return $('#pageMenu option').size();},
-  collectionName: function() {var s = $('#mangainfo h2 a').text(); return s.substr(0,s.length-6);},
-  examplePage: "/337-23513-2/historys-strongest-disciple-kenichi/chapter-7.html"
+  mangaPageSelector: '#ci',
+  img: function() {return $('#ci');},
+  nextUrl: undefined,
+  currPage: function() {return parseInt($('.d51').text());},
+  totalPages: function() {return 0;},
+  collectionName: function() {return $('.d43').text()},
+  examplePage: "/tate-no-yuusha-no-nariagari/1/2"
 };
 hoster_list.push(mangareader);
 
