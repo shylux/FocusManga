@@ -1,6 +1,7 @@
 # Version 1.8.0
 F Added scroll support for the online reader.
 F Added close button on file drop dialog. ESC works as well.
+F Added option to disable cursor hiding. A hidden cursor does not send scroll events.
 B Fix mangareader a bit. Does not work very well.
 
 # Version 1.7.0

@@ -286,7 +286,8 @@ FocusManga = new function() {
   };
 
   this.onMouseInactive = function() {
-    $(FocusManga.overlay).addClass('hideCursor');
+    if (FocusManga.options.get('hide-cursor', true))
+      $(FocusManga.overlay).addClass('hideCursor');
   };
   this.updateTimerIcon = function(state) {
     let url = (state) ? 'img/pause.png' : 'img/play.png';
