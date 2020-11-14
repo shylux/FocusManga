@@ -21,6 +21,7 @@ FocusManga = new function() {
   this.show_timer = $.timer({
     name: "Picture change timer.",
     delay: 20*1000,
+    checkingInterval: 5,
     autoStart: false,
     action: function() {
       if (FocusManga.isDisplaying()) FocusManga.next();
@@ -41,6 +42,10 @@ FocusManga = new function() {
   this.img_h = 0;
 
   this.timer_delays = [3, 5, 10, 20, 30, 40, 60, 120, 300, 600];
+
+  this.manhwa_page_change_block_duration = 700; //ms
+  this.manhwa_page_change_blocked_until = null;
+  this.manhwa_page_change_block_direction = null;
 
   // overlay html
   this.overlay = $(`
@@ -85,7 +90,7 @@ FocusManga = new function() {
   this.onProgress = function(percentage) {
     if (FocusManga.options.get("chapter_progressbar_enabled", true))
       $('#fm_progress', FocusManga.overlay)
-          .css('width', Math.round(percentage)+"%");
+          .css('width', percentage+"%");
     if (FocusManga.overlay.hasClass('manhwa') && // activate only on manhwa
         FocusManga.options.get("timer-enabled", false) &&
         FocusManga.options.get("manhwa-autoscroll", true)) {
@@ -208,14 +213,51 @@ FocusManga = new function() {
     });
 
     // scrolling to change page
+
     $('#fm_main, #fm_numbers').bind('mousewheel', function(event) {
-      if (FocusManga.overlay.hasClass('manhwa')) return; // disable on manhwa
-      if (event.originalEvent.wheelDelta >= 0) {
-        // up
-        FocusManga.previous();
+      if (!FocusManga.overlay.hasClass('manhwa')) {
+        // normal page
+        if (event.originalEvent.wheelDelta >= 0) {
+          // up
+          FocusManga.previous();
+        } else {
+          // down
+          FocusManga.next();
+        }
       } else {
-        // down
-        FocusManga.next();
+        // manhwa
+        if (event.originalEvent.wheelDelta >= 0) {
+          // up
+          if (FocusManga.overlay.get(0).scrollTop === 0) {
+            // is at top
+            if (!FocusManga.manhwa_page_change_blocked_until || FocusManga.manhwa_page_change_block_direction !== -1) {
+              // block for 500ms
+              FocusManga.manhwa_page_change_blocked_until = Date.now() + FocusManga.manhwa_page_change_block_duration;
+              FocusManga.manhwa_page_change_block_direction = -1;
+            } else if (FocusManga.manhwa_page_change_blocked_until < Date.now()) {
+              FocusManga.manhwa_page_change_block_direction = null;
+              FocusManga.previous();
+            }
+          } else {
+            // reset block
+            FocusManga.manhwa_page_change_block_direction = null;
+          }
+        } else {
+          // down
+          if (FocusManga.overlay.get(0).scrollTop >= $('#fm_main', FocusManga.overlay).height() - window.innerHeight) {
+            // is at bottom
+            if (!FocusManga.manhwa_page_change_blocked_until || FocusManga.manhwa_page_change_block_direction !== 1) {
+              // block for 500ms
+              FocusManga.manhwa_page_change_blocked_until = Date.now() + FocusManga.manhwa_page_change_block_duration;
+              FocusManga.manhwa_page_change_block_direction = 1;
+            } else if (FocusManga.manhwa_page_change_blocked_until < Date.now()) {
+              FocusManga.next();
+            }
+          } else {
+            // reset block
+            FocusManga.manhwa_page_change_block_direction = null;
+          }
+        }
       }
     });
 

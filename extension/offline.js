@@ -305,6 +305,8 @@ function loadImageFast(imgFile) {
     return function(e) {
       $('#fm_main', FocusManga.overlay).attr('src', e.target.result);
       FocusManga.updatePageNumber();
+      // scroll to top
+      FocusManga.overlay.get(0).scroll({top: 0});
     }
   })(imgFile);
 
