@@ -32,19 +32,6 @@ let sample_hoster = {
   collectionName: function() {return "Bliz one RELOADED!";}
 };
 
-let mangapanda = {
-  hostname: "mangapanda.com",
-  mature: false,
-  mangaPageSelector: '#img',
-  img: function() {return $('#img');},
-  nextUrl: function() {return $('.next a').attr('href');},
-  currPage: function() {return parseInt($('#pageMenu option:selected').text());},
-  totalPages: function() {return parseInt($('#pageMenu option:last').text());},
-  collectionName: function() {var s = $('#mangainfo h2 a').text(); return s.substr(0,s.length-6);},
-  examplePage: "/113-4017-4/death-note/chapter-1.html"
-};
-hoster_list.push(mangapanda);
-
 function tubeCollectionBase() {
   let line = $('#top h3').text().trim();
   return line.substr($('#top h3 a').text().length + " Manga ".length);

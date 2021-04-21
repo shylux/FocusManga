@@ -9,7 +9,6 @@
   "permissions": [
     "tabs",
     "downloads",
-    "*://*.mangapanda.com/*",
     "*://*.onepiece-tube.com/*",
     "*://*.naruto-tube.org/*",
     "*://*.fairytail-tube.org/*",
@@ -46,7 +45,6 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.mangapanda.com/*",
         "*://*.onepiece-tube.com/*",
         "*://*.naruto-tube.org/*",
         "*://*.fairytail-tube.org/*",
