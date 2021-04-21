@@ -1,3 +1,6 @@
+# Version 1.9.0
+B Fix issue where enabled flag was stored in two separate places.
+
 # Version 1.8.0
 F Added scroll support for the online reader.
 F Added close button on file drop dialog. ESC works as well.

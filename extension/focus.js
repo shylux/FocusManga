@@ -290,8 +290,8 @@ FocusManga = new function() {
     } else {
       $('html').toggleClass('fm_enabled');
     }
-    FocusManga.options.set('focusmanga_enabled', FocusManga.isDisplaying());
-    chrome.extension.sendRequest({'method': 'options', 'data': {focusmanga_enabled: FocusManga.isDisplaying()}}, function(response) {});
+    FocusManga.options.set('focusmanga-enabled', FocusManga.isDisplaying());
+    chrome.extension.sendRequest({'method': 'options', 'data': {'focusmanga-enabled': FocusManga.isDisplaying()}}, function(response) {});
   };
 
   this.isDisplaying = function() {
@@ -364,7 +364,7 @@ FocusManga = new function() {
 
     // check if focusmanga is active
     FocusManga.toggleFocusManga(
-      FocusManga.options.get("focusmanga_enabled", true)
+      FocusManga.options.get("focusmanga-enabled", true)
     );
 
     $('#fm_option_timer').val(FocusManga.show_timer.seconds_to_pretty_time(FocusManga.options.get("timer-delay", 20)));

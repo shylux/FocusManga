@@ -83,7 +83,7 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     if (tab.url.startsWith("chrome-extension")) {
       chrome.windows.update(tab.windowId, { state: "fullscreen" });
     } else {
-      options.set("focusmanga_enabled", !options.get("focusmanga_enabled", true));
+      options.set("focusmanga-enabled", !options.get("focusmanga-enabled", true));
       chrome.tabs.sendMessage(tab.id, {method: "toggleFocusManga"}, function(response) {});
     }
 });
