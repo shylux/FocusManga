@@ -234,6 +234,19 @@ let nhentai = {
 };
 hoster_list.push(nhentai);
 
+let mangapark = {
+  hostname: "mangapark.net",
+  mature: false,
+  mangaPageSelector: '#img-1',
+  img: function() {return $('#img-1');},
+  nextUrl: function() {return $('.switch .page span:last a').attr('href');},
+  currPage: function() {return parseInt($('#sel_page_1 :selected').text());},
+  totalPages: function() {return $('#sel_page_1 option').length;},
+  collectionName: function() {return $('.loc:first a').text();},
+  examplePage: "/manga/twin-milf/i2380396/v2/c8.6/1"
+};
+hoster_list.push(mangapark);
+
 // let pururin = {
 //   hostname: "pururin.io",
 //   mature: true,
