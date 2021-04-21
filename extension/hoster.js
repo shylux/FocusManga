@@ -104,16 +104,25 @@ let mangafox = {
 hoster_list.push(mangafox);
 
 let mangareader = {
-  hostname: "mangareader.net",
+  hostname: "mangareader.cc",
   mature: false,
-  icon: "https://s4.mangareader.net/favicon.ico",
-  mangaPageSelector: '#ci',
-  img: function() {return $('#ci');},
-  nextUrl: undefined,
-  currPage: function() {return parseInt($('.d51').text());},
-  totalPages: function() {return 0;},
-  collectionName: function() {return $('.d43').text()},
-  examplePage: "/tate-no-yuusha-no-nariagari/1/2"
+  icon: "http://mangareader.cc/frontend/imgs/favicon16.png",
+  mangaPageSelector: '.chapter-content-inner img',
+  img: function() {return $('.chapter-content-inner img');},
+  nextUrl: function() {
+    let nextIndex = $('#page_select').prop('selectedIndex')+2;
+    if (nextIndex <= $('#page_select option').length) {
+        return window.location.pathname + '#' + ($('#page_select').prop('selectedIndex')+2);
+    } else if ($('#chapter option:selected').prev().length) {
+        return $('#chapter option:selected').prev().val();
+    } else {
+        return $('h2.chapter-title a:first').attr('href');
+    }
+  },
+  currPage: function() {return $('#page_select').prop('selectedIndex')+1;},
+  totalPages: function() {return $('#page_select option').length;},
+  collectionName: function() {return $('h1.chapter-title').text()},
+  examplePage: "/chapter/martial-peak-chapter-1109#3"
 };
 hoster_list.push(mangareader);
 
