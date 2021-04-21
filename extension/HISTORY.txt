@@ -2,6 +2,7 @@
 F Added support for mangapark.net.
 F Updated mangareader.cc. They changed reader and domain.
 F Removed mangapanda.com because they shut down.
+F Removed support for senmanga.com. They added an anti-extension mechanism.
 B Fix issue where enabled flag was stored in two separate places.
 
 # Version 1.8.0

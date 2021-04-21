@@ -204,19 +204,6 @@ exhentai.mature = true;
 exhentai.examplePage = "/s/a11714cc16/1590156-1";
 hoster_list.push(exhentai);
 
-let senmanga = {
-  hostname: "raw.senmanga.com",
-  mature: false,
-  mangaPageSelector: '#picture',
-  img: function() {return $('#picture');},
-  nextUrl: function() {return $('#picture').parent().attr('href');},
-  currPage: function() {return parseInt($("select[name='page']:first option:selected").val());},
-  totalPages: function() {return parseInt($('.pager:last').text().match('of (.*)')[1]);},
-  collectionName: function() {return $('.location .walk:first a:nth-child(4)').text();},
-  examplePage: "/Billionaire_Girl/12/4"
-};
-hoster_list.push(senmanga);
-
 let nhentai = {
   hostname: "nhentai.net",
   mature: true,
