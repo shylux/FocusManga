@@ -220,6 +220,7 @@ hoster_list.push(nhentai);
 let mangapark = {
   hostname: "mangapark.net",
   mature: false,
+  icon: 'https://static.mangapark.net/img/favicon.ico',
   mangaPageSelector: '#img-1',
   img: function() {return $('#img-1');},
   nextUrl: function() {return $('.switch .page span:last a').attr('href');},
