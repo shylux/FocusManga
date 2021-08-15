@@ -1,5 +1,6 @@
 # Version 1.10.0
 F Added manual display mode button.
+B Fix issue where collection could not be changed with mousewheel.
 
 # Version 1.9.0
 F Added support for mangapark.net.

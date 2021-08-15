@@ -47,7 +47,7 @@ $(function() {
   });
 
   // scroll event
-  $('#fm_name').bind('mousewheel', function(event) {
+  $(document).on('mousewheel', '#fm_name', function(event) {
     if (event.originalEvent.wheelDelta >= 0) {
       // up
       stepCollection(-1);
@@ -320,7 +320,6 @@ function loadImageExifRotationCorrection(imgFile) {
       //TODO: check image type (jpeg assumed)
       let ImageBase64 = "data:image/jpeg;base64," + _arrayBufferToBase64(ImageBuffer);
       resetOrientation(ImageBase64, getOrientation(ImageBuffer), function(ImageDataUrl) {
-        debugger;
         $('#fm_main', FocusManga.overlay).attr('src', ImageDataUrl);
         FocusManga.updatePageNumber();
       });
