@@ -58,6 +58,7 @@ FocusManga = new function() {
         <span id="fm_name"></span>
       </div>
       <div id="fm_tools">
+        <div><img id="fm_force_display_node" title="Force display mode" alt="Force display mode" src="" /></div>
         <div><img id="fm_play" title="Play / Pause" alt="Play / Pause" src="" /></div>
         <div id="fm_download_container">
           <img id="fm_download" title="Download Image" alt="Download Image" src="" />
@@ -77,6 +78,7 @@ FocusManga = new function() {
   `);
   $('#fm_close', this.overlay).attr('src', chrome.extension.getURL('img/close-circle.png'));
   $('#fm_download', this.overlay).attr('src', chrome.extension.getURL('img/download.png'));
+  $('#fm_force_display_node', this.overlay).attr('src', chrome.extension.getURL('img/display-normal.png'));
   $('#fm_options img', this.overlay).attr('src', chrome.extension.getURL('img/options.png'));
 
   // setup everything
@@ -177,6 +179,14 @@ FocusManga = new function() {
     FocusManga.updateTimerIcon(false);
     $('#fm_play').click(function() {
       FocusManga.toggleTimer();
+    });
+
+    // toggle display mode
+    $('#fm_force_display_node').click(function() {
+      FocusManga.overlay.toggleClass('manhwa');
+      FocusManga.options.set('force-display-collection', FocusManga.getCollectionName());
+      FocusManga.options.set('force-display-mode', (FocusManga.overlay.hasClass('manhwa')) ? 'manhwa' : 'normal');
+      FocusManga.updateDisplayModeImg();
     });
 
     // timer delay
@@ -283,6 +293,11 @@ FocusManga = new function() {
     }
   };
 
+  this.updateDisplayModeImg = function() {
+    let img = (FocusManga.overlay.hasClass('manhwa')) ? 'display-manhwa.png' : 'display-normal.png';
+    $('#fm_force_display_node', this.overlay).attr('src', chrome.extension.getURL('img/'+img));
+  };
+
   this.toggleFocusManga = function(force_state_enabled) {
     if (typeof force_state_enabled !== 'undefined') {
       if (force_state_enabled) $('html').addClass('fm_enabled');
@@ -321,6 +336,8 @@ FocusManga = new function() {
     FocusManga.setImage();
     FocusManga.updatePageNumber();
     FocusManga.updateName();
+    FocusManga.onResize();
+    FocusManga.updateDisplayModeImg();
     if (FocusManga.options.get("timer-enabled", false))
         FocusManga.show_timer.restart();
     FocusManga.preload();
@@ -353,6 +370,12 @@ FocusManga = new function() {
     } else if (FocusManga.img_w / FocusManga.img_h > $(window).width() / $(window).height()) {
       FocusManga.overlay.addClass('landscape');
     }
+
+    if (FocusManga.options.get('force-display-collection') == FocusManga.getCollectionName()) {
+      FocusManga.overlay.addClass(FocusManga.options.get('force-display-mode'));
+    }
+
+    FocusManga.updateDisplayModeImg();
   };
 
   this.onClose = function() {

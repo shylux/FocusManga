@@ -250,25 +250,73 @@ hoster_list.push(mangapark);
 // };
 // hoster_list.push(pururin);
 
-// let luscious = {
-//   hostname: "luscious.net",
-//   mature: true,
-//   mangaPageSelector: '#single_picture',
-//   img: function() {return $('#single_picture');},
-//   nextUrl: function() {return $('#next').attr('href');},
-//   currPage: function() {return parseInt($('#pj_page_no').val());},
-//   totalPages: function() {return parseInt($('#pj_no_pictures').text());},
-//   collectionName: function() {return $('.three_column_details h3 a').text()},
-//   examplePage: "/pictures/album/csp5-kabayakiya-unagimaru-pet-bakuman-english-rookie84_164675/sorted/position/id/8942515/@_0002"
-// };
-// hoster_list.push(luscious);
+ let luscious = {
+   hostname: "luscious.net",
+   mature: true,
+   isMangaPage: function() {
+     return window.location.href.indexOf('read') !== -1;
+   },
+   img: function() {return $('main picture img, main video');},
+   setImage: function() {
+     if (!FocusManga.mainEvents) {
+       let main = $('#fm_main', FocusManga.overlay);
+       FocusManga.mainEvents = $._data(main[0], "events");
+     }
+     if ($('main picture img').length) {
+       let main = $('<img id="fm_main"/>');
+       main.attr('src', hoster.img().attr('src'));
+       $('#fm_main', FocusManga.overlay).replaceWith(main);
+     }
+     if ($('main video').length && $('video#fm_main').length == 0) {
+       let video = hoster.img().clone();
+       video.attr('id', 'fm_main');
+       video.removeAttr('style');
+       video.removeAttr('class');
+       FocusManga.img_w = $('main video').width();
+       FocusManga.img_h = $('main video').height();
+       $('#fm_main', FocusManga.overlay).replaceWith(video);
+     }
+     if (FocusManga.mainEvents) {
+       $.each(FocusManga.mainEvents, function (event, handlers) {
+         $.each(handlers, function (j, handler) {
+           $('#fm_main', FocusManga.overlay).bind(event, handler);
+         });
+       });
+     }
+   },
+   nextUrl: function() {
+     let link = this.currUrl();
+     link.searchParams.set('index', parseInt(link.searchParams.get('index')) + 1);
+     return link.href;
+   },
+   currPage: function() {
+     return parseInt(this.currUrl().searchParams.get('index')) + 1;
+   },
+   totalPages: function() {
+     let total = 0;
+     let matches = $('.album-info > .album-info:first').text().matchAll(/(\d+)/g);
+     for (match of matches) {
+        total += parseInt(match[0]);
+     }
+     return total;
+   },
+   collectionName: function() {return $('.o-h3 a').text()},
+   examplePage: "/albums/heavenly-ass_328997/",
+
+   currUrl: function() {
+     return new URL(window.location.href);
+   },
+ };
+ hoster_list.push(luscious);
 
 function getHoster(hoster_name, search_list) {
   if (search_list === undefined) search_list = hoster_list;
   if (hoster_name === undefined) hoster_name = window.location.hostname;
   for (var i in search_list) {
-    if (hoster_name.indexOf(search_list[i].hostname) !== -1)
-      return search_list[i];
+    if (hoster_name.indexOf(search_list[i].hostname) !== -1 ||
+        search_list[i].hostname.indexOf(hoster_name) !== -1) {
+        return search_list[i];
+      }
   }
 }
 

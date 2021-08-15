@@ -23,6 +23,10 @@ FocusManga.preload = function() {
     );
 };
 
+if (hoster.setImage) {
+  FocusManga.setImage = hoster.setImage;
+}
+
 /**
  * What has to be detected:
  * - Attribute src change in source page
