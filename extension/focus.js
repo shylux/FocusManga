@@ -131,17 +131,17 @@ FocusManga = new function() {
     });
 
     // click for next page
-    $('#fm_main', FocusManga.overlay).click(function() {
+    $(document).on('click', '#fm_main', function() {
       if (FocusManga.hasNextPage) {
         FocusManga.next();
       }
     });
 
     // download click handler
-    $('#fm_download', FocusManga.overlay).click(function() {
+    $(document).on('click', '#fm_download', function() {
       FocusManga.download();
     });
-    $('#fm_download_chap', FocusManga.overlay).click(function() {
+    $(document).on('click', '#fm_download_chap', function() {
       let currentChapters = FocusManga.options.get("chapter_dl", []);
       currentChapters.push(FocusManga.getCollectionName());
       FocusManga.options.set("chapter_dl", currentChapters);
@@ -149,7 +149,7 @@ FocusManga = new function() {
     });
 
     // add listener for image load
-    $('#fm_main', FocusManga.overlay).load(function() {
+    $(document).on('load', '#fm_main', function() {
       FocusManga.onImgLoad(this);
     });
 
@@ -159,14 +159,14 @@ FocusManga = new function() {
     });
 
     // hide cursor aver 2 sec inactivity
-    $(FocusManga.overlay).mousemove(function() {
+    $(document).on('mousemove', '#fm_overlay', function() {
       $(FocusManga.overlay).removeClass('hideCursor');
       FocusManga.mouse_timer.restart();
     });
 
 
     // on close overlay
-    $('#fm_close').click(function() {
+    $(document).on('click', '#fm_close', function() {
       FocusManga.onClose();
     });
 
@@ -177,20 +177,25 @@ FocusManga = new function() {
 
     // toggle timer/img
     FocusManga.updateTimerIcon(false);
-    $('#fm_play').click(function() {
+    $(document).on('click', '#fm_play', function() {
       FocusManga.toggleTimer();
     });
 
     // toggle display mode
-    $('#fm_force_display_node').click(function() {
+    $(document).on('click', '#fm_force_display_node', function() {
       FocusManga.overlay.toggleClass('manhwa');
       FocusManga.options.set('force-display-collection', FocusManga.getCollectionName());
       FocusManga.options.set('force-display-mode', (FocusManga.overlay.hasClass('manhwa')) ? 'manhwa' : 'normal');
+      chrome.extension.sendRequest({
+        'method': 'options',
+        'force-display-collection': FocusManga.getCollectionName(),
+        'force-display-mode': (FocusManga.overlay.hasClass('manhwa')) ? 'manhwa' : 'normal'
+        });
       FocusManga.updateDisplayModeImg();
     });
 
     // timer delay
-    $('#fm_option_timer').bind('mousewheel', function(event) {
+    $(document).on('mousewheel', '#fm_option_timer', function(event) {
       event.preventDefault();
       let currDelay = $(this).val();
       if (!currDelay) return;
@@ -218,13 +223,13 @@ FocusManga = new function() {
     });
 
     // options page
-    $('#fm_options .dropup .settings_link', FocusManga.overlay).click(function() {
+    $(document).on('click', '#fm_options .dropup .settings_link', function() {
       chrome.extension.sendRequest({'method': 'tabs'}, function(response) {});
     });
 
     // scrolling to change page
 
-    $('#fm_main, #fm_numbers').bind('mousewheel', function(event) {
+    $(document).on('mousewheel', '#fm_main, #fm_numbers', function(event) {
       if (!FocusManga.overlay.hasClass('manhwa')) {
         // normal page
         if (event.originalEvent.wheelDelta >= 0) {
@@ -361,6 +366,7 @@ FocusManga = new function() {
     FocusManga.img_w = img.width;
     FocusManga.img_h = img.height;
     $(window).resize();
+    FocusManga.overlay.get(0).scroll({top: 0});
   };
 
   this.onResize = function() {
@@ -415,6 +421,9 @@ FocusManga = new function() {
   this.updateName = function() {
     let name = FocusManga.getCollectionName();
     if (typeof name == "string" && name.length > 0)
+      if (name.length > 120) {
+        name = name.substr(0, 120) + '...';
+      }
       $('#fm_name', FocusManga.overlay).show().text(name);
   };
 

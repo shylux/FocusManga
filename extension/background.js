@@ -28,6 +28,12 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
       if (request['timer-delay'] !== undefined) {
           options.set('timer-delay', request['timer-delay']);
       }
+      if (request['force-display-collection'] !== undefined) {
+          options.set('force-display-collection', request['force-display-collection']);
+      }
+      if (request['force-display-mode'] !== undefined) {
+          options.set('force-display-mode', request['force-display-mode']);
+      }
       options.import(request.data);
       sendResponse(options.export());
     }
