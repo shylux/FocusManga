@@ -22,6 +22,7 @@ FocusManga.preload = function() {
         $('<link rel="prerender" />').attr('src', hoster.nextUrl())
     );
 };
+FocusManga.onToggle = hoster.onToggle;
 
 if (hoster.setImage) {
   FocusManga.setImage = hoster.setImage;

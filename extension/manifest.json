@@ -27,7 +27,8 @@
     "*://nhentai.net/g/*/*",
     "*://*.pururin.io/*",
     "*://*.luscious.net/*",
-    "*://*.mangapark.net/*"
+    "*://*.mangapark.net/*",
+    "*://hitomi.la/reader/*"
   ],
 
   "options_page": "options.html",
@@ -62,7 +63,8 @@
         "*://nhentai.net/g/*/*",
         "*://*.pururin.io/*",
         "*://*.luscious.net/*",
-        "*://*.mangapark.net/*"
+        "*://*.mangapark.net/*",
+        "*://hitomi.la/reader/*"
       ],
       "js": ["lib/jquery.js", "lib/naturalsort.js", "timer.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],
       "css": ["css/hide.css", "css/focus.css"]

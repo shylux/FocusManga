@@ -312,7 +312,10 @@ FocusManga = new function() {
     }
     FocusManga.options.set('focusmanga-enabled', FocusManga.isDisplaying());
     chrome.extension.sendRequest({'method': 'options', 'data': {'focusmanga-enabled': FocusManga.isDisplaying()}}, function(response) {});
+    this.onToggle(FocusManga.isDisplaying());
   };
+
+  this.onToggle = function(newState) {};
 
   this.isDisplaying = function() {
     return $("html").hasClass('fm_enabled');

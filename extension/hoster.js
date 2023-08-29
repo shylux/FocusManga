@@ -29,7 +29,13 @@ let sample_hoster = {
   totalPages: function() {return 20;},
   /* optional
    * returns the manga title. */
-  collectionName: function() {return "Bliz one RELOADED!";}
+  collectionName: function() {return "Bliz one RELOADED!";},
+  /* optional
+   * can be used when total pages is not available */
+  isLastPageOfChapter: function() {return false;},
+  /* optional
+   * triggers when FocusManga is being enabled or disabled */
+  onToggle: function(newState) {}
 };
 
 function tubeCollectionBase() {
@@ -254,34 +260,35 @@ hoster_list.push(mangapark);
    hostname: "luscious.net",
    mature: true,
    isMangaPage: function() {
-     return window.location.href.indexOf('read') !== -1;
+     return window.location.href.indexOf('read') !== -1 && $('main picture img, main video').length != 0;
    },
    img: function() {return $('main picture img, main video');},
-   setImage: function() {
-     if (!FocusManga.mainEvents) {
-       let main = $('#fm_main', FocusManga.overlay);
-       FocusManga.mainEvents = $._data(main[0], "events");
+   onToggle: function(state) {
+     if (state) {
+       let params = new URLSearchParams(window.location.search);
+       if (params.get('view') != 'slideshow') {
+         params.set('view', 'slideshow');
+         window.location = '?'+params.toString();
+       }
      }
+   },
+   setImage: function() {
      if ($('main picture img').length) {
        let main = $('<img id="fm_main"/>');
        main.attr('src', hoster.img().attr('src'));
        $('#fm_main', FocusManga.overlay).replaceWith(main);
      }
-     if ($('main video').length && $('video#fm_main').length == 0) {
+     if ($('main video').length) {
        let video = hoster.img().clone();
        video.attr('id', 'fm_main');
+       video.prop('muted', true);
        video.removeAttr('style');
        video.removeAttr('class');
+       video.removeAttr('title');
        FocusManga.img_w = $('main video').width();
        FocusManga.img_h = $('main video').height();
        $('#fm_main', FocusManga.overlay).replaceWith(video);
-     }
-     if (FocusManga.mainEvents) {
-       $.each(FocusManga.mainEvents, function (event, handlers) {
-         $.each(handlers, function (j, handler) {
-           $('#fm_main', FocusManga.overlay).bind(event, handler);
-         });
-       });
+       $('#fm_main', FocusManga.overlay).get(0).play();
      }
    },
    nextUrl: function() {
@@ -300,7 +307,7 @@ hoster_list.push(mangapark);
      }
      return total;
    },
-   collectionName: function() {return $('.o-h3 a').text()},
+   collectionName: function() {return $('.album-heading a').text()},
    examplePage: "/albums/heavenly-ass_328997/",
 
    currUrl: function() {
@@ -308,6 +315,20 @@ hoster_list.push(mangapark);
    },
  };
  hoster_list.push(luscious);
+
+let hitomi = {
+  hostname: "hitomi.la",
+  mature: true,
+  icon: 'https://ltn.hitomi.la/favicon-192x192.png',
+  mangaPageSelector: '#comicImages picture',
+  img: function() {return $('#comicImages img');},
+  nextUrl: function() {return window.location.pathname + '#' + (parseInt($('#single-page-select').val())+1);},
+  currPage: function() {return parseInt($('#single-page-select').val());},
+  totalPages: function() {return $('#single-page-select option').length;},
+  collectionName: function() {return $('title').text();},
+  examplePage: "/reader/1903946.html#5"
+};
+hoster_list.push(hitomi);
 
 function getHoster(hoster_name, search_list) {
   if (search_list === undefined) search_list = hoster_list;
