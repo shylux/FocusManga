@@ -1,14 +1,4 @@
-const options = new OptionStorage();
-
-const defaultValues = {
-    'timer-delay': 20,
-    'focusmanga-enabled': true,
-    'timer-enabled': false,
-    'page-numbers-enabled': true,
-    'progressbar-enabled': true,
-    'manhwa-autoscroll': true,
-    'exif-rotation-correction-enabled': false
-};
+const options = await OptionStorage.getInstance();
 
 const changeTypes = {
     'B': ['Bugfix', 'img/bug.png'],
@@ -21,12 +11,11 @@ $(document).ready(function() {
     // load checkbox options
     $('#options :checkbox').each(function() {
         let id = $(this).attr('id');
-        let value = options.get(id, defaultValues[id]);
-        $(this).prop('checked', value);
+        $(this).prop('checked', options.get(id)).change();
     });
 
     // load timer delay
-    $('#timer-delay').val(options.get('timer-delay', defaultValues['timer-delay']));
+    $('#timer-delay').val(options.get('timer-delay'));
 
     // list hoster
     let hosterTemplate = $('#hoster-list .hoster').remove();

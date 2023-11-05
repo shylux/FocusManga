@@ -1,57 +1,56 @@
-/* Option Storage */
+class OptionStorage {
+  static #instance;
+  #storage = {
+	  // default values
+    'timer-delay': 20,
+    'focusmanga-enabled': true,
+    'timer-enabled': false,
+    'page-numbers-enabled': true,
+    'progressbar-enabled': true,
+    'manhwa-autoscroll': true,
+    'exif-rotation-correction-enabled': false,
+    'version': '0.0.0'
+  };
+  
+  async initialize() {
+	  let values = await chrome.storage.local.get();
+	  this.#storage = Object.assign(this.#storage, values);
+  }
+  
+  static async getInstance() {
+	if (!this.#instance) {
+	  this.#instance = new OptionStorage();
+	  await this.#instance.initialize();
+	}
+	return this.#instance;
+  }
 
-function OptionStorage(initial_values) {
-  // localStorage key
-  this.key = "optionsstorage";
-
-  // get property by key. if not available return default_value
-  this.get = function(key, default_value) {
-    if (!this.storage.hasOwnProperty(key)) return default_value;
-    return this.storage[key];
+  get(key, default_value) {
+    return this.#storage[key] ?? default_value;
   };
 
   // set property
-  this.set = function(key, value) {
-    this.storage[key] = value;
-    localStorage[this.key] = this.export();
+  set(key, value) {
+    this.#storage[key] = value;
+    chrome.storage.local.set({[key]: value});
   };
 
   // check if key exists
-  this.hasKey = function(key) {
-    return this.storage.hasOwnProperty(key);
+  hasKey(key) {
+    return this.#storage.hasOwnProperty(key);
   };
 
   // return a string representing all propertys
-  this.printAll = function() {
+  printAll() {
     let str = "Options:\n";
-    for (let key in this.storage) {
-      str += key + ": " + this.storage[key] + "\n";
+    for (let key in this.#storage) {
+      str += key + ": " + this.#storage[key] + "\n";
     }
     return str;
   };
 
   // return storage as json string
-  this.export = function() {
-    return JSON.stringify(this.storage);
+  export() {
+    return JSON.stringify(this.#storage);
   };
-
-  // update with propertys from json string or object
-  this.import = function(options) {
-    if (typeof options === "string") {
-      try {
-        options = JSON.parse(options);
-      } catch(err) {console.error(err); return;}
-    }
-    for (let key in options) {
-      this.set(key, options[key]);
-    }
-  };
-
-  // writes initial_values into storage
-  this.storage = {};
-  this.import(localStorage[this.key]);
-
-  for (let key in initial_values)
-      this.storage[key] = initial_values[key];
-
 }

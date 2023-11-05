@@ -7,7 +7,8 @@
   "icons": {"128": "img/icon128.png"},
 
   "permissions": [
-    "tabs",
+    "storage",
+    "activeTab",
     "downloads"
   ],
   "host_permissions": [
@@ -34,8 +35,11 @@
   ],
 
   "options_page": "options.html",
+  "background": {
+    "service_worker": "service_worker.js"
+  },
 
-  "page_action": {
+  "action": {
     "default_title": "Start/Stop FocusManga",
     "default_icon": "img/icon128.png"
   },

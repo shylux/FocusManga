@@ -2,6 +2,11 @@ function cleanName(name) {
   return name.replace(/[^a-zA-Z0-9\- \[\]]/gi, ''); // Strip any special characters
 }
 
+// add listener for page action message
+chrome.runtime.onMessage.addListener(() => {
+  FocusManga.onPageAction();
+});
+
 FocusManga = new function() {
   this.title = "FocusManga";
 
@@ -116,7 +121,7 @@ FocusManga = new function() {
     if (!FocusManga.isMangaPage()) return;
 
     // show page action
-    chrome.extension.sendRequest({'method': 'pageAction'}, function(response) {});
+    chrome.runtime.sendMessage({'method': 'pageAction'});
 
     // add overlay
     $('body').prepend(FocusManga.overlay);
@@ -124,11 +129,6 @@ FocusManga = new function() {
     // check if timer is supported
     if (!FocusManga.hasNextPage())
       $('#fm_tools', FocusManga.overlay).addClass('fm_disabled');
-
-    // add listener for page action message
-    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-      FocusManga.onPageAction();
-    });
 
     // click for next page
     $(document).on('click', '#fm_main', function() {
@@ -170,10 +170,11 @@ FocusManga = new function() {
       FocusManga.onClose();
     });
 
-    chrome.extension.sendRequest({'method': 'options'}, function(response) {
-      FocusManga.options.import(response);
-      FocusManga.onOptions();
-    });
+//TODO
+//    chrome.runtime.sendMessage({'method': 'options'}, function(response) {
+//      FocusManga.options.import(response);
+//      FocusManga.onOptions();
+//    });
 
     // toggle timer/img
     FocusManga.updateTimerIcon(false);
@@ -186,7 +187,7 @@ FocusManga = new function() {
       FocusManga.overlay.toggleClass('manhwa');
       FocusManga.options.set('force-display-collection', FocusManga.getCollectionName());
       FocusManga.options.set('force-display-mode', (FocusManga.overlay.hasClass('manhwa')) ? 'manhwa' : 'normal');
-      chrome.extension.sendRequest({
+      chrome.runtime.sendMessage({//TODO
         'method': 'options',
         'force-display-collection': FocusManga.getCollectionName(),
         'force-display-mode': (FocusManga.overlay.hasClass('manhwa')) ? 'manhwa' : 'normal'
@@ -218,13 +219,13 @@ FocusManga = new function() {
         $(this).val(FocusManga.show_timer.seconds_to_pretty_time(newDelay));
         FocusManga.show_timer.set({delay: newDelay * 1000});
         FocusManga.options.set('timer-delay', newDelay);
-        chrome.extension.sendRequest({'method': 'options', 'timer-delay': newDelay});
+        chrome.runtime.sendMessage({'method': 'options', 'timer-delay': newDelay});//TODO
       }
     });
 
     // options page
     $(document).on('click', '#fm_options .dropup .settings_link', function() {
-      chrome.extension.sendRequest({'method': 'tabs'}, function(response) {});
+      chrome.runtime.sendMessage({'method': 'tabs'});
     });
 
     // scrolling to change page
@@ -286,13 +287,13 @@ FocusManga = new function() {
       // stop timer
       FocusManga.show_timer.stop();
       FocusManga.options.set('timer-enabled', false);
-      chrome.extension.sendRequest({'method': 'options', 'data': {'timer-enabled': false}}, function(response) {});
+      chrome.runtime.sendMessage({'method': 'options', 'data': {'timer-enabled': false}}, function(response) {});//TODO
       FocusManga.updateTimerIcon(false);
       console.log('stopped timer');
     } else {
       // start timer
       FocusManga.options.set('timer-enabled', true);
-      chrome.extension.sendRequest({'method': 'options', 'data': {'timer-enabled': true}}, function(response) {});
+      chrome.runtime.sendMessage({'method': 'options', 'data': {'timer-enabled': true}}, function(response) {});//TODO
       FocusManga.next();
       FocusManga.updateTimerIcon(true);
     }
@@ -311,7 +312,7 @@ FocusManga = new function() {
       $('html').toggleClass('fm_enabled');
     }
     FocusManga.options.set('focusmanga-enabled', FocusManga.isDisplaying());
-    chrome.extension.sendRequest({'method': 'options', 'data': {'focusmanga-enabled': FocusManga.isDisplaying()}}, function(response) {});
+    chrome.runtime.sendMessage({'method': 'options', 'data': {'focusmanga-enabled': FocusManga.isDisplaying()}}, function(response) {});//TODO
     this.onToggle(FocusManga.isDisplaying());
   };
 
@@ -442,7 +443,7 @@ FocusManga = new function() {
       saveAs: false,
       conflictAction: "overwrite"
     };
-    chrome.extension.sendRequest({
+    chrome.runtime.sendMessage({
       'method': 'download',
       'data': download_options,
       'erase': 2000,
@@ -477,7 +478,7 @@ FocusManga = new function() {
       saveAs: false,
       conflictAction: "overwrite"
     };
-    chrome.extension.sendRequest(
+    chrome.runtime.sendMessage(
       {
         'method': 'download',
         'data': download_options,
@@ -486,7 +487,7 @@ FocusManga = new function() {
       },
       function(downloadId) {
         if (lastPage)
-          chrome.extension.sendRequest(
+          chrome.runtime.sendMessage(
             {'method': 'show', 'data': folder},
             function() {
               FocusManga.next();
