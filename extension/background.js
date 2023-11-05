@@ -63,7 +63,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     if (request.method === "pageAction") {
       chrome.pageAction.show(sender.tab.id);
     } else if (request.method === "tabs") {
-	    var optionsUrl = chrome.extension.getURL('options.html');
+	    var optionsUrl = chrome.runtime.getURL('options.html');
 	    chrome.tabs.query({url: optionsUrl}, function(tabs) {
 	      if (tabs.length) {
 		      chrome.tabs.update(tabs[0].id, {active: true});

@@ -1,14 +1,16 @@
 {
   "name": "FocusManga",
   "version": "1.10.0",
-  "manifest_version": 2,
+  "manifest_version": 3,
 
   "description": "Adds diashow function to online manga sites.",
   "icons": {"128": "img/icon128.png"},
 
   "permissions": [
     "tabs",
-    "downloads",
+    "downloads"
+  ],
+  "host_permissions": [
     "*://*.onepiece-tube.com/*",
     "*://*.naruto-tube.org/*",
     "*://*.fairytail-tube.org/*",
@@ -32,10 +34,6 @@
   ],
 
   "options_page": "options.html",
-  "background": {
-    "scripts": ["version.js", "option_storage.js", "background.js"],
-    "persistent": true
-  },
 
   "page_action": {
     "default_title": "Start/Stop FocusManga",
@@ -70,14 +68,15 @@
       "css": ["css/hide.css", "css/focus.css"]
     }
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": [
-    "img/close-circle.png",
-    "img/download.png",
-    "img/play.png",
-    "img/pause.png",
-    "img/options.png",
-    "img/display-manhwa.png",
-    "img/display-normal.png"
+    {
+      "resources": [
+        "img/*",
+        "HISTORY.txt"
+      ],
+      "matches": [
+        "*://*/*"
+      ]
+    }
   ]
 }

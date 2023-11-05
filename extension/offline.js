@@ -9,7 +9,7 @@ $(function() {
 
   $('body').append(`<div class="filedrop">Drop your picture folder here.<img src="img/close.png" class="close" alt="close"/></div><input class="filedrop" type="file" webkitdirectory multiple /><div id="fm_catalog"></div>`);
   $('#fm_tools').prepend('<div id="fm_catalog_icon"><img title="Catalog" src="" alt="Manga Image"></div>');
-  $('#fm_catalog_icon img', this.overlay).attr('src', chrome.extension.getURL('img/catalog.png'));
+  $('#fm_catalog_icon img', this.overlay).attr('src', chrome.runtime.getURL('img/catalog.png'));
 
   $('#fm_catalog_icon').on('click', toggleCatalog);
   $('#fm_catalog').on('click', toggleCatalog);

@@ -46,7 +46,7 @@ $(document).ready(function() {
     }
 
     // load version history
-    let history_url = chrome.extension.getURL('HISTORY.txt');
+    let history_url = chrome.runtime.getURL('HISTORY.txt');
     let versionTemplate = $('#version-history .version').remove();
     $.ajax({
         url: history_url,

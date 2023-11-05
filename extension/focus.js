@@ -76,10 +76,10 @@ FocusManga = new function() {
       </div>
     </div>
   `);
-  $('#fm_close', this.overlay).attr('src', chrome.extension.getURL('img/close-circle.png'));
-  $('#fm_download', this.overlay).attr('src', chrome.extension.getURL('img/download.png'));
-  $('#fm_force_display_node', this.overlay).attr('src', chrome.extension.getURL('img/display-normal.png'));
-  $('#fm_options img', this.overlay).attr('src', chrome.extension.getURL('img/options.png'));
+  $('#fm_close', this.overlay).attr('src', chrome.runtime.getURL('img/close-circle.png'));
+  $('#fm_download', this.overlay).attr('src', chrome.runtime.getURL('img/download.png'));
+  $('#fm_force_display_node', this.overlay).attr('src', chrome.runtime.getURL('img/display-normal.png'));
+  $('#fm_options img', this.overlay).attr('src', chrome.runtime.getURL('img/options.png'));
 
   // setup everything
   $('body').ready(function() {FocusManga.onready();});
@@ -300,7 +300,7 @@ FocusManga = new function() {
 
   this.updateDisplayModeImg = function() {
     let img = (FocusManga.overlay.hasClass('manhwa')) ? 'display-manhwa.png' : 'display-normal.png';
-    $('#fm_force_display_node', this.overlay).attr('src', chrome.extension.getURL('img/'+img));
+    $('#fm_force_display_node', this.overlay).attr('src', chrome.runtime.getURL('img/'+img));
   };
 
   this.toggleFocusManga = function(force_state_enabled) {
@@ -358,7 +358,7 @@ FocusManga = new function() {
   };
   this.updateTimerIcon = function(state) {
     let url = (state) ? 'img/pause.png' : 'img/play.png';
-    $('#fm_play', FocusManga.overlay).attr('src', chrome.extension.getURL(url));
+    $('#fm_play', FocusManga.overlay).attr('src', chrome.runtime.getURL(url));
   };
 
   this.onPageAction = function() {
