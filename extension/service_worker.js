@@ -24,8 +24,6 @@ OptionStorage.getInstance().then((options) => {
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     OptionStorage.getInstance().then((options) => {
       console.log("request with method: "+request.method);
-      // update options with new data
-      //TODO set options in content script
 
       if (request.method === "download") {
         chrome.downloads.download(
@@ -49,9 +47,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       }
 
       // display page action
-      if (request.method === "pageAction") {
-        chrome.action.show(sender.tab.id);
-      } else if (request.method === "tabs") {
+      if (request.method === "tabs") {
         var optionsUrl = chrome.runtime.getURL('options.html');
         chrome.tabs.query({url: optionsUrl}, function(tabs) {
           if (tabs.length) {

@@ -339,4 +339,12 @@ FocusManga.getCollectionName = function() {
   }
   return undefined;
 };
+FocusManga.getPageName = function() {
+  if (currFile()) {
+    let path = currFile().fullPath.split('/');
+    let fileName = path[path.length-1];
+    return fileName.replace(/\.[^/.]+$/, "")
+  }
+  return undefined;
+};
 FocusManga.toggleFocusManga = function() {}; // disable disable
