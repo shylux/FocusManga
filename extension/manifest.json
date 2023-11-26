@@ -1,6 +1,6 @@
 {
   "name": "FocusManga",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "manifest_version": 3,
 
   "description": "Adds diashow function to online manga sites.",
@@ -53,19 +53,13 @@
         "*://*.bato.to/*",
         "*://*.fanfox.net/manga/*",
         "*://*.mangareader.cc/*/*",
-        "*://*.readms.net/*",
-        "*://*.mangaeden.com/*",
-        "*://*.perveden.com/*",
         "*://*.mangahere.cc/manga/*",
-        "*://*.hbrowse.com/*",
         "*://*.fakku.net/*",
         "*://*.manga-tube.me/series/*/read/*",
         "*://e-hentai.org/*",
         "*://exhentai.org/*",
         "*://nhentai.net/g/*/*",
-        "*://*.pururin.io/*",
         "*://*.luscious.net/*",
-        "*://*.mangapark.net/*",
         "*://hitomi.la/reader/*"
       ],
       "js": ["lib/jquery.js", "lib/naturalsort.js", "timer.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],

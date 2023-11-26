@@ -1,3 +1,7 @@
+# Version 1.11.0
+B Fixed some sites & disabled others that went down or changed code too much.
+F Updated extension to manifest v3.
+
 # Version 1.10.0
 F Added manual display mode button.
 B Fix issue where collection could not be changed with mousewheel.
