@@ -60,7 +60,7 @@ FocusManga = new function() {
       <img id="fm_close" title="Close" alt="Close FocusManga" src=""/>
       <img id="fm_main" src="" />
       <div id="fm_info">
-        <span id="fm_numbers" />
+        <span id="fm_numbers"></span>
         <span id="fm_name"></span>
       </div>
       <div id="fm_tools">
@@ -91,11 +91,8 @@ FocusManga = new function() {
   $('body').ready(function() {FocusManga.onready();});
   this.onready = function() {
     $('body').show();
-    OptionStorage.getInstance().then((options) => {
-      FocusManga.options = options;
-      FocusManga.parsePage();
-      FocusManga.checkUrl();
-    });
+    FocusManga.parsePage();
+    FocusManga.checkUrl();
   };
 
   this.onProgress = function(percentage) {
@@ -293,6 +290,7 @@ FocusManga = new function() {
   };
 
   this.toggleFocusManga = function(force_state_enabled) {
+    if (!FocusManga.isMangaPage()) return;
     if (typeof force_state_enabled !== 'undefined') {
       if (force_state_enabled) $('html').addClass('fm_enabled');
       else $('html').removeClass('fm_enabled');
@@ -316,6 +314,14 @@ FocusManga = new function() {
   };
 
   this.parsePage = function() {
+    if (!FocusManga.options) {
+      OptionStorage.getInstance().then((options) => {
+        FocusManga.options = options;
+        FocusManga.parsePage();
+      });
+      return;
+    }
+
     // check if we are still on a manga page
     if (!FocusManga.isMangaPage()) {
       FocusManga.teardown();

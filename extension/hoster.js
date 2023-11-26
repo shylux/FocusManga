@@ -46,23 +46,29 @@ function tubeCollectionBase() {
 let onepiecetube = {
   hostname: "onepiece-tube.com",
   mature: false,
-  mangaPageSelector: '#p',
-  img: function() {return $('#p');},
-  nextUrl: function() {return $('#p').parent().attr('href');},
-  currPage: function() {return parseInt($('#controls a.active').text());},
-  totalPages: function() {return parseInt($('#controls a').size())-2;},
-  collectionName: function() {return "One Piece "+tubeCollectionBase()},
+  mangaPageSelector: '#manga-container img',
+  img: function() {return $('#manga-container img');},
+  nextUrl: function() {return $('#nav .next a').attr('href');},
+  currPage: function() {return parseInt($('#nav .active a').text());},
+  totalPages: function() {return parseInt($('#nav .nav-pages .page-item').length);},
+  collectionName: function() {return "One Piece "+$('#top .breadcrumb-item:last-child').text().trim()},
   examplePage: "/artbook/001/2"
 };
 hoster_list.push(onepiecetube);
 
-let narutotube = $.extend(true, {}, onepiecetube);
-narutotube.hostname = "naruto-tube.org";
-narutotube.collectionName = function() {return "Naruto "+tubeCollectionBase()};
-narutotube.examplePage = "/artbook/003/2";
+let narutotube = {
+  hostname: "naruto-tube.org",
+  mangaPageSelector: '#p',
+  img: function() {return $('#p');},
+  nextUrl: function() {return $('#p').parent().attr('href');},
+  currPage: function() {return parseInt($('#controls a.active').text());},
+  totalPages: function() {return parseInt($('#controls a').length)-2;},
+  collectionName: function() {return "Naruto "+tubeCollectionBase()},
+  examplePage: "/artbook/003/2"
+}
 hoster_list.push(narutotube);
 
-let fairytailtube = $.extend(true, {}, onepiecetube);
+let fairytailtube = $.extend(true, {}, narutotube);
 fairytailtube.hostname = "fairytail-tube.org";
 fairytailtube.collectionName = function() {return "Fairy Tail "+tubeCollectionBase()};
 fairytailtube.examplePage = "/omake/001/3";
@@ -85,12 +91,12 @@ hoster_list.push(mangahere);
 let batoto = {
   hostname: "bato.to",
   mature: false,
-  icon: "http://static.bato.to/img/manga/favicon.gif",
-  mangaPageSelector: '.nav-page',
+  icon: "https://bato.to/amsta/img/batoto/favicon.ico?v0",
+  mangaPageSelector: '.page-img',
   img: function() {return $('.page-img');},
   nextUrl: function() {return $(".nav-next a").attr('href');},
   currPage: function() {return parseInt($('.nav-page option:selected').val());},
-  totalPages: function() {return parseInt($('.nav-page option').size());},
+  totalPages: function() {return $('.nav-page option').length;},
   collectionName: function() {return $('.nav-title a').text();},
   examplePage: "/chapter/1162733/6"
 };
@@ -132,37 +138,40 @@ let mangareader = {
 };
 hoster_list.push(mangareader);
 
-let mangaeden = {
-  hostname: "mangaeden.com",
-  mature: false,
-  mangaPageSelector: '#mainImg',
-  img: function() {return $('#mainImg');},
-  nextUrl: function() {return $('.ui-state-default.next').attr('href');},
-  currPage: function() {return parseInt($('.top-title select:last option:selected').text());},
-  totalPages: function() {return $('.top-title select:last option').length},
-  collectionName: function() {return $('.top-title a:last').text();},
-  examplePage: "/en/en-manga/bleach/686/3/"
-};
-hoster_list.push(mangaeden);
+// rip
+//let mangaeden = {
+//  hostname: "mangaeden.com",
+//  mature: false,
+//  mangaPageSelector: '#mainImg',
+//  img: function() {return $('#mainImg');},
+//  nextUrl: function() {return $('.ui-state-default.next').attr('href');},
+//  currPage: function() {return parseInt($('.top-title select:last option:selected').text());},
+//  totalPages: function() {return $('.top-title select:last option').length},
+//  collectionName: function() {return $('.top-title a:last').text();},
+//  examplePage: "/en/en-manga/bleach/686/3/"
+//};
+//hoster_list.push(mangaeden);
 
-let hbrowse = {
-  hostname: "hbrowse.com",
-  mature: true,
-  mangaPageSelector: '.pageImage',
-  img: function() {return $('.pageImage img');},
-  nextUrl: function() {return $('.pageImage a').attr('href');},
-  currPage: function() {return parseInt($('#jsPageList a:not([href])').text());},
-  totalPages: function() {return $('#jsPageList a').length;},
-  collectionName: function() {return $('#pageMain table tr:first td.listLong').text();},
-  examplePage: "/14704/c00001/00006"
-};
-hoster_list.push(hbrowse);
+// rip
+//let hbrowse = {
+//  hostname: "hbrowse.com",
+//  mature: true,
+//  mangaPageSelector: '.pageImage',
+//  img: function() {return $('.pageImage img');},
+//  nextUrl: function() {return $('.pageImage a').attr('href');},
+//  currPage: function() {return parseInt($('#jsPageList a:not([href])').text());},
+//  totalPages: function() {return $('#jsPageList a').length;},
+//  collectionName: function() {return $('#pageMain table tr:first td.listLong').text();},
+//  examplePage: "/14704/c00001/00006"
+//};
+//hoster_list.push(hbrowse);
 
-let perveden = $.extend(true, {}, mangaeden);
-perveden.hostname = "perveden.com";
-perveden.mature = true;
-perveden.examplePage = "/en/en-manga/cartoonists-nsfw-season-1-chapter-1-10-english/1/3/";
-hoster_list.push(perveden);
+// rip
+//let perveden = $.extend(true, {}, mangaeden);
+//perveden.hostname = "perveden.com";
+//perveden.mature = true;
+//perveden.examplePage = "/en/en-manga/cartoonists-nsfw-season-1-chapter-1-10-english/1/3/";
+//hoster_list.push(perveden);
 
 let fakku = {
   hostname: "fakku.net",
@@ -223,19 +232,20 @@ let nhentai = {
 };
 hoster_list.push(nhentai);
 
-let mangapark = {
-  hostname: "mangapark.net",
-  mature: false,
-  icon: 'https://static.mangapark.net/img/favicon.ico',
-  mangaPageSelector: '#img-1',
-  img: function() {return $('#img-1');},
-  nextUrl: function() {return $('.switch .page span:last a').attr('href');},
-  currPage: function() {return parseInt($('#sel_page_1 :selected').text());},
-  totalPages: function() {return $('#sel_page_1 option').length;},
-  collectionName: function() {return $('.loc:first a').text();},
-  examplePage: "/manga/twin-milf/i2380396/v2/c8.6/1"
-};
-hoster_list.push(mangapark);
+// too complicated
+//let mangapark = {
+//  hostname: "mangapark.net",
+//  mature: false,
+//  icon: 'https://static.mangapark.net/img/favicon.ico',
+//  mangaPageSelector: 'main img',
+//  img: function() {return $('main img');},
+//  nextUrl: function() {return $('.switch .page span:last a').attr('href');},
+//  currPage: function() {return parseInt($('#sel_page_1 :selected').text());},
+//  totalPages: function() {return $('#sel_page_1 option').length;},
+//  collectionName: function() {return $('.loc:first a').text();},
+//  examplePage: "/manga/twin-milf/i2380396/v2/c8.6/1"
+//};
+//hoster_list.push(mangapark);
 
 // let pururin = {
 //   hostname: "pururin.io",

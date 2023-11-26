@@ -1,4 +1,7 @@
-class OptionStorage {
+const delay = t => new Promise(resolve => setTimeout(resolve, t));
+
+class OptionStorage extends EventTarget {
+  static #isInitializing = false;
   static #instance;
   #storage = {
 	  // default values
@@ -18,11 +21,16 @@ class OptionStorage {
   }
   
   static async getInstance() {
-	if (!this.#instance) {
-	  this.#instance = new OptionStorage();
-	  await this.#instance.initialize();
-	}
-	return this.#instance;
+    if (this.#isInitializing) {
+      return delay(100).then(() => OptionStorage.getInstance());
+    }
+    if (!this.#instance) {
+      this.#isInitializing = true;
+      this.#instance = new OptionStorage();
+      await this.#instance.initialize();
+      this.#isInitializing = false;
+    }
+    return this.#instance;
   }
 
   get(key, default_value) {
