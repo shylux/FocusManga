@@ -75,6 +75,10 @@ $('#options :checkbox').on('change', function() {
     let id = $(this).attr('id');
     options.set(id, $(this).prop('checked'));
 });
+$('#cancel-downloads').click(() => {
+  options.set('chapter_dl', []);
+  debugger;
+})
 $('#timer-delay').on('input', function() {
     options.set('timer-delay', $(this).val());
 });

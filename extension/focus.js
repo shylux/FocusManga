@@ -64,6 +64,7 @@ FocusManga = new function() {
         <span id="fm_name"></span>
       </div>
       <div id="fm_tools">
+        <div><img id="fm_translate" title="Translate" alt="Translate" src=""/></div>
         <div><img id="fm_force_display_node" title="Force display mode" alt="Force display mode" src="" /></div>
         <div><img id="fm_play" title="Play / Pause" alt="Play / Pause" src="" /></div>
         <div id="fm_download_container">
@@ -85,6 +86,7 @@ FocusManga = new function() {
   $('#fm_close', this.overlay).attr('src', chrome.runtime.getURL('img/close-circle.png'));
   $('#fm_download', this.overlay).attr('src', chrome.runtime.getURL('img/download.png'));
   $('#fm_force_display_node', this.overlay).attr('src', chrome.runtime.getURL('img/display-normal.png'));
+  $('#fm_translate', this.overlay).attr('src', chrome.runtime.getURL('img/download.png')); //TODO
   $('#fm_options img', this.overlay).attr('src', chrome.runtime.getURL('img/options.png'));
 
   // setup everything
@@ -181,6 +183,22 @@ FocusManga = new function() {
       FocusManga.options.set('force-display-collection', FocusManga.getCollectionName());
       FocusManga.options.set('force-display-mode', (FocusManga.overlay.hasClass('manhwa')) ? 'manhwa' : 'normal');
       FocusManga.updateDisplayModeImg();
+    });
+
+    // translate
+    $(document).on('click', '#fm_translate', function() {
+      // toggle translator
+      let translatorEnabled = FocusManga.options.get('translator', false);
+      translatorEnabled = !translatorEnabled;
+      FocusManga.options.set('translator', translatorEnabled);
+
+      if (!translatorEnabled) {
+        // display original file
+        $('#fm_main').attr('src', $('#fm_main').data('orig-src'));
+        $('#fm_main').removeData('orig-src');
+      } else {
+        FocusManga.translate();
+      }
     });
 
     // timer delay
@@ -336,6 +354,7 @@ FocusManga = new function() {
 
     // load image
     FocusManga.setImage();
+    $('#fm_main').removeData('orig-src');
     FocusManga.updatePageNumber();
     FocusManga.updateName();
     FocusManga.onResize();
@@ -344,6 +363,7 @@ FocusManga = new function() {
         FocusManga.show_timer.restart();
     FocusManga.preload();
     FocusManga.downloadChapter();
+    FocusManga.translate();
   };
 
   this.onMouseInactive = function() {
@@ -495,6 +515,32 @@ FocusManga = new function() {
       }
     );
   };
+
+  this.translate = function() {
+    // don't run when not enabled and when translation is already done or has been initiated
+    if (FocusManga.options.get("translator", false) && $('#fm_main').data('orig-src') !== $('#fm_main').attr('src')) {
+      $('#fm_main').data('orig-src', $('#fm_main').attr('src')); // save original url for the page change check
+
+      fetch('http://localhost:5003/translate/image', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          'image': $('#fm_main').attr('src'),
+          'config': {
+            "translator": {
+              "target_lang": "ENG",
+              "translator": "deepl"
+            },
+          }
+        })
+      })
+      .then(response => response.blob()) // Convert response to a Blob
+      .then(blob => {
+        const imageUrl = URL.createObjectURL(blob); // Create a temporary URL
+        $('#fm_main').attr('src', imageUrl); // Assign it to the image tag
+      });
+    }
+  }
 
   /* KEY BINDINGS */
   this.onKeyDown = function(event) {

@@ -31,7 +31,8 @@
     "*://*.pururin.io/*",
     "*://*.luscious.net/*",
     "*://*.mangapark.net/*",
-    "*://hitomi.la/reader/*"
+    "*://hitomi.la/reader/*",
+    "*://next.theduckwebcomics.com/*"
   ],
 
   "options_page": "options.html",
@@ -60,7 +61,8 @@
         "*://exhentai.org/*",
         "*://nhentai.net/g/*/*",
         "*://*.luscious.net/*",
-        "*://hitomi.la/reader/*"
+        "*://hitomi.la/reader/*",
+        "*://next.theduckwebcomics.com/*"
       ],
       "js": ["lib/jquery.js", "lib/naturalsort.js", "timer.js", "option_storage.js", "focus.js", "hoster.js", "online.js", "cleanup.js"],
       "css": ["css/hide.css", "css/focus.css"]

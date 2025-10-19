@@ -8,6 +8,7 @@ class OptionStorage extends EventTarget {
     'timer-delay': 20,
     'focusmanga-enabled': true,
     'timer-enabled': false,
+    'translator': false,
     'page-numbers-enabled': true,
     'progressbar-enabled': true,
     'manhwa-autoscroll': true,

@@ -340,6 +340,22 @@ let hitomi = {
 };
 hoster_list.push(hitomi);
 
+let theduckwebcomics = {
+  hostname: "theduckwebcomics.com",
+  mature: false,
+  mangaPageSelector: '.comic-page',
+  img: function() {return $('.comic-page .comic-page__image img');},
+  nextUrl: function() {return $('.comic-page__custom_nav img[alt="next page"]').parent().attr('href');},
+  currPage: function() {
+    let dropdown = $('.comic-page__nav select').get(0);
+    return dropdown.length - dropdown.selectedIndex
+  },
+  totalPages: function() {return parseInt($('.comic-page__nav select option').length);},
+  collectionName: function() {return "familiar BY SHOUSHIYO"},
+  examplePage: "https://next.theduckwebcomics.com/Familiar/5747919/"
+};
+hoster_list.push(theduckwebcomics);
+
 function getHoster(hoster_name, search_list) {
   if (search_list === undefined) search_list = hoster_list;
   if (hoster_name === undefined) hoster_name = window.location.hostname;

@@ -348,3 +348,4 @@ FocusManga.getPageName = function() {
   return undefined;
 };
 FocusManga.toggleFocusManga = function() {}; // disable disable
+FocusManga.downloadChapter = function() {}; // prevent chapter download from tsdriggering

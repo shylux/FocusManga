@@ -44,8 +44,9 @@ if (hoster.setImage) {
 let lastImg = hoster.img().get(0);
 function checkImg() {
   let currImg = hoster.img().get(0);
-  if (currImg !== lastImg ||
-      $('#fm_main').attr('src') !== $(lastImg).attr('src')) {
+  if (currImg !== lastImg || // check if img tag changed
+      $('#fm_main').data('orig-src') && $('#fm_main').data('orig-src') !== $(lastImg).attr('src') || // image was translated and the current image does not match the translated image source
+      !$('#fm_main').data('orig-src') && $('#fm_main').attr('src') !== $(lastImg).attr('src')) { // image was not translated and src changed
     FocusManga.parsePage();
     lastImg = hoster.img().get(0);
   }
