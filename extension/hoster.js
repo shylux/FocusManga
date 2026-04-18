@@ -227,7 +227,7 @@ let nhentai = {
   nextUrl: function() {return $('#image-container a').attr('href');},
   currPage: function() {return parseInt($('.page-number .current:first').text());},
   totalPages: function() {return parseInt($('.page-number .num-pages:first').text());},
-  collectionName: function() {return document.title.match("(.*) - Page .* » nhentai: hentai doujinshi and manga")[1];},
+  collectionName: function() {return document.title.match("(.*) - Page .* » nhentai")[1];},
   examplePage: "/g/3/2/"
 };
 hoster_list.push(nhentai);

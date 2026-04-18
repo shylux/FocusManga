@@ -26,7 +26,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       console.log("request with method: "+request.method);
 
       if (request.method === "download") {
-        debugger;
         const base64Data = request.data.base64Data;
         // Remove the prefix ("data:image/png;base64,")
         const cleanBase64 = base64Data.replace(/^data:image\/\w+;base64,/, "");

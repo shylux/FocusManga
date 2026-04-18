@@ -38,7 +38,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
       sendResponse(options.export());
     }
 
-    debugger;
     if (request.method === "download") {
       const base64Data = message.base64Data;
       // Remove the prefix ("data:image/png;base64,")
