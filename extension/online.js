@@ -11,7 +11,7 @@ FocusManga.hasNextPage = function() {return hoster.nextUrl;};
 FocusManga.next = function() {console.log("next");window.location.href = hoster.nextUrl();};
 FocusManga.previous = function() {window.history.back();};
 FocusManga.setImage = function() {$('#fm_main', FocusManga.overlay).attr('src', hoster.img().attr('src'));};
-FocusManga.getFileName = function() {return hoster.img().attr('src').replace(/^.*[\\\/]/, '');};
+FocusManga.getFileName = function() {return hoster.img().attr('src').replace(/^.*[\\\/]/, '').replace(/\?.*$/, '');};
 if (hoster.collectionName) {
   FocusManga.getCollectionName = hoster.collectionName;
 }

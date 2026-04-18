@@ -38,9 +38,16 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
       sendResponse(options.export());
     }
 
+    debugger;
     if (request.method === "download") {
+      const base64Data = message.base64Data;
+      // Remove the prefix ("data:image/png;base64,")
+      const cleanBase64 = base64Data.replace(/^data:image\/\w+;base64,/, "");
+      const bytes = Uint8Array.from(atob(cleanBase64), c => c.charCodeAt(0));
+      const blob = new Blob([bytes], { type: "image/png" });
+      const url = URL.createObjectURL(blob);
       chrome.downloads.download(
-          request.data,
+          url,
           function(downloadId) {
               if (downloadId !== undefined &&
                   request['chapter'] !== undefined &&

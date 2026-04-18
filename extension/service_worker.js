@@ -26,18 +26,29 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       console.log("request with method: "+request.method);
 
       if (request.method === "download") {
-        chrome.downloads.download(
-            request.data,
-            function(downloadId) {
-                if (downloadId !== undefined &&
-                    request['chapter'] !== undefined &&
-                    showJobs[request.chapter] === undefined)
-                    showJobs[request.chapter] = downloadId;
-                else
-                  downloadJobs[downloadId] = request.erase;
-                sendResponse(downloadId);
-            }
-        );
+        debugger;
+        const base64Data = request.data.base64Data;
+        // Remove the prefix ("data:image/png;base64,")
+        const cleanBase64 = base64Data.replace(/^data:image\/\w+;base64,/, "");
+        const bytes = Uint8Array.from(atob(cleanBase64), c => c.charCodeAt(0));
+        const blob = new Blob([bytes], { type: "image/png" });
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64Data = reader.result; // e.g. "data:image/png;base64,AAA..."
+          chrome.downloads.download({
+            url: base64Data,
+            filename: request.data.filename,
+          });
+          if (downloadId !== undefined &&
+            request['chapter'] !== undefined &&
+            showJobs[request.chapter] === undefined) {
+            showJobs[request.chapter] = downloadId;
+          } else {
+            downloadJobs[downloadId] = request.erase;
+          }
+          sendResponse(downloadId);
+        };
+        reader.readAsDataURL(blob);
       }
       if (request.method === "show") {
         if (showJobs[request.data] !== undefined) {

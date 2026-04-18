@@ -430,22 +430,13 @@ FocusManga = new function() {
   };
 
   /* DOWNLOAD */
-  this.download = function() {
+  this.download = async function() {
     let folder = FocusManga.getCollectionName();
     folder = cleanName(folder);
     if (typeof folder != "string" || folder.length === 0)
       folder = "unsorted";
-    let download_options = {
-      url: $('#fm_main').attr('src'),
-      filename: FocusManga.title + "/" + folder + "/" + FocusManga.getFileName(),
-      saveAs: false,
-      conflictAction: "overwrite"
-    };
-    chrome.runtime.sendMessage({
-      'method': 'download',
-      'data': download_options,
-      'erase': 2000,
-    });
+
+    this.internalDownloadImage(FocusManga.title + "/" + folder + "/" + FocusManga.getFileName());
   };
 
   this.downloadChapterEnabled = function() {
@@ -454,7 +445,7 @@ FocusManga = new function() {
              isNaN(FocusManga.currentPageNumber()) ||
              isNaN(FocusManga.currentChapterPages()));
   };
-  this.downloadChapter = function() {
+  this.downloadChapter = async function() {
     let currentChapters = FocusManga.options.get("chapter_dl", []);
     let index = currentChapters.indexOf(FocusManga.getCollectionName());
     if (index === -1) return;
@@ -470,31 +461,47 @@ FocusManga = new function() {
     let page_number_len = (""+FocusManga.currentChapterPages()).length;
     let filename = folder + "/" + pad(FocusManga.currentPageNumber(), page_number_len) + "_" + FocusManga.getFileName();
 
-    let download_options = {
-      url: $('#fm_main').attr('src'),
-      filename: filename,
-      saveAs: false,
-      conflictAction: "overwrite"
-    };
-    chrome.runtime.sendMessage(
-      {
+    await this.internalDownloadImage(filename);
+
+    if (lastPage)
+      chrome.runtime.sendMessage(
+        {'method': 'show', 'data': folder},
+        function() {
+          FocusManga.next();
+        });
+    else
+      FocusManga.next();
+  };
+  this.internalDownloadImage = async function(filename) {
+        // get image base64 data
+    let imgUrl = $('#fm_main').attr('src');
+    const response = await fetch(imgUrl);
+    const blob = await response.blob();
+    const objectUrl = URL.createObjectURL(blob);
+
+    const img = new Image();
+    img.src = objectUrl;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      const base64Data = canvas.toDataURL("image/png");
+      let download_options = {
+        url: $('#fm_main').attr('src'),
+        base64Data: base64Data,
+        filename: filename,
+        saveAs: false,
+        conflictAction: "overwrite"
+      };
+      chrome.runtime.sendMessage({
         'method': 'download',
         'data': download_options,
-        'erase': 100,
-        'chapter': folder,
-      },
-      function(downloadId) {
-        if (lastPage)
-          chrome.runtime.sendMessage(
-            {'method': 'show', 'data': folder},
-            function() {
-              FocusManga.next();
-            });
-        else
-          FocusManga.next();
-      }
-    );
-  };
+        'erase': 2000,
+      });
+    };
+  }
 
   /* KEY BINDINGS */
   this.onKeyDown = function(event) {
