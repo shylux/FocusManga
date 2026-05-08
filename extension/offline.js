@@ -305,8 +305,8 @@ function loadImageFast(imgFile) {
     return function(e) {
       $('#fm_main', FocusManga.overlay).attr('src', e.target.result);
       FocusManga.updatePageNumber();
-      // scroll to top
       FocusManga.overlay.get(0).scroll({top: 0});
+      FocusManga.translateImage();
     }
   })(imgFile);
 
@@ -322,6 +322,7 @@ function loadImageExifRotationCorrection(imgFile) {
       resetOrientation(ImageBase64, getOrientation(ImageBuffer), function(ImageDataUrl) {
         $('#fm_main', FocusManga.overlay).attr('src', ImageDataUrl);
         FocusManga.updatePageNumber();
+        FocusManga.translateImage();
       });
     }
   })(imgFile);

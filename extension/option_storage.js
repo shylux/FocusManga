@@ -12,6 +12,7 @@ class OptionStorage extends EventTarget {
     'progressbar-enabled': true,
     'manhwa-autoscroll': true,
     'exif-rotation-correction-enabled': false,
+    'translate': false,
     'version': '0.0.0'
   };
   

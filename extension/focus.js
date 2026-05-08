@@ -59,6 +59,7 @@ FocusManga = new function() {
       <div id="fm_progress"></div>
       <img id="fm_close" title="Close" alt="Close FocusManga" src=""/>
       <img id="fm_main" src="" />
+      <img id="fm_main_translated" src="" />
       <div id="fm_info">
         <span id="fm_numbers"></span>
         <span id="fm_name"></span>
@@ -69,6 +70,9 @@ FocusManga = new function() {
         <div id="fm_download_container">
           <img id="fm_download" title="Download Image" alt="Download Image" src="" />
           <div id="fm_download_chap" class="dropup">Download Chapter</div>
+        </div>
+        <div id="fm_translate_container">
+          <span id="fm_translate" title="Translate">TL</span>
         </div>
         <div id="fm_options">
           <img title="Settings" alt="Settings" src="">
@@ -129,7 +133,7 @@ FocusManga = new function() {
       $('#fm_tools', FocusManga.overlay).addClass('fm_disabled');
 
     // click for next page
-    $(document).on('click', '#fm_main', function() {
+    $(document).on('click', '#fm_main, #fm_main_translated', function() {
       if (FocusManga.hasNextPage) {
         FocusManga.next();
       }
@@ -183,6 +187,17 @@ FocusManga = new function() {
       FocusManga.updateDisplayModeImg();
     });
 
+    // translate toggle
+    $(document).on('click', '#fm_translate', function() {
+      FocusManga.toggleTranslate();
+    });
+    $(document).on('mouseenter', '#fm_tools', function() {
+      FocusManga.overlay.addClass('fm_translate_hover');
+    });
+    $(document).on('mouseleave', '#fm_tools', function() {
+      FocusManga.overlay.removeClass('fm_translate_hover');
+    });
+
     // timer delay
     $(document).on('mousewheel', '#fm_option_timer', function(event) {
       event.preventDefault();
@@ -217,7 +232,7 @@ FocusManga = new function() {
 
     // scrolling to change page
 
-    $(document).on('mousewheel', '#fm_main, #fm_numbers', function(event) {
+    $(document).on('mousewheel', '#fm_main, #fm_main_translated, #fm_numbers', function(event) {
       if (!FocusManga.overlay.hasClass('manhwa')) {
         // normal page
         if (event.originalEvent.wheelDelta >= 0) {
@@ -335,7 +350,9 @@ FocusManga = new function() {
       $('#fm_download_container span', FocusManga.overlay).remove();
 
     // load image
+    $('#fm_main_translated', FocusManga.overlay).attr('src', '');
     FocusManga.setImage();
+    FocusManga.translateImage();
     FocusManga.updatePageNumber();
     FocusManga.updateName();
     FocusManga.onResize();
@@ -364,6 +381,8 @@ FocusManga = new function() {
     FocusManga.img_h = img.height;
     $(window).resize();
     FocusManga.overlay.get(0).scroll({top: 0});
+    $('#fm_main_translated', FocusManga.overlay).attr('src', '');
+    FocusManga.translateImage();
   };
 
   this.onResize = function() {
@@ -400,6 +419,7 @@ FocusManga = new function() {
 
     FocusManga.updatePageNumber();
     FocusManga.updateName();
+    FocusManga.updateTranslateIcon();
 
   };
 
@@ -502,6 +522,37 @@ FocusManga = new function() {
       });
     };
   }
+
+  /* TRANSLATE */
+  this.toggleTranslate = function() {
+    let enabled = !FocusManga.options.get('translate', false);
+    FocusManga.options.set('translate', enabled);
+    FocusManga.updateTranslateIcon();
+    FocusManga.translateImage();
+  };
+
+  this.updateTranslateIcon = function() {
+    let enabled = FocusManga.options.get('translate', false);
+    $('#fm_translate', FocusManga.overlay).toggleClass('fm_translate_active', enabled);
+  };
+
+  this.translatingInProgress = false;
+  this.translateImage = async function() {
+    if (!FocusManga.options.get('translate', false) || FocusManga.translatingInProgress) return;
+    FocusManga.translatingInProgress = true;
+    try {
+      const imgSrc = $('#fm_main', FocusManga.overlay).attr('src');
+      const {dataUrl, error} = await new Promise(resolve =>
+        chrome.runtime.sendMessage({method: 'translate', url: imgSrc}, resolve)
+      );
+      if (error) throw new Error(error);
+      $('#fm_main_translated', FocusManga.overlay).attr('src', dataUrl);
+    } catch(e) {
+      console.error('FocusManga: Translation failed:', e);
+    } finally {
+      FocusManga.translatingInProgress = false;
+    }
+  };
 
   /* KEY BINDINGS */
   this.onKeyDown = function(event) {

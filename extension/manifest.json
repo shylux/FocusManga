@@ -12,6 +12,7 @@
     "downloads"
   ],
   "host_permissions": [
+    "<all_urls>",
     "*://*.onepiece-tube.com/*",
     "*://*.naruto-tube.org/*",
     "*://*.fairytail-tube.org/*",

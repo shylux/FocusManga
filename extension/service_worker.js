@@ -22,6 +22,32 @@ OptionStorage.getInstance().then((options) => {
 
 // listener
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.method === 'translate') {
+        const blobToDataUrl = (blob) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
+        (async () => {
+            try {
+                const imgBlob = await fetch(request.url).then(r => r.blob());
+                const b64 = await blobToDataUrl(imgBlob);
+                const res = await fetch('http://localhost:8000/translate', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'text/plain'},
+                    body: b64,
+                });
+                if (!res.ok) throw new Error(`Server error: ${res.status}: ${await res.text()}`);
+                const dataUrl = await blobToDataUrl(await res.blob());
+                sendResponse({dataUrl});
+            } catch(err) {
+                sendResponse({error: err.message});
+            }
+        })();
+        return true; // keep message channel open for async response
+    }
+
     OptionStorage.getInstance().then((options) => {
       console.log("request with method: "+request.method);
 
